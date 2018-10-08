@@ -2,12 +2,11 @@ package fr.eni.jee.dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.jdt.internal.compiler.ast.Statement;
 
 import fr.eni.jee.bo.User;
 import fr.eni.jee.util.AccesBase;
