@@ -9,15 +9,18 @@
     <res-ref-name>jdbc/BDD_QCM</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
-  </resource-ref>
-  
+  </resource-ref> 
 
   <servlet>
 	  <description></description>
 	  <display-name>ValidateAccessUser</display-name>
 	  <servlet-name>ValidateAccessUser</servlet-name>
-	  <servlet-class>fr.eni.jee.bll.ValidateAccessUser</servlet-class>
+	  <servlet-class>fr.eni.jee.bll.ValidateAccessUser</servlet-class>     
   </servlet>
+  <servlet-mapping>
+  <servlet-name>ValidateAccessUser</servlet-name>
+  <url-pattern>/Authentification/ValidateAccessUser</url-pattern>
+  </servlet-mapping>
   
   <servlet>
 	  <description></description>
@@ -25,6 +28,10 @@
 	  <servlet-name>ConnectionUser</servlet-name>
 	  <servlet-class>fr.eni.jee.bll.ConnectionUser</servlet-class>
   </servlet>
+  <servlet-mapping>
+  <servlet-name>ConnectionUser</servlet-name>
+  <url-pattern>/Authentification/ConnectionUser</url-pattern>
+  </servlet-mapping>
   
   <servlet>
 	  <description></description>
@@ -32,5 +39,9 @@
 	  <servlet-name>DeconnectionUser</servlet-name>
 	  <servlet-class>fr.eni.jee.bll.DeconnectionUser</servlet-class>
   </servlet>
+  <servlet-mapping>
+  <servlet-name>DeconnectionUser</servlet-name>
+  <url-pattern>/Authentification/DeconnectionUser</url-pattern>
+  </servlet-mapping>
   
 </web-app>
