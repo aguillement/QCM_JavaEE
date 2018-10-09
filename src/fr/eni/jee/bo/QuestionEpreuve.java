@@ -5,7 +5,7 @@ public class QuestionEpreuve {
 	/**
 	 * Attributes
 	 */
-	private String estMarquee;
+	private boolean estMarquee;
 	private int idQuestion;
 	private int numOrdre;
 	private int idEpreuve;
@@ -17,7 +17,7 @@ public class QuestionEpreuve {
 		super();
 	}
 
-	public QuestionEpreuve(String estMarquee, int idQuestion, int numOrdre, int idEpreuve) {
+	public QuestionEpreuve(boolean estMarquee, int idQuestion, int numOrdre, int idEpreuve) {
 		super();
 		this.estMarquee = estMarquee;
 		this.idQuestion = idQuestion;
@@ -30,11 +30,11 @@ public class QuestionEpreuve {
 	 * @return
 	 */
 
-	public String getEstMarquee() {
+	public boolean getEstMarquee() {
 		return estMarquee;
 	}
 
-	public void setEstMarquee(String estMarquee) {
+	public void setEstMarquee(boolean estMarquee) {
 		this.estMarquee = estMarquee;
 	}
 
