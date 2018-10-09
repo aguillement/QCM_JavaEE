@@ -2,9 +2,9 @@ package fr.eni.jee.bo;
 
 public class User {
 
-	private int idUser;
-	private String nom;
-	private String prenom;
+	private int id;
+	private String lastname;
+	private String firstname;
 	private String email;
 	private String password;
 	
@@ -19,32 +19,32 @@ public class User {
 		this.password = password;		
 	}
 	
-	public User(int idUser, String nom, String prenom, String email, String password){
+	public User(int id, String lastname, String firstname, String email, String password){
 		
-		this.idUser = idUser;
-		this.nom = nom;
-		this.prenom = prenom;
+		this.id = id;
+		this.lastname = lastname;
+		this.firstname = firstname;
 		this.email = email;
 		this.password = password;		
 	}
 	
-	public int getIdUser() {
-		return idUser;
+	public int getId() {
+		return id;
 	}
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getNom() {
-		return nom;
+	public String getLastname() {
+		return lastname;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
-	public String getPrenom() {
-		return prenom;
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 	public String getEmail() {
 		return email;
