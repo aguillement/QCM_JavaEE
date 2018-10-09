@@ -10,7 +10,14 @@ public class User {
 	
 	public User(){
 		
-	}	
+	}
+	
+	public User(String nom, String prenom, String email, String password){
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.password = password;		
+	}
 	
 	public User(int idUser, String nom, String prenom, String email, String password){
 		

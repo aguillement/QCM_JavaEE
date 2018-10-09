@@ -15,7 +15,7 @@ public class UserDAO {
 
 	private static final String SEARCH_BY_ID ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR WHERE idUtilisateur=?";
 	private static final String SEARCH ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR WHERE email=? and password=?";
-	private static final String INSERT = "INSERT INTO UTILISATEUR (nom, prenom, email, password) values (?,?,?,?)";
+	private static final String INSERT = "INSERT INTO UTILISATEUR (nom, prenom, email, password, codeProfil) values (?,?,?,?,20)";
 	private static final String MODIFY ="UPDATE UTILISATEUR SET nom = ?, prenom = ?, email = ?, password=? where idUtilisateur = ?";
 	private static final String DELETE ="DELETE FROM UTILISATEUR where idUtilisateur = ?";
 	private static final String GET_ALL ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR";

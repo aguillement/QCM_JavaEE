@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.eni.jee.bo.ConnexionForm;
 import fr.eni.jee.bo.User;
+import fr.eni.jee.form.ConnexionForm;
 
 
 public class Connexion extends HttpServlet {
