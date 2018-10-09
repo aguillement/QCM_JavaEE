@@ -2,29 +2,29 @@ package fr.eni.jee.bo;
 
 public class Promotion {
 
-	private int idPromotion;
-	private String libelle;
+	private int id;
+	private String label;
 	
 	public Promotion(){
 		
 	}
 	
-	public Promotion(int idPromotion, String libelle){
-		this.idPromotion = idPromotion;
-		this.libelle = libelle;
+	public Promotion(int id, String libelle){
+		this.id = id;
+		this.label = label;
 	}
 	
-	public int getIdPromotion() {
-		return idPromotion;
+	public int getId() {
+		return id;
 	}
-	public void setIdPromotion(int idPromotion) {
-		this.idPromotion = idPromotion;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getLibelle() {
-		return libelle;
+	public String getLabel() {
+		return label;
 	}
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 	
 	

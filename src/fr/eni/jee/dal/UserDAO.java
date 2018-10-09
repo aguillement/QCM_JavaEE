@@ -9,33 +9,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.jee.bo.User;
-import fr.eni.jee.util.AccesBase;
+import fr.eni.jee.util.AccessDB;
 
 public class UserDAO {
 
-	private static final String SEARCH_BY_ID ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR WHERE idUtilisateur=?";
-	private static final String SEARCH ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR WHERE email=? and password=?";
-	private static final String INSERT = "INSERT INTO UTILISATEUR (nom, prenom, email, password) values (?,?,?,?)";
-	private static final String MODIFY ="UPDATE UTILISATEUR SET nom = ?, prenom = ?, email = ?, password=? where idUtilisateur = ?";
-	private static final String DELETE ="DELETE FROM UTILISATEUR where idUtilisateur = ?";
-	private static final String GET_ALL ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR";
+	private static final String SEARCH_BY_ID ="SELECT id, lastname, firstname, email, password FROM USER WHERE id=?";
+	private static final String SEARCH ="SELECT id, lastname, firstname, email, password FROM USER WHERE email=? and password=?";
+	private static final String INSERT = "INSERT INTO USER (lastname, firstname, email, password) values (?,?,?,?)";
+	private static final String MODIFY ="UPDATE USER SET lastname = ?, firstname = ?, email = ?, password=? where id = ?";
+	private static final String DELETE ="DELETE FROM USER where id = ?";
+	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password FROM USER";
 	
-	public static User SearchByidUtilisateur(int idUtilisateur) throws SQLException{
+	public static User SearchByID(int userID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		User user = null;
 		try{
-			cnx = AccesBase.getConnection();
+			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
-			rqt.setInt(1, idUtilisateur);
+			rqt.setInt(1, userID);
 			rs=rqt.executeQuery();
 
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("idUtilisateur"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
+				user.setIdUser(rs.getInt("id"));
+				user.setNom(rs.getString("lastname"));
+				user.setPrenom(rs.getString("firstname"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 			}
@@ -53,7 +53,7 @@ public class UserDAO {
 		ResultSet rs = null;
 		User user =null;
 		try{
-			cnx = AccesBase.getConnection();
+			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(SEARCH);
 			rqt.setString(1, mail);
 			rqt.setString(2, password);
@@ -61,9 +61,9 @@ public class UserDAO {
 			
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("idUtilisateur"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
+				user.setIdUser(rs.getInt("id"));
+				user.setNom(rs.getString("lastnam"));
+				user.setPrenom(rs.getString("firstname"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 			}
@@ -82,13 +82,13 @@ public class UserDAO {
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
-			cnx = AccesBase.getConnection();
+			cnx = AccessDB.getConnection();
 			 
 			cnx.setAutoCommit(false);
 			
 			rqt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-			rqt.setString(1, user.getNom());
-			rqt.setString(2, user.getPrenom());
+			rqt.setString(1, user.getLastname());
+			rqt.setString(2, user.getFirstname());
 			rqt.setString(3, user.getEmail());
 			rqt.setString(4, user.getPassword());
 			rqt.executeUpdate();
@@ -116,17 +116,17 @@ public class UserDAO {
 
 	}
 
-	public static void modifier(User user) throws SQLException{
+	public static void Update(User user) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
-			cnx=AccesBase.getConnection();
+			cnx=AccessDB.getConnection();
 			rqt=cnx.prepareStatement(MODIFY);
-			rqt.setString(1, user.getNom());
-			rqt.setString(2, user.getPrenom());
+			rqt.setString(1, user.getLastname());
+			rqt.setString(2, user.getFirstname());
 			rqt.setString(3, user.getEmail());
 			rqt.setString(4, user.getPassword());
-			rqt.setInt(5, user.getIdUser());
+			rqt.setInt(5, user.getId());
 			rqt.executeUpdate();
 		}finally{
 			if (rqt!=null) rqt.close();
@@ -134,13 +134,13 @@ public class UserDAO {
 		}
 	}
 	
-	public static void supprimer(User user) throws SQLException{
+	public static void Delete(User user) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
-			cnx=AccesBase.getConnection();
+			cnx=AccessDB.getConnection();
 			rqt=cnx.prepareStatement(DELETE);
-			rqt.setInt(1, user.getIdUser());
+			rqt.setInt(1, user.getId());
 			rqt.executeUpdate();
 		}finally{
 			if (rqt!=null) rqt.close();
@@ -148,27 +148,27 @@ public class UserDAO {
 		}
 	}
 	
-	public static List<User> rechercher() throws SQLException {
+	public static List<User> search() throws SQLException {
 		
-		List<User> listeUser = new ArrayList<User>();
+		List<User> usersList = new ArrayList<User>();
 		
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		try{
-			cnx = AccesBase.getConnection();
+			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(GET_ALL);
 			rs=rqt.executeQuery();
 			
 			while (rs.next()){
 				User user = new User();
-				user.setIdUser(rs.getInt("idUtilisateur"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
+				user.setId(rs.getInt("id"));
+				user.setLastName(rs.getString("lastname"));
+				user.setFirstname(rs.getString("firstname"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 				
-				listeUser.add(user);
+				usersList.add(user);
 			}
 
 			
@@ -176,7 +176,7 @@ public class UserDAO {
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
 		}
-		return listeUser;
+		return usersList;
 		
 	}
 	
