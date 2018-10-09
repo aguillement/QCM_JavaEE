@@ -1,28 +1,28 @@
 package fr.eni.jee.bo;
 
-public class QuestionEpreuve {
+public class ExamQuestion {
 	
 	/**
 	 * Attributes
 	 */
-	private boolean estMarquee;
+	private boolean isMarked;
 	private int idQuestion;
-	private int numOrdre;
-	private int idEpreuve;
+	private int orderNumber;
+	private int idExam;
 	
 	/**
 	 * Constructor
 	 */
-	public QuestionEpreuve() {
+	public ExamQuestion() {
 		super();
 	}
 
-	public QuestionEpreuve(boolean estMarquee, int idQuestion, int numOrdre, int idEpreuve) {
+	public ExamQuestion(boolean isMarked, int idQuestion, int orderNumber, int idExam) {
 		super();
-		this.estMarquee = estMarquee;
+		this.isMarked = isMarked;
 		this.idQuestion = idQuestion;
-		this.numOrdre = numOrdre;
-		this.idEpreuve = idEpreuve;
+		this.orderNumber = orderNumber;
+		this.idExam = idExam;
 	}
 	
 	/**
@@ -30,12 +30,12 @@ public class QuestionEpreuve {
 	 * @return
 	 */
 
-	public boolean getEstMarquee() {
-		return estMarquee;
+	public boolean getIsMarked() {
+		return isMarked;
 	}
 
-	public void setEstMarquee(boolean estMarquee) {
-		this.estMarquee = estMarquee;
+	public void setIsMarked(boolean isMarked) {
+		this.isMarked = isMarked;
 	}
 
 	public int getIdQuestion() {
@@ -46,19 +46,19 @@ public class QuestionEpreuve {
 		this.idQuestion = idQuestion;
 	}
 
-	public int getNumOrdre() {
-		return numOrdre;
+	public int getOrderNumber() {
+		return orderNumber;
 	}
 
-	public void setNumOrdre(int numOrdre) {
-		this.numOrdre = numOrdre;
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 
-	public int getIdEpreuve() {
-		return idEpreuve;
+	public int getIdExam() {
+		return idExam;
 	}
 
-	public void setIdEpreuve(int idEpreuve) {
-		this.idEpreuve = idEpreuve;
+	public void setIdExam(int idExam) {
+		this.idExam = idExam;
 	}
 }

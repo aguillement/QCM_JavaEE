@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.jee.bo.Epreuve;
+import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.Test;
-import fr.eni.jee.util.AccesBase;
+import fr.eni.jee.util.AccessDB;
 
 public class TestDAO {
 	
@@ -28,7 +28,7 @@ public class TestDAO {
 		Test test = null;
 
 		try{
-			cnx = AccesBase.getConnection();
+			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
 			rqt.setInt(1, testID);
 			rs=rqt.executeQuery();

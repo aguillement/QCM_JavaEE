@@ -6,16 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import fr.eni.jee.bo.QuestionEpreuve;
+import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.util.AccesBase;
 
-public class QuestionEpreuveDAO {
+public class ExamQuestionDAO {
 	
 	private final static String INSERT = "INSERT INTO QUESTION_TIRAGE (estMarquee, idQuestion, numOrdre, idEpreuve) values (?,?,?,?)";
 
 	
-	public static QuestionEpreuve Insert(QuestionEpreuve question) throws SQLException{
+	public static ExamQuestion Insert(ExamQuestion question) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{

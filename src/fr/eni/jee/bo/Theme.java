@@ -5,8 +5,8 @@ public class Theme {
 	/**
 	 * Attributes
 	 */
-	public int idTheme;
-	public String libelle;
+	public int id;
+	public String label;
 	
 	
 	/**
@@ -22,41 +22,41 @@ public class Theme {
 	 * @param idTheme
 	 * @param libelle
 	 */
-	public Theme(int idTheme, String libelle) {
+	public Theme(int id, String label) {
 		super();
-		this.idTheme = idTheme;
-		this.libelle = libelle;
+		this.id = id;
+		this.label = label;
 	}
 
 
 	/**
 	 * @return the idTheme
 	 */
-	public int getIdTheme() {
-		return idTheme;
+	public int getId() {
+		return id;
 	}
 
 
 	/**
 	 * @param idTheme the idTheme to set
 	 */
-	public void setIdTheme(int idTheme) {
-		this.idTheme = idTheme;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
 	/**
 	 * @return the libelle
 	 */
-	public String getLibelle() {
-		return libelle;
+	public String getLabel() {
+		return label;
 	}
 
 
 	/**
 	 * @param libelle the libelle to set
 	 */
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }
