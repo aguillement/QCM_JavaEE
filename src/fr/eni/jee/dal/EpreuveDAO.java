@@ -44,8 +44,8 @@ public class EpreuveDAO {
 			rs=rqt.executeQuery();
 
 			while (rs.next()){
-				test = TestDAO.selectById(rs.getInt("idTest"));
-				user = UserDAO.selectById(rs.getInt("idUtilisateur"));
+				test = TestDAO.SearchById(rs.getInt("idTest"));
+				user = UserDAO.SearchByidUtilisateur(rs.getInt("idUtilisateur"));
 				epreuve = new Epreuve();
 				epreuve.setIdEpreuve(rs.getInt("idEpreuve"));
 				epreuve.setDateDebutValidite(rs.getTimestamp("dateDebutValidite"));
@@ -87,8 +87,8 @@ public class EpreuveDAO {
 			rs=rqt.executeQuery();
 
 			if(rs.next()){
-				test = TestDAO.selectById(rs.getInt("idTest"));
-				user = UserDAO.selectById(rs.getInt("idUtilisateur"));
+				test = TestDAO.SearchById(rs.getInt("idTest"));
+				user = UserDAO.SearchByidUtilisateur(rs.getInt("idUtilisateur"));
 				epreuve = new Epreuve();
 				epreuve.setIdEpreuve(rs.getInt("idEpreuve"));
 				epreuve.setDateDebutValidite(rs.getTimestamp("dateDebutValidite"));
