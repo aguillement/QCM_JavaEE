@@ -13,16 +13,28 @@
   <session-config>
     <session-timeout>10</session-timeout>
   </session-config>
-  
-
-<servlet>
-	<servlet-name>Connexion</servlet-name>
-	<servlet-class>fr.eni.jee.bll.Connexion</servlet-class>
-</servlet>
-
-<servlet-mapping>
-	<servlet-name>Connexion</servlet-name>
-	<url-pattern>/connexion</url-pattern>
-</servlet-mapping>
-  
+  <servlet>
+    <servlet-name>Connexion</servlet-name>
+    <servlet-class>fr.eni.jee.bll.Connexion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Connexion</servlet-name>
+    <url-pattern>/connexion</url-pattern>
+  </servlet-mapping>  
+  <servlet>
+  <servlet-name>CreateQuestion</servlet-name>
+  <servlet-class>fr.eni.jee.bll.CreateQuestion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateQuestion</servlet-name>
+    <url-pattern>/createQuestion</url-pattern>
+  </servlet-mapping>  
+  <servlet>
+  <servlet-name>CreateTheme</servlet-name>
+  <servlet-class>fr.eni.jee.bll.CreateTheme</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateTheme</servlet-name>
+    <url-pattern>/createTheme</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -15,7 +15,7 @@ public class Question {
 	 * Constructeur
 	 */
 	public Question() {
-		super();
+
 	}
 	
 	/**
@@ -27,14 +27,13 @@ public class Question {
 	 * @param theme
 	 */
 	public Question(int idQuestion, String enonce, String media, int points, Theme theme) {
-		super();
+		
 		this.idQuestion = idQuestion;
 		this.enonce = enonce;
 		this.media = media;
 		this.points = points;
 		this.theme = theme;
-	}
-	
+	}	
 	
 	/**
 	 * @return the idQuestion
@@ -97,7 +96,4 @@ public class Question {
 		this.theme = theme;
 	}
 	
-	
-	
-
 }
