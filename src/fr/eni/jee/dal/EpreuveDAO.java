@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.jee.bo.Exam;
-import fr.eni.jee.bo.Question;
 import fr.eni.jee.bo.ExamQuestion;
+import fr.eni.jee.bo.Question;
 import fr.eni.jee.bo.Test;
 import fr.eni.jee.bo.Theme;
 import fr.eni.jee.bo.User;
@@ -25,14 +25,14 @@ public class EpreuveDAO {
 	/**
 	 * Queries
 	 */
-	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUser FROM EPREUVE WHERE idUser=?";
-	private static final String SEARCH_BY_ID = "SELECT idExam, startDate, endDate, timeSpend, state, score, level, idTest, idUser FROM EPREUVE WHERE idExam=?";
+	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUser FROM EXAM WHERE idUser=?";
+	private static final String SEARCH_BY_ID = "SELECT idExam, startDate, endDate, timeSpend, state, score, level, idTest, idUser FROM EXAM WHERE idExam=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONS ?";
 	
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
 	
 	/**
-	 * Search all epreuves for userID
+	 * Search all exams for userID
 	 * @param userID
 	 * @return
 	 * @throws SQLException
@@ -51,7 +51,6 @@ public class EpreuveDAO {
 			rs=rqt.executeQuery();
 
 			while (rs.next()){
-				test = TestDAO.SearchById(rs.getInt("idTest"));
 				user = UserDAO.SearchById(rs.getInt("idUser"));
 				exam = new Exam();
 				exam.setId(rs.getInt("idExam"));
@@ -93,8 +92,7 @@ public class EpreuveDAO {
 			rqt.setInt(1, examID);
 			rs=rqt.executeQuery();
 
-			if(rs.next()){
-				test = TestDAO.SearchById(rs.getInt("idTest"));
+			if(rs.next()){				
 				user = UserDAO.SearchById(rs.getInt("idUser"));
 				exam.setId(rs.getInt("id"));
 				exam.setStartDate(rs.getTimestamp("startDate"));

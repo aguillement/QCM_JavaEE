@@ -10,5 +10,10 @@ import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
 
 public class ThemeDAO {
+
+	public static Theme SearchByID(int int1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
