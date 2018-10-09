@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-public class DeconnectionUser implements Servlet {
+public class LoginUser implements Servlet {
 
 	@Override
 	public void destroy() {
