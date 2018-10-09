@@ -13,34 +13,4 @@
   <session-config>
     <session-timeout>10</session-timeout>
   </session-config>
-  <servlet>
-    <description></description>
-    <display-name>ValidateAccessUser</display-name>
-    <servlet-name>ValidateAccessUser</servlet-name>
-    <servlet-class>fr.eni.jee.bll.ValidateAccessUser</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ValidateAccessUser</servlet-name>
-    <url-pattern>/Authentification/ValidateAccessUser</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ConnectionUser</display-name>
-    <servlet-name>ConnectionUser</servlet-name>
-    <servlet-class>fr.eni.jee.bll.ConnectionUser</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ConnectionUser</servlet-name>
-    <url-pattern>/Authentification/ConnectionUser</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>DeconnectionUser</display-name>
-    <servlet-name>DeconnectionUser</servlet-name>
-    <servlet-class>fr.eni.jee.bll.DeconnectionUser</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DeconnectionUser</servlet-name>
-    <url-pattern>/Authentification/DeconnectionUser</url-pattern>
-  </servlet-mapping>
 </web-app>

@@ -11,7 +11,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-9">
-				<form action="<%=request.getContextPath() %>/login/ValidateAccessUser" method="post">					
+				<form action="<%=request.getContextPath() %>/Authentification/ValidateAccess" method="post">					
 				  	<div class="form-group">i
 				    	<label for="identifiant">Email :</label>
 				    	<input type="email" class="form-control" id="identifiant" name="identifiant">
