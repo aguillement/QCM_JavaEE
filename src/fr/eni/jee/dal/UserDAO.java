@@ -13,14 +13,14 @@ import fr.eni.jee.util.AccesBase;
 
 public class UserDAO {
 
-	private static final String SEARCH_BY_ID ="SELECT id, nom, prenom, email, motdepasse FROM USER WHERE id=?";
-	private static final String SEARCH ="SELECT id, nom, prenom, email, motdepasse FROM stagiaires WHERE email=? and motdepasse=?";
-	private static final String INSERT = "INSERT INTO USER (nom, prenom, email, motdepasse) values (?,?,?,?)";
-	private static final String MODIFY ="UPDATE USER SET nom = ?, prenom = ?, email = ?, motdepasse=? where id = ?";
-	private static final String DELETE ="DELETE FROM USER where id = ?";
-	private static final String GET_ALL ="SELECT id, nom, prenom, email, motdepasse FROM USER";
+	private static final String SEARCH_BY_ID ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR WHERE idUtilisateur=?";
+	private static final String SEARCH ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR WHERE email=? and password=?";
+	private static final String INSERT = "INSERT INTO UTILISATEUR (nom, prenom, email, password) values (?,?,?,?)";
+	private static final String MODIFY ="UPDATE UTILISATEUR SET nom = ?, prenom = ?, email = ?, password=? where idUtilisateur = ?";
+	private static final String DELETE ="DELETE FROM UTILISATEUR where idUtilisateur = ?";
+	private static final String GET_ALL ="SELECT idUtilisateur, nom, prenom, email, password FROM UTILISATEUR";
 	
-	public static User SearchById(int id) throws SQLException{
+	public static User SearchByidUtilisateur(int idUtilisateur) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -28,16 +28,16 @@ public class UserDAO {
 		try{
 			cnx = AccesBase.getConnection();
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
-			rqt.setInt(1, id);
+			rqt.setInt(1, idUtilisateur);
 			rs=rqt.executeQuery();
 
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("id"));
+				user.setIdUser(rs.getInt("idUtilisateur"));
 				user.setNom(rs.getString("nom"));
 				user.setPrenom(rs.getString("prenom"));
 				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("motdepasse"));
+				user.setPassword(rs.getString("password"));
 			}
 			
 		}finally{
@@ -61,11 +61,11 @@ public class UserDAO {
 			
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("id"));
+				user.setIdUser(rs.getInt("idUtilisateur"));
 				user.setNom(rs.getString("nom"));
 				user.setPrenom(rs.getString("prenom"));
 				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("motdepasse"));
+				user.setPassword(rs.getString("password"));
 			}
 			
 		}finally{
@@ -76,7 +76,7 @@ public class UserDAO {
 	}
 
 	/*
-	 * Ajoute un candidat en base puis retourne le candidat (valoris� avec son Id g�n�r� par la base de donn�es)
+	 * Ajoute un candidUtilisateurat en base puis retourne le candidUtilisateurat (valoris� avec son idUtilisateur g�n�r� par la base de donn�es)
 	 */
 	public static User Add(User user) throws SQLException{
 		Connection cnx=null;
@@ -162,11 +162,11 @@ public class UserDAO {
 			
 			while (rs.next()){
 				User user = new User();
-				user.setIdUser(rs.getInt("id"));
+				user.setIdUser(rs.getInt("idUtilisateur"));
 				user.setNom(rs.getString("nom"));
 				user.setPrenom(rs.getString("prenom"));
 				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("motdepasse"));
+				user.setPassword(rs.getString("password"));
 				
 				listeUser.add(user);
 			}
