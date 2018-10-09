@@ -15,8 +15,8 @@ public class Epreuve {
 	public float note_obtenue;
 	public String niveau_obtenu;
 	
-	public Test test;
-	public User user;
+	public Test test = new Test();
+	public User user = new User();
 	
 	/**
 	 * Constructor

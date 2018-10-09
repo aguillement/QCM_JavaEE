@@ -9,7 +9,7 @@ public class Question {
 	public String enonce;
 	public String media;
 	public int points;
-	public Theme theme;
+	public Theme theme = new Theme();
 	
 	/**
 	 * Constructeur
