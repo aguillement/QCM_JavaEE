@@ -1,9 +1,13 @@
 package fr.eni.jee.bo;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import fr.eni.jee.dal.UserDAO;
 
 public final class ConnexionForm {
     private static final String CHAMP_EMAIL  = "email";
@@ -37,7 +41,7 @@ public final class ConnexionForm {
 
         /* Validation du champ mot de passe. */
         try {
-            validationMotDePasse( motDePasse );
+            validationMotDePasse( motDePasse, email );
         } catch ( Exception e ) {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
@@ -68,11 +72,12 @@ public final class ConnexionForm {
     /**
      * Valide le mot de passe saisi.
      */
-    private void validationMotDePasse( String motDePasse ) throws Exception {
-        if ( motDePasse != null ) {
-            if ( motDePasse.length() < 3 ) {
-                throw new Exception( "Le mot de passe doit contenir au moins 3 caractères." );
-            }
+    private void validationMotDePasse( String motDePasse, String email ) throws Exception {
+        if ( motDePasse != null ) {        
+        	        	
+        	String pass = sha256(motDePasse);
+        	User user = UserDAO.Search(email, pass);        	
+        	
         } else {
             throw new Exception( "Merci de saisir votre mot de passe." );
         }
@@ -90,11 +95,30 @@ public final class ConnexionForm {
      * sinon.
      */
     private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
+
         String valeur = request.getParameter( nomChamp );
         if ( valeur == null || valeur.trim().length() == 0 ) {
             return null;
         } else {
             return valeur;
+        }
+    }
+    
+    public static String sha256(String base) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+           throw new RuntimeException(ex);
         }
     }
 }
