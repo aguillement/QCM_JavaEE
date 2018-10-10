@@ -20,7 +20,7 @@ public class UserDAO {
 	private static final String DELETE ="DELETE FROM USER where id = ?";
 	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password FROM USER";
 	
-	public static User SearchByID(int userID) throws SQLException{
+	public static User SearchById(int userID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -33,9 +33,9 @@ public class UserDAO {
 
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("id"));
-				user.setNom(rs.getString("lastname"));
-				user.setPrenom(rs.getString("firstname"));
+				user.setId(rs.getInt("id"));
+				user.setLastName(rs.getString("lastname"));
+				user.setFirstname(rs.getString("firstname"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 			}
@@ -61,9 +61,9 @@ public class UserDAO {
 			
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("id"));
-				user.setNom(rs.getString("lastnam"));
-				user.setPrenom(rs.getString("firstname"));
+				user.setId(rs.getInt("id"));
+				user.setLastName(rs.getString("lastnam"));
+				user.setFirstname(rs.getString("firstname"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 			}
@@ -94,7 +94,7 @@ public class UserDAO {
 			rqt.executeUpdate();
 			ResultSet key = rqt.getGeneratedKeys();
 			key.next();
-			user.setIdUser(key.getInt(1));
+			user.setId(key.getInt(1));
 			
 			cnx.commit();
 			

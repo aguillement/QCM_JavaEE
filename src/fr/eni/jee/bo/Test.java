@@ -8,12 +8,12 @@ public class Test {
 	/**
 	 * Attributes
 	 */
-	private int idTest;
-	private String libelle;
-	private String description;
-	private int duree;
-	private int seuil_haut;
-	private int seuil_bas;
+	private int id;
+	private String label;
+	private String statement;
+	private int duration;
+	private int high_level;
+	private int low_level;
 	
 	
 	/**
@@ -32,14 +32,14 @@ public class Test {
 	 * @param seuil_haut
 	 * @param seuil_bas
 	 */
-	public Test(int idTest, String libelle, String description, int duree, int seuil_haut, int seuil_bas) {
+	public Test(int id, String label, String statement, int duration, int high_level, int low_level) {
 		super();
-		this.idTest = idTest;
-		this.libelle = libelle;
-		this.description = description;
-		this.duree = duree;
-		this.seuil_haut = seuil_haut;
-		this.seuil_bas = seuil_bas;
+		this.id = id;
+		this.label = label;
+		this.statement = statement;
+		this.duration = duration;
+		this.high_level = high_level;
+		this.low_level = low_level;
 	}
 	
 	/**
@@ -49,85 +49,85 @@ public class Test {
 	/**
 	 * @return the idTest
 	 */
-	public int getIdTest() {
-		return idTest;
+	public int getId() {
+		return id;
 	}
 
 	/**
 	 * @param idTest the idTest to set
 	 */
-	public void setIdTest(int idTest) {
-		this.idTest = idTest;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
 	 * @return the libelle
 	 */
-	public String getLibelle() {
-		return libelle;
+	public String getLabel() {
+		return label;
 	}
 
 	/**
 	 * @param libelle the libelle to set
 	 */
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	/**
 	 * @return the description
 	 */
-	public String getDescription() {
-		return description;
+	public String getStatement() {
+		return statement;
 	}
 
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStatement(String statement) {
+		this.statement = statement;
 	}
 
 	/**
 	 * @return the duree
 	 */
-	public int getDuree() {
-		return duree;
+	public int getDuration() {
+		return duration;
 	}
 
 	/**
 	 * @param duree the duree to set
 	 */
-	public void setDuree(int duree) {
-		this.duree = duree;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
 	/**
 	 * @return the seuil_haut
 	 */
-	public int getSeuil_haut() {
-		return seuil_haut;
+	public int getHigh_level() {
+		return high_level;
 	}
 
 	/**
 	 * @param seuil_haut the seuil_haut to set
 	 */
-	public void setSeuil_haut(int seuil_haut) {
-		this.seuil_haut = seuil_haut;
+	public void setHigh_level(int high_level) {
+		this.high_level = high_level;
 	}
 
 	/**
 	 * @return the seuil_bas
 	 */
-	public int getSeuil_bas() {
-		return seuil_bas;
+	public int getLow_level() {
+		return low_level;
 	}
 
 	/**
 	 * @param seuil_bas the seuil_bas to set
 	 */
-	public void setSeuil_bas(int seuil_bas) {
-		this.seuil_bas = seuil_bas;
+	public void setLow_level(int low_level) {
+		this.low_level = low_level;
 	}
 	
 	

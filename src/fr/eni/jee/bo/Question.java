@@ -5,8 +5,8 @@ public class Question {
 	/**
 	 * Attributes
 	 */
-	public int idQuestion;
-	public String enonce;
+	public int id;
+	public String statement;
 	public String media;
 	public int points;
 	public Theme theme = new Theme();
@@ -38,26 +38,26 @@ public class Question {
 	/**
 	 * @return the idQuestion
 	 */
-	public int getIdQuestion() {
-		return idQuestion;
+	public int getId() {
+		return id;
 	}
 	/**
 	 * @param idQuestion the idQuestion to set
 	 */
-	public void setIdQuestion(int idQuestion) {
-		this.idQuestion = idQuestion;
+	public void setId(int id) {
+		this.id = id;
 	}
 	/**
 	 * @return the enonce
 	 */
-	public String getEnonce() {
-		return enonce;
+	public String getStatement() {
+		return statement;
 	}
 	/**
 	 * @param enonce the enonce to set
 	 */
-	public void setEnonce(String enonce) {
-		this.enonce = enonce;
+	public void setStatement(String statement) {
+		this.statement = statement;
 	}
 	/**
 	 * @return the media
