@@ -25,8 +25,8 @@ public class EpreuveDAO {
 	/**
 	 * Queries
 	 */
-	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUser FROM EXAM WHERE idUser=?";
-	private static final String SEARCH_BY_ID = "SELECT idExam, startDate, endDate, timeSpend, state, score, level, idTest, idUser FROM EXAM WHERE idExam=?";
+	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
+	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpend, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONS ?";
 	
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
@@ -51,9 +51,10 @@ public class EpreuveDAO {
 			rs=rqt.executeQuery();
 
 			while (rs.next()){
-				user = UserDAO.SearchById(rs.getInt("idUser"));
+				test = TestDAO.SearchByID(rs.getInt("idTest"));
+				user = UserDAO.SearchById(rs.getInt("id"));
 				exam = new Exam();
-				exam.setId(rs.getInt("idExam"));
+				exam.setId(rs.getInt("id"));
 				exam.setStartDate(rs.getTimestamp("startDate"));
 				exam.setEndDate(rs.getTimestamp("endDate"));
 				exam.setTimeSpent(rs.getInt("timeSpent"));
@@ -92,8 +93,9 @@ public class EpreuveDAO {
 			rqt.setInt(1, examID);
 			rs=rqt.executeQuery();
 
-			if(rs.next()){				
-				user = UserDAO.SearchById(rs.getInt("idUser"));
+			if(rs.next()){			
+				test = TestDAO.SearchByID(rs.getInt("idTest"));
+				user = UserDAO.SearchById(rs.getInt("idUsers"));
 				exam.setId(rs.getInt("id"));
 				exam.setStartDate(rs.getTimestamp("startDate"));
 				exam.setEndDate(rs.getTimestamp("endDate"));
@@ -104,7 +106,7 @@ public class EpreuveDAO {
 				exam.setTest(test);
 				exam.setUser(user);
 			}
-			
+
 		}finally{
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
