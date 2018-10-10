@@ -11,20 +11,20 @@
                 <legend>Connexion</legend>
                 <p>Vous pouvez vous connecter via ce formulaire.</p>
 
-                <label for="nom">Adresse email <span class="requis">*</span></label>
-                <input type="email" id="email" name="email" value=""/>
-                <span class="erreur">${form.erreurs['email']}</span>
+                <label for="mail">Adresse email <span class="required">*</span></label>
+                <input type="email" id="mail" name="tmail" value=""/>
+                <span class="error">${form.erreurs['tmail']}</span>
                 <br />
 
-                <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
-                <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
-                <span class="erreur">${form.erreurs['motdepasse']}</span>
+                <label for="password">Mot de passe <span class="required">*</span></label>
+                <input type="password" id="password" name="tpassword" value="" size="20" maxlength="20" />
+                <span class="error">${form.erreurs['tpassword']}</span>
                 <br />
 
                 <input type="submit" value="Connexion" class="sansLabel" />
                 <br />
                 
-                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                <p class="${empty form.errors ? 'succes' : 'erreur'}">${form.results}</p>
             </fieldset>
         </form>
     </body>
