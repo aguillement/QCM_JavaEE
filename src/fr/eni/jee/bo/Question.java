@@ -7,7 +7,7 @@ public class Question {
 	 */
 	public int id;
 	public String statement;
-	public String media;
+	public int media;
 	public int points;
 	public Theme theme = new Theme();
 	
@@ -15,13 +15,13 @@ public class Question {
 	 * Constructeur
 	 */
 	public Question() {
-		super();
+
 	}
 	
 	/**
 	 * Constructeur
 	 * @param idQuestion
-	 * @param enonce
+	 * @param statement
 	 * @param media
 	 * @param points
 	 * @param theme
@@ -33,8 +33,7 @@ public class Question {
 		this.media = media;
 		this.points = points;
 		this.theme = theme;
-	}
-	
+	}	
 	
 	/**
 	 * @return the idQuestion
@@ -49,13 +48,13 @@ public class Question {
 		this.id = id;
 	}
 	/**
-	 * @return the enonce
+	 * @return the statement
 	 */
 	public String getStatement() {
 		return statement;
 	}
 	/**
-	 * @param enonce the enonce to set
+	 * @param statement the statement to set
 	 */
 	public void setStatement(String statement) {
 		this.statement = statement;
@@ -63,13 +62,13 @@ public class Question {
 	/**
 	 * @return the media
 	 */
-	public String getMedia() {
+	public int getMedia() {
 		return media;
 	}
 	/**
 	 * @param media the media to set
 	 */
-	public void setMedia(String media) {
+	public void setMedia(int media) {
 		this.media = media;
 	}
 	/**
@@ -97,7 +96,4 @@ public class Question {
 		this.theme = theme;
 	}
 	
-	
-	
-
 }

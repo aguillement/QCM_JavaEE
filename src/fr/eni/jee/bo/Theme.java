@@ -13,9 +13,8 @@ public class Theme {
 	 * Constructor
 	 */
 	public Theme() {
-		super();
+		
 	}
-
 
 	/**
 	 * Constructor

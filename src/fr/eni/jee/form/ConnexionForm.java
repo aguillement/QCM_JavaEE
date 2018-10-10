@@ -88,6 +88,9 @@ public final class ConnexionForm {
         	String pass = sha256(password);
         	User user = UserDAO.Search(mail, pass);        	
         	
+        	if(user == null){
+        		throw new Exception( "Mot de passe ou email incorrect" );
+        	}        		
         } else {
             throw new Exception( "Merci de saisir votre mot de passe." );
         }

@@ -2,7 +2,10 @@
 # Created by https://www.gitignore.io/api/git,eclipse,java-web
 
 ### Eclipse ###
-
+.class
+/.class
+/*.class
+*.class
 .metadata
 bin/
 tmp/
