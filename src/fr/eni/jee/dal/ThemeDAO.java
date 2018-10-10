@@ -6,12 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
 
@@ -65,11 +61,10 @@ public class ThemeDAO {
 			if (cnx!=null) cnx.close();
 		}
 		return theme;
-	}
-	
+	}	
 	
 	public static List<Theme> GetAll() throws SQLException{
-					
+		
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;

@@ -5,13 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.jee.bo.Question;
+import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
 
 public class QuestionDAO {
 
 	private static final String INSERT = "INSERT INTO QUESTION (statement, media, points, idTheme) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL = "SELECT id, statement, media, points, idTheme FROM QUESTION";
 	
 	public static Question Insert(Question question) throws SQLException{
 		Connection cnx=null;
@@ -48,5 +52,40 @@ public class QuestionDAO {
 		}
 		
 		return question;			
+	}
+	
+	public static List<Question> GetAll() throws SQLException{
+		
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Question question = null;
+		List<Question> lstQuestion = new ArrayList<Question>();
+
+		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(GET_ALL);
+			rs=rqt.executeQuery();
+
+			while (rs.next()){
+				question = new Question();
+								
+				question.setId(rs.getInt("id"));				
+				question.setStatement(rs.getString("statement"));
+				question.setMedia(rs.getInt("media"));
+				question.setPoints(rs.getInt("points"));
+				
+				Theme theme = new Theme();
+				theme = ThemeDAO.SearchByID(rs.getInt("idTheme"));				
+				question.setTheme(theme);				
+				
+				lstQuestion.add(question);
+			}			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}		
+		
+		return lstQuestion;
 	}
 }

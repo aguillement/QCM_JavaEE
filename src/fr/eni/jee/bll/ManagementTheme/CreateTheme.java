@@ -1,4 +1,4 @@
-package fr.eni.jee.bll;
+package fr.eni.jee.bll.ManagementTheme;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ import fr.eni.jee.dal.ThemeDAO;
  */
 public class CreateTheme extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/GestionTheme/CreateTheme.jsp";   
+	public static final String VUE = "/WEB-INF/ManagementTheme/CreateTheme.jsp";   
 	
     /**
      * @see HttpServlet#HttpServlet()
