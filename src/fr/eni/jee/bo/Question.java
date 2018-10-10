@@ -21,15 +21,15 @@ public class Question {
 	/**
 	 * Constructeur
 	 * @param idQuestion
-	 * @param enonce
+	 * @param statement
 	 * @param media
 	 * @param points
 	 * @param theme
 	 */
-	public Question(int idQuestion, String enonce, int media, int points, Theme theme) {
+	public Question(int idQuestion, String statement, int media, int points, Theme theme) {
 		
 		this.id = idQuestion;
-		this.statement = enonce;
+		this.statement = statement;
 		this.media = media;
 		this.points = points;
 		this.theme = theme;
@@ -48,13 +48,13 @@ public class Question {
 		this.id = id;
 	}
 	/**
-	 * @return the enonce
+	 * @return the statement
 	 */
 	public String getStatement() {
 		return statement;
 	}
 	/**
-	 * @param enonce the enonce to set
+	 * @param statement the statement to set
 	 */
 	public void setStatement(String statement) {
 		this.statement = statement;
