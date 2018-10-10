@@ -2,6 +2,8 @@ package fr.eni.jee.bll.exam;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +18,7 @@ import fr.eni.jee.dal.EpreuveDAO;
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/Exam")
+@WebServlet("/Connected/Exam")
 public class ExamDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
