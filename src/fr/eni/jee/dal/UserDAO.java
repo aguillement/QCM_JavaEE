@@ -19,7 +19,7 @@ public class UserDAO {
 	private static final String DELETE ="DELETE FROM USERS where id = ?";
 	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS";
 	
-	public static User SearchByID(int userID) throws SQLException{
+	public static User SearchById(int userID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
