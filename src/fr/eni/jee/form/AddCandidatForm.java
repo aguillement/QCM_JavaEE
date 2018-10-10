@@ -13,7 +13,7 @@ public class AddCandidatForm {
 	private static final String INPUT_FIRSTNAME = "tFirstname";
 	private static final String INPUT_LASTNAME = "tLastname";
 	private static final String INPUT_MAIL = "tMail";
-	private int VALUE_PROFIL = 20;
+	private int VALUE_PROFILE = 20;
 
 	private String results;
 	private Map<String, String> errors = new HashMap<String, String>();
@@ -27,11 +27,11 @@ public class AddCandidatForm {
 	}
 
 	public void setValueProfil(int valueProfil) {
-		this.VALUE_PROFIL = valueProfil;
+		this.VALUE_PROFILE = valueProfil;
 	}
 
 	public User initUserForm(HttpServletRequest request) {
-		/* Input of the form */
+		/* Input value of the form */
 		String firstname = getInputValue(request, INPUT_FIRSTNAME);
 		String lastname = getInputValue(request, INPUT_LASTNAME);
 		String mail = getInputValue(request, INPUT_MAIL);
@@ -47,29 +47,29 @@ public class AddCandidatForm {
 			bValid = false;
 			results = "Veuillez vérifier votre adresse email.";
 		}
-		candidat.setEmail(mail);
+		candidat.setMail(mail);
 
 		/* Create password */
 		String newPassword = generatePassword();
 		candidat.setPassword(sha256(newPassword));
 
 		/* Check firstname */
-		if (bValid && (firstname != null || firstname != "")) {
+		if (bValid && (firstname == null || firstname == "")) {
 			errors.put(INPUT_FIRSTNAME, "Veuillez saisir votre prénom.");
 			results = "Veuillez saisir votre prénom.";
 			bValid = false;
 		}
-		candidat.setPrenom(firstname);
+		candidat.setFirstname(firstname);
 
 		/* Check lastname */
-		if (bValid && (lastname != null || lastname != "")) {
+		if (bValid && (lastname == null || lastname == "")) {
 			errors.put(INPUT_LASTNAME, "Veuillez saisir votre nom.");
 			results = "Veuillez saisir votre nom.";
 			bValid = false;
 		}
-		candidat.setNom(lastname);
+		candidat.setLastname(lastname);
 
-		// candidat.setCodeProfil(VALUE_PROFIL);
+		candidat.setIdProfile(VALUE_PROFILE);
 
 		/* Check if the user is valid or not */
 		if (bValid) {

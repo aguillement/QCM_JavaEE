@@ -9,29 +9,29 @@
 <body>
 	<form
 		action="<%=request.getContextPath()%>/createUser"
-		name="formAjoutUser" method="post">
+		name="formAddUser" method="post">
 
 		<div class="form-group">
-			<label>Nom :</label> <input class="form-control" type="text"
-				name="tLastname" />
+			<label for="lastname">Nom :</label> <input class="form-control" type="text"
+				name="tLastname" id="lastname" />
 		</div>
 
 		<div class="form-group">
-			<label>Prénom :</label> <input class="form-control"
-				type="text" name="tFirstname" />
+			<label for="firstname">Prénom :</label> <input class="form-control"
+				type="text" name="tFirstname" id="firstname" />
 		</div>
 
 		<div class="form-group">
-			<label>Email :</label> <input class="form-control"
-				type="mail" name="tMail"/>
+			<label for="mail">Email :</label> <input class="form-control"
+				type="mail" name="tMail" id="mail"/>
 		</div>
 
-		<button type="submit" class="col-sm-1 btn btn-default" name="bAnnuler"
+		<button type="submit" class="col-sm-1 btn btn-default" name="bCancel"
 			value="Annuler">
 			<span class="glyphicon glyphicon-share-alt"></span>Annuler
 		</button>
 		<button type="submit"
-			class="col-sm-1 col-sm-offset-10 btn btn-default" name="bEnregistrer"
+			class="col-sm-1 col-sm-offset-10 btn btn-default" name="bSave"
 			value="Enregistrer">
 			<span class="glyphicon glyphicon-ok"></span>Enregistrer
 		</button>

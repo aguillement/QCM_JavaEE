@@ -12,12 +12,12 @@ import fr.eni.jee.bo.User;
 import fr.eni.jee.util.AccessDB;
 
 public class UserDAO {
-	private static final String SEARCH_BY_ID ="SELECT id, lastname, firstname, email, password FROM USER WHERE id=?";
-	private static final String SEARCH ="SELECT id, lastname, firstname, email, password FROM USER WHERE email=? and password=?";
-	private static final String INSERT = "INSERT INTO USER (lastname, firstname, email, password) values (?,?,?,?)";
-	private static final String MODIFY ="UPDATE USER SET lastname = ?, firstname = ?, email = ?, password=? where id = ?";
-	private static final String DELETE ="DELETE FROM USER where id = ?";
-	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password FROM USER";
+	private static final String SEARCH_BY_ID ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE id=?";
+	private static final String SEARCH ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE email=? and password=?";
+	private static final String INSERT = "INSERT INTO USERS (lastname, firstname, email, password, idProfile, idPromotion) values (?,?,?,?,?,?)";
+	private static final String MODIFY ="UPDATE USERS SET lastname = ?, firstname = ?, email = ?, password=?,idProfile=?, idPromotion=? where id = ?";
+	private static final String DELETE ="DELETE FROM USERS where id = ?";
+	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS";
 	
 	public static User SearchByID(int userID) throws SQLException{
 		Connection cnx = null;
@@ -32,11 +32,13 @@ public class UserDAO {
 
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("id"));
-				user.setNom(rs.getString("lastname"));
-				user.setPrenom(rs.getString("firstname"));
-				user.setEmail(rs.getString("email"));
+				user.setId(rs.getInt("id"));
+				user.setLastname(rs.getString("lastname"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
+				user.setIdProfile(rs.getInt("idProfile"));
+				user.setIdPromotion(rs.getInt("idPromotion"));
 			}
 			
 		}finally{
@@ -60,11 +62,13 @@ public class UserDAO {
 			
 			if (rs.next()){
 				user = new User();
-				user.setIdUser(rs.getInt("id"));
-				user.setNom(rs.getString("lastnam"));
-				user.setPrenom(rs.getString("firstname"));
-				user.setEmail(rs.getString("email"));
+				user.setId(rs.getInt("id"));
+				user.setLastname(rs.getString("lastnam"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
+				user.setIdProfile(rs.getInt("idProfile"));
+				user.setIdPromotion(rs.getInt("idPromotion"));
 			}
 			
 		}finally{
@@ -74,10 +78,7 @@ public class UserDAO {
 		return user;
 	}
 
-	/*
-	 * Ajoute un candidUtilisateurat en base puis retourne le candidUtilisateurat (valoris� avec son idUtilisateur g�n�r� par la base de donn�es)
-	 */
-	public static User Add(User user) throws SQLException{
+	public static User Insert(User user) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
@@ -88,12 +89,20 @@ public class UserDAO {
 			rqt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			rqt.setString(1, user.getLastname());
 			rqt.setString(2, user.getFirstname());
-			rqt.setString(3, user.getEmail());
+			rqt.setString(3, user.getMail());
 			rqt.setString(4, user.getPassword());
+			rqt.setInt(5, user.getIdProfile());
+			if(user.getIdPromotion() > 0){
+				rqt.setInt(6, user.getIdPromotion());
+			}
+			else{
+				rqt.setString(6, null);
+			}
+			
 			rqt.executeUpdate();
 			ResultSet key = rqt.getGeneratedKeys();
 			key.next();
-			user.setIdUser(key.getInt(1));
+			user.setId(key.getInt(1));
 			
 			cnx.commit();
 			
@@ -123,9 +132,11 @@ public class UserDAO {
 			rqt=cnx.prepareStatement(MODIFY);
 			rqt.setString(1, user.getLastname());
 			rqt.setString(2, user.getFirstname());
-			rqt.setString(3, user.getEmail());
+			rqt.setString(3, user.getMail());
 			rqt.setString(4, user.getPassword());
-			rqt.setInt(5, user.getId());
+			rqt.setInt(5, user.getIdProfile());
+			rqt.setInt(6, user.getIdPromotion());
+			rqt.setInt(7, user.getId());
 			rqt.executeUpdate();
 		}finally{
 			if (rqt!=null) rqt.close();
@@ -162,10 +173,12 @@ public class UserDAO {
 			while (rs.next()){
 				User user = new User();
 				user.setId(rs.getInt("id"));
-				user.setLastName(rs.getString("lastname"));
+				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
-				user.setEmail(rs.getString("email"));
+				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
+				user.setIdProfile(rs.getInt("idProfile"));
+				user.setIdPromotion(rs.getInt("idPromotion"));
 				
 				usersList.add(user);
 			}

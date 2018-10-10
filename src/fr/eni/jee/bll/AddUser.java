@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.dal.UserDAO;
 import fr.eni.jee.form.AddCandidatForm;
-import fr.eni.jee.form.ConnexionForm;
 
 /**
  * Servlet implementation class AddUser
@@ -60,7 +59,7 @@ public class AddUser extends HttpServlet implements Servlet {
         /* Check all input and init the user */
         User newCandidat = form.initUserForm( request );
 		try {
-	        UserDAO.Add(newCandidat);
+	        UserDAO.Insert(newCandidat);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
