@@ -15,7 +15,7 @@ public class Question {
 	 * Constructeur
 	 */
 	public Question() {
-		super();
+
 	}
 	
 	/**
@@ -26,15 +26,21 @@ public class Question {
 	 * @param points
 	 * @param theme
 	 */
+<<<<<<< HEAD
 	public Question(int id, String statement, String media, int points, Theme theme) {
 		super();
 		this.id = id;
 		this.statement = statement;
+=======
+	public Question(int idQuestion, String enonce, String media, int points, Theme theme) {
+		
+		this.idQuestion = idQuestion;
+		this.enonce = enonce;
+>>>>>>> Referenciel-Question
 		this.media = media;
 		this.points = points;
 		this.theme = theme;
-	}
-	
+	}	
 	
 	/**
 	 * @return the idQuestion
@@ -97,7 +103,4 @@ public class Question {
 		this.theme = theme;
 	}
 	
-	
-	
-
 }
