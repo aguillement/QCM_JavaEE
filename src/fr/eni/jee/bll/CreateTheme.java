@@ -1,11 +1,16 @@
 package fr.eni.jee.bll;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.jee.bo.Theme;
+import fr.eni.jee.dal.ThemeDAO;
 
 /**
  * Servlet implementation class CreateTheme
@@ -35,8 +40,18 @@ public class CreateTheme extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		Theme theme = new Theme();
+		theme.setLabel(request.getParameter("label"));		
+		
+		try {
+			ThemeDAO.Insert(theme);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		doGet(request, response);
 	}
 

@@ -8,7 +8,7 @@
       	name="jdbc/BDD_QCM" 
       	type="javax.sql.DataSource" 
       	driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-      	url="jdbc:sqlserver://localhost:1433;databasename=BDD_QCM"
+      	url="jdbc:sqlserver://localhost:1433;databasename=QCM_DB"
       	username="sa"
       	password="Pa$$w0rd"
       	maxActive="5"
