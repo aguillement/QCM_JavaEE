@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Ajouter un candidat</title>
 </head>
 <body>
 	<form
-		action="<%=request.getContextPath()%>/createUser"
+		action="<%=request.getContextPath()%>/Connected/createUser"
 		name="formAddUser" method="post">
 
 		<div class="form-group">
@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="form-group">
-			<label for="firstname">Prénom :</label> <input class="form-control"
+			<label for="firstname">PrÃ©nom :</label> <input class="form-control"
 				type="text" name="tFirstname" id="firstname" />
 		</div>
 
@@ -35,6 +35,7 @@
 			value="Enregistrer">
 			<span class="glyphicon glyphicon-ok"></span>Enregistrer
 		</button>
+		<p class="${empty form.errors ? 'succes' : 'erreur'}">${message}</p>
 
 	</form>
 </body>

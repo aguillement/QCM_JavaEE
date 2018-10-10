@@ -17,7 +17,7 @@ import fr.eni.jee.dal.QuestionDAO;
 /**
  * Servlet implementation class ShowQuestion
  */
-@WebServlet("/ShowQuestion")
+@WebServlet("/Connected/ShowQuestion")
 public class ShowQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/ManagementQuestion/QuestionView.jsp";

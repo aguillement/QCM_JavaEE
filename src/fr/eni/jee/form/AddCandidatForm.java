@@ -1,6 +1,7 @@
 package fr.eni.jee.form;
 
 import java.security.MessageDigest;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -8,6 +9,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.jee.bo.User;
+import fr.eni.jee.dal.UserDAO;
 
 public class AddCandidatForm {
 	private static final String INPUT_FIRSTNAME = "tFirstname";
@@ -71,12 +73,21 @@ public class AddCandidatForm {
 
 		candidat.setIdProfile(VALUE_PROFILE);
 
-		/* Check if the user is valid or not */
-		if (bValid) {
-			results = "Candidat créé.";
-			// SEND MAIL WITH PASSWORD
-		} else {
+		try {
+			/* Check if the user is valid or not */
+			if (bValid) {
+				candidat = UserDAO.Insert(candidat);
+				results = "Candidat créé.";
+				// SEND MAIL WITH PASSWORD
+			} else {
+				candidat = null;
+				results = "Candidat non créé.";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			candidat = null;
+			results = "Candidat non créé.";
 		}
 
 		return candidat;
