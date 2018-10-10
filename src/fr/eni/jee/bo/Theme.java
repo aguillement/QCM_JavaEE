@@ -13,19 +13,19 @@ public class Theme {
 	 * Constructor
 	 */
 	public Theme() {
-		super();
+		
 	}
-
 
 	/**
 	 * Constructor
 	 * @param idTheme
 	 * @param libelle
 	 */
-	public Theme(int id, String label) {
-		super();
+
+	public Theme(int id, String label) {		
 		this.id = id;
 		this.label = label;
+
 	}
 
 
