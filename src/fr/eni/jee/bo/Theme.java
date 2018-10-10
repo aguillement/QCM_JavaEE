@@ -21,11 +21,10 @@ public class Theme {
 	 * @param idTheme
 	 * @param libelle
 	 */
-
-	public Theme(int id, String label) {		
+	public Theme(int id, String label) {
+		super();
 		this.id = id;
 		this.label = label;
-
 	}
 
 

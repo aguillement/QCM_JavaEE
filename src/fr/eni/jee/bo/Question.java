@@ -26,9 +26,9 @@ public class Question {
 	 * @param points
 	 * @param theme
 	 */
-	public Question(int idQuestion, String statement, int media, int points, Theme theme) {
-		
-		this.id = idQuestion;
+	public Question(int id, String statement, String media, int points, Theme theme) {
+		super();
+		this.id = id;
 		this.statement = statement;
 		this.media = media;
 		this.points = points;
