@@ -4,20 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Thème</title>
+<title>Theme</title>
 </head>
 <body>
 
-	<form method="post" action="createQuestion">
+	<form method="post" action="createTheme">
 	   <fieldset>
-	       <legend>Create thème</legend>	       
+	       <legend>Create theme</legend>	       
 	
-	       <label for="libelle">Libelle<span class="requis">*</span></label>
-	       <input type="text" id="libelle" name="libelle" value=""/>
-	       <span class="erreur">${form.erreurs['email']}</span>
+	       <label for="label">Label<span class="requis">*</span></label>
+	       <input type="text" id="libelle" name="label" value=""/>
+	       <span class="erreur">${form.erreurs['label']}</span>
 	       <br />
 	       	
-	       <input type="submit" value="Save" class="sansLabel" />
+	       <input type="submit" value="CreateTheme" class="sansLabel" />
 	       <br />
 	       	       
 	    </fieldset>

@@ -7,7 +7,7 @@ public class Question {
 	 */
 	public int id;
 	public String statement;
-	public String media;
+	public int media;
 	public int points;
 	public Theme theme = new Theme();
 	
@@ -26,10 +26,10 @@ public class Question {
 	 * @param points
 	 * @param theme
 	 */
-	public Question(int idQuestion, String enonce, String media, int points, Theme theme) {
+	public Question(int idQuestion, String enonce, int media, int points, Theme theme) {
 		
-		this.idQuestion = idQuestion;
-		this.enonce = enonce;
+		this.id = idQuestion;
+		this.statement = enonce;
 		this.media = media;
 		this.points = points;
 		this.theme = theme;
@@ -62,13 +62,13 @@ public class Question {
 	/**
 	 * @return the media
 	 */
-	public String getMedia() {
+	public int getMedia() {
 		return media;
 	}
 	/**
 	 * @param media the media to set
 	 */
-	public void setMedia(String media) {
+	public void setMedia(int media) {
 		this.media = media;
 	}
 	/**

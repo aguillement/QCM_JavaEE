@@ -21,16 +21,11 @@ public class Theme {
 	 * @param idTheme
 	 * @param libelle
 	 */
-<<<<<<< HEAD
-	public Theme(int idTheme, String libelle) {		
-		this.idTheme = idTheme;
-		this.libelle = libelle;
-=======
-	public Theme(int id, String label) {
-		super();
+
+	public Theme(int id, String label) {		
 		this.id = id;
 		this.label = label;
->>>>>>> master
+
 	}
 
 

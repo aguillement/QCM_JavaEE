@@ -136,7 +136,7 @@ public class EpreuveDAO {
 				Question question = null;
 				question.setId(rs.getInt("id"));
 				question.setStatement(rs.getString("enonce"));
-				question.setMedia(rs.getString("media"));
+				question.setMedia(rs.getInt("media"));
 				question.setPoints(rs.getInt("points"));
 				question.setTheme(theme);
 				
