@@ -1,4 +1,4 @@
-package fr.eni.jee.bll;
+package fr.eni.jee.bll.ManagementQuestion;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,13 +15,12 @@ import fr.eni.jee.bo.Theme;
 import fr.eni.jee.dal.QuestionDAO;
 import fr.eni.jee.dal.ThemeDAO;
 
-
 /**
  * Servlet implementation class CreateQuestion
  */
 public class CreateQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/GestionQuestion/CreateQuestion.jsp";   
+	public static final String VUE = "/WEB-INF/ManagementQuestion/CreateQuestion.jsp";   
 	
     /**
      * @see HttpServlet#HttpServlet()

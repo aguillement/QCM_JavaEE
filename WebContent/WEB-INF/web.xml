@@ -20,18 +20,18 @@
   <servlet-mapping>
     <servlet-name>Connexion</servlet-name>
     <url-pattern>/connexion</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
-  <servlet-name>CreateQuestion</servlet-name>
-  <servlet-class>fr.eni.jee.bll.CreateQuestion</servlet-class>
+    <servlet-name>CreateQuestion</servlet-name>
+    <servlet-class>fr.eni.jee.bll.ManagementQuestion.CreateQuestion</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateQuestion</servlet-name>
     <url-pattern>/createQuestion</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
-  <servlet-name>CreateTheme</servlet-name>
-  <servlet-class>fr.eni.jee.bll.CreateTheme</servlet-class>
+    <servlet-name>CreateTheme</servlet-name>
+    <servlet-class>fr.eni.jee.bll.ManagementTheme.CreateTheme</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateTheme</servlet-name>
