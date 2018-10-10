@@ -3,6 +3,9 @@
 
 ### Eclipse ###
 .class
+/.class
+/*.class
+*.class
 .metadata
 bin/
 tmp/
