@@ -42,7 +42,7 @@ public class SelectExam extends HttpServlet {
 		}
 		
 		request.setAttribute("exams", exams);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/ManageTest/SelectExam.jsp").forward( request, response );
+		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageTest/SelectExam.jsp").forward( request, response );
 	}
 
 	/**

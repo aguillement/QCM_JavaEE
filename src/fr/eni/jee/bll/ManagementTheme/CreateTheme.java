@@ -17,7 +17,7 @@ import fr.eni.jee.dal.ThemeDAO;
  */
 public class CreateTheme extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/ManagementTheme/CreateTheme.jsp";   
+	public static final String VUE = "/WEB-INF/Restricted/ManagementTheme/CreateTheme.jsp";   
 	
     /**
      * @see HttpServlet#HttpServlet()

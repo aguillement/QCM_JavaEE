@@ -20,7 +20,7 @@ import fr.eni.jee.dal.ThemeDAO;
  */
 public class CreateQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/ManagementQuestion/CreateQuestion.jsp";   
+	public static final String VUE = "/WEB-INF/Restricted/ManagementQuestion/CreateQuestion.jsp";   
 	
     /**
      * @see HttpServlet#HttpServlet()
