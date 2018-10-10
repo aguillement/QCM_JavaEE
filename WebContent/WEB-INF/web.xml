@@ -37,4 +37,12 @@
     <servlet-name>CreateTheme</servlet-name>
     <url-pattern>/createTheme</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>ShowQuestion</servlet-name>
+    <servlet-class>fr.eni.jee.bll.ManagementQuestion.ShowQuestion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowQuestion</servlet-name>
+    <url-pattern>/showQuestion</url-pattern>
+  </servlet-mapping>
 </web-app>
