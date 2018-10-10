@@ -14,17 +14,17 @@
 
 <% 
 List<Exam> exams = (ArrayList<Exam>)request.getAttribute("exams");
- 
+%><ol><%
 for(Exam exam : exams)
 {
 	Test test = exam.getTest();
-	
-	out.print("jif : " + test);
-    out.print("Id: " + exam.getId());
-    out.print("<br/>");
+	%>
+	  <li>
+		<a href="Exam?id=<%= exam.getId() %>"><%= test.getLabel() %></a>
+	  </li>
+	<%
 }
- 
 %>
-
+</ol>
 </body>
 </html>
