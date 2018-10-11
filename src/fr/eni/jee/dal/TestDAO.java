@@ -4,16 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.Test;
+import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
 
 public class TestDAO {
 	
 	private static final String SEARCH_BY_ID = "SELECT id, label, statement, duration, high_level, low_level FROM TEST WHERE id=?";
-
+	private static final String INSERT = "INSERT INTO TEST (label, statement, duration, high_level, low_level) VALUES (?, ?, ?, ?, ?)";
 	
 	public static Test SearchByID(int testID) throws SQLException{
 		Connection cnx = null;
@@ -40,6 +42,31 @@ public class TestDAO {
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
 		}
+		return test;
+	}
+	
+	public static Test Insert(Test test) throws SQLException{
+				
+		if (test != null) {
+			Connection connection = AccessDB.getConnection();
+            try (PreparedStatement ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, test.getLabel());   
+                ps.setString(2, test.getStatement());   
+                ps.setInt(3, test.getDuration());   
+                ps.setInt(4, test.getHigh_level());   
+                ps.setInt(5, test.getLow_level());   
+                ps.executeUpdate();
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                    	test.setId(rs.getInt(1));
+                    }
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 		return test;
 	}
 }

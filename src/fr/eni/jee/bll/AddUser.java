@@ -20,7 +20,7 @@ import fr.eni.jee.form.AddCandidatForm;
 /**
  * Servlet implementation class AddUser
  */
-@WebServlet("/Connected/createUser")
+@WebServlet("/Responsable/utilisateur/ajouter")
 public class AddUser extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,7 @@ public class AddUser extends HttpServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageUser/CreateCandidate.jsp")
+		this.getServletContext().getRequestDispatcher("/Manager/ManageUser/CreateCandidate.jsp")
 				.forward(request, response);
 	}
 
@@ -66,7 +66,7 @@ public class AddUser extends HttpServlet implements Servlet {
 		User newCandidat = form.initUserForm(request);
 		request.setAttribute( "message", form.getResults() );
 		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageUser/CreateCandidate.jsp")
+		this.getServletContext().getRequestDispatcher("/Manager/ManageUser/CreateCandidate.jsp")
 				.forward(request, response);
 
 	}
