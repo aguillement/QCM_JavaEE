@@ -138,7 +138,6 @@ public class EpreuveDAO {
 				theme = ThemeDAO.SearchByID(rs.getInt("idTheme"));
 				Question question = new Question();
 				question.setId(rs.getInt("id"));
-				question.setStatement(rs.getString("enonce"));
 				question.setStatement(rs.getString("statement"));
 				question.setMedia(rs.getInt("media"));
 				question.setPoints(rs.getInt("points"));
