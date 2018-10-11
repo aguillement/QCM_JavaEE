@@ -130,8 +130,8 @@ public class EpreuveDAO {
 
 		try{
 			cnx = AccessDB.getConnection();
-			callableStatement = cnx.prepareCall("EXEC PROC_GENERATE_QUESTIONS 1");
-			//rqt.setInt(1, idExam);
+			callableStatement = cnx.prepareCall(GENERATE_QUESTIONS);
+			callableStatement.setInt(1, idExam);
 			rs=callableStatement.executeQuery();
 
 			while (rs.next()){
