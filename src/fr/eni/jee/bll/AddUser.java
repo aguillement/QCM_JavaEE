@@ -20,7 +20,7 @@ import fr.eni.jee.form.AddCandidatForm;
 /**
  * Servlet implementation class AddUser
  */
-@WebServlet("/Connected/createUser")
+@WebServlet("/Responsable/createUser")
 public class AddUser extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 

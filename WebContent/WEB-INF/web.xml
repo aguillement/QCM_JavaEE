@@ -18,20 +18,62 @@
   </session-config>
   
   <filter>
-	<filter-name>RestrictedFilter</filter-name>
-	<filter-class>fr.eni.jee.filter.RestrictedFilter</filter-class>
-  </filter>
-  <filter-mapping>
-	<filter-name>RestrictedFilter</filter-name>
-	<url-pattern>/Connected/*</url-pattern>
-  </filter-mapping>
-  <filter>
 	<filter-name>ConnectedFilter</filter-name>
 	<filter-class>fr.eni.jee.filter.ConnectedFilter</filter-class>
   </filter>
   <filter-mapping>
 	<filter-name>ConnectedFilter</filter-name>
+	<url-pattern>/</url-pattern>
 	<url-pattern>/connexion</url-pattern>
+  </filter-mapping>
+  <filter>
+	<filter-name>RestrictedFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.RestrictedFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	<filter-name>RestrictedFilter</filter-name>
+	<url-pattern>/Home</url-pattern>
+	<url-pattern>/Logout</url-pattern>
+  </filter-mapping>
+  <filter>
+	<filter-name>CandidateFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.CandidateFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	<filter-name>CandidateFilter</filter-name>
+	<url-pattern>/Candidat/*</url-pattern>
+  </filter-mapping>
+  <filter>
+	<filter-name>InternFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.InternFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	<filter-name>InternFilter</filter-name>
+	<url-pattern>/Candidat/Stagiaire/*</url-pattern>
+  </filter-mapping>
+  <filter>
+	<filter-name>FormerFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.FormerFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	<filter-name>FormerFilter</filter-name>
+	<url-pattern>/Formateur/*</url-pattern>
+  </filter-mapping>
+  <filter>
+	<filter-name>ManagerFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.ManagerFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	<filter-name>ManagerFilter</filter-name>
+	<url-pattern>/Responsable/*</url-pattern>
+  </filter-mapping>
+  <filter>
+	<filter-name>AdminFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.AdminFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	<filter-name>AdminFilter</filter-name>
+	<url-pattern>/Admin/*</url-pattern>
   </filter-mapping>
  
   <servlet>

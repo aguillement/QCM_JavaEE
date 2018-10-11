@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class RestrictedFilter implements Filter {
+
 	public void init( FilterConfig config ) throws ServletException {
     }
 
@@ -30,14 +31,15 @@ public class RestrictedFilter implements Filter {
          * Check if the user is connected
          */
         if ( session.getAttribute( "sessionUser" ) == null ) {
-            /* Redirect to restricted page */
-            response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
+        	/* Redirect to restricted page */
+        	response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         } else {
-            chain.doFilter( request, response );
+        	chain.doFilter( request, response );
         }
 
 	}
 	
 	public void destroy() {
     }
+
 }
