@@ -1,16 +1,13 @@
-<%@ include file="header.jspf"%>
-<title>Accès restreint</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AccÃ¨s restreint</title>
 </head>
 <body>
-	<div class="container-fluid">
-		<%@ include file="./Navbars/navbar_noConnected.jspf"%>
-		<div class="row" style="margin-top: 20px;">
-			<div class="col-lg-12">
-				<h2>Accès restreint</h2>
-				Vous devez être connecter pour accèder au site. Retourner à l'<a
-					href="<%=request.getContextPath()%>">accueil</a>.
-			</div>
-		</div>
-	</div>
+	Vous devez Ãªtre connecter pour accÃ¨der au site.
+	Retourner Ã  l'<a href="<%=request.getContextPath()%>">accueil</a>.
 </body>
 </html>

@@ -14,61 +14,61 @@
     <session-timeout>10</session-timeout>
   </session-config>
   <filter>
-    <filter-name>ConnectedFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.ConnectedFilter</filter-class>
+	<filter-name>ConnectedFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.ConnectedFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>ConnectedFilter</filter-name>
-    <url-pattern>/connexion</url-pattern>
+	<filter-name>ConnectedFilter</filter-name>
+	<url-pattern>/</url-pattern>
+	<url-pattern>/connexion</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>RestrictedFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.RestrictedFilter</filter-class>
+	<filter-name>RestrictedFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.RestrictedFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>RestrictedFilter</filter-name>
-    <url-pattern>/Home</url-pattern>
-    <url-pattern>/AccessDenied</url-pattern>
-    <url-pattern>/Logout</url-pattern>
+	<filter-name>RestrictedFilter</filter-name>
+	<url-pattern>/Home</url-pattern>
+	<url-pattern>/Logout</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>CandidateFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.CandidateFilter</filter-class>
+	<filter-name>CandidateFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.CandidateFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>CandidateFilter</filter-name>
-    <url-pattern>/Candidat/*</url-pattern>
+	<filter-name>CandidateFilter</filter-name>
+	<url-pattern>/Candidat/*</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>InternFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.InternFilter</filter-class>
+	<filter-name>InternFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.InternFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>InternFilter</filter-name>
-    <url-pattern>/Candidat/Stagiaire/*</url-pattern>
+	<filter-name>InternFilter</filter-name>
+	<url-pattern>/Candidat/Stagiaire/*</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>FormerFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.FormerFilter</filter-class>
+	<filter-name>FormerFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.FormerFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>FormerFilter</filter-name>
-    <url-pattern>/Formateur/*</url-pattern>
+	<filter-name>FormerFilter</filter-name>
+	<url-pattern>/Formateur/*</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>ManagerFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.ManagerFilter</filter-class>
+	<filter-name>ManagerFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.ManagerFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>ManagerFilter</filter-name>
-    <url-pattern>/Responsable/*</url-pattern>
+	<filter-name>ManagerFilter</filter-name>
+	<url-pattern>/Responsable/*</url-pattern>
   </filter-mapping>
   <filter>
-    <filter-name>AdminFilter</filter-name>
-    <filter-class>fr.eni.jee.filter.AdminFilter</filter-class>
+	<filter-name>AdminFilter</filter-name>
+	<filter-class>fr.eni.jee.filter.AdminFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>AdminFilter</filter-name>
-    <url-pattern>/Admin/*</url-pattern>
+	<filter-name>AdminFilter</filter-name>
+	<url-pattern>/Admin/*</url-pattern>
   </filter-mapping>
 </web-app>
