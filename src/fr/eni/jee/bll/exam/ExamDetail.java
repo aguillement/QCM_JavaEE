@@ -1,4 +1,4 @@
-package fr.eni.jee.bll.ManagementQuestion;
+package fr.eni.jee.bll.exam;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,22 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.Question;
-import fr.eni.jee.dal.QuestionDAO;
+import fr.eni.jee.dal.EpreuveDAO;
 
 /**
- * Servlet implementation class ShowQuestion
+ * Servlet implementation class Exam
  */
-@WebServlet("/Connected/ShowQuestion")
-public class ShowQuestion extends HttpServlet {
+@WebServlet("/Connected/Exam")
+public class ExamDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/WEB-INF/Restricted/ManagementQuestion/QuestionView.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowQuestion() {
+    public ExamDetail() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,25 +35,24 @@ public class ShowQuestion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Question> lstQuestion = new ArrayList<Question>();
-		
+		int examID = Integer.parseInt(request.getParameter("id"));
 		try {
-			lstQuestion = QuestionDAO.GetAll();
+			Exam exam = EpreuveDAO.SearchByID(examID);
+			request.setAttribute("exam", exam);
+			List<Question> question = new ArrayList<Question>();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		request.setAttribute("lstQuestion", lstQuestion);
-		
-		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
+		this.getServletContext().getRequestDispatcher("/WEB-INF/ManageTest/Exam.jsp").forward( request, response );
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

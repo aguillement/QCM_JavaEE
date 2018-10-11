@@ -1,7 +1,9 @@
-package fr.eni.jee.bll.ManagementTheme;
+package fr.eni.jee.bll.exam;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.jee.bo.Theme;
-import fr.eni.jee.dal.ThemeDAO;
+import fr.eni.jee.bo.Exam;
+import fr.eni.jee.dal.EpreuveDAO;
 
 /**
- * Servlet implementation class CreateTheme
+ * Servlet implementation class SelectExam
  */
-public class CreateTheme extends HttpServlet {
+@WebServlet("/Connected/SelectExam")
+public class SelectExam extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/Restricted/ManagementTheme/CreateTheme.jsp";   
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateTheme() {
+    public SelectExam() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +34,22 @@ public class CreateTheme extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<Exam> exams = new ArrayList<Exam>();
+		try {
+			exams = EpreuveDAO.SearchByUser(3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		request.setAttribute("exams", exams);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageTest/SelectExam.jsp").forward( request, response );
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		
-		Theme theme = new Theme();
-		theme.setLabel(request.getParameter("label"));		
-		
-		try {
-			ThemeDAO.Insert(theme);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
