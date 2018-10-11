@@ -42,7 +42,7 @@ public class AdminFilter implements Filter {
         	}
         	else{
         		/* Redirect to restricted page */
-                response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
+                response.sendRedirect( request.getContextPath() + "/AccessDenied" );
         	}
         }
 
