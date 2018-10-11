@@ -1,3 +1,16 @@
+DECLARE @dbname nvarchar(128)
+SET @dbname = N'QCM_DB'
+
+IF (EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE ('[' + name + ']' = @dbname OR name = @dbname)))
+BEGIN
+	DROP DATABASE QCM_DB
+	CREATE DATABASE QCM_DB
+END
+ELSE
+BEGIN
+	CREATE DATABASE QCM_DB
+END
+
 USE [QCM_DB]
 GO
 
@@ -247,7 +260,7 @@ SET IDENTITY_INSERT [dbo].[TEST] ON
 INSERT [dbo].[TEST] ([id], [label], [statement], [duration], [high_level], [low_level]) VALUES (1, N'Test SQL', N'Test sur le SQL', 120, 16, 10), (2, N'Test JAVA', N'Test sur le JAVA', 30, 16, 10), (3, N'Test PHP', N'Test sur le PHP', 240, 14, 8)
 
 SET IDENTITY_INSERT [dbo].[TEST] OFF
-INSERT [dbo].[THEME] ([id], [label]) VALUES (1, N'SQL'), (2, N'PHP'), (3, N'JAVA'), (4, N'POO')
+INSERT [dbo].[THEME] ([label]) VALUES (N'SQL'), (N'PHP'), (N'JAVA'), (N'POO')
 SET IDENTITY_INSERT [dbo].[USERS] ON 
 
 INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (3, N'Hervé', N'Dupont', N'herve.dupont@gmail.com', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 20, N'1       ')
@@ -270,11 +283,13 @@ ALTER TABLE [dbo].[USERS] ADD  CONSTRAINT [USERS_EMAIL_UQ] UNIQUE NONCLUSTERED
 GO
 ALTER TABLE [dbo].[EXAM]  WITH CHECK ADD  CONSTRAINT [Exam_Candidat_FK] FOREIGN KEY([idUsers])
 REFERENCES [dbo].[USERS] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[EXAM] CHECK CONSTRAINT [Exam_Candidat_FK]
 GO
 ALTER TABLE [dbo].[EXAM]  WITH CHECK ADD  CONSTRAINT [Exam_Test_FK] FOREIGN KEY([idTest])
 REFERENCES [dbo].[TEST] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[EXAM] CHECK CONSTRAINT [Exam_Test_FK]
 GO
@@ -286,6 +301,7 @@ ALTER TABLE [dbo].[PROPOSITION] CHECK CONSTRAINT [Proposition_Question_FK]
 GO
 ALTER TABLE [dbo].[QUESTION]  WITH CHECK ADD  CONSTRAINT [Question_Theme_FK] FOREIGN KEY([idTheme])
 REFERENCES [dbo].[THEME] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[QUESTION] CHECK CONSTRAINT [Question_Theme_FK]
 GO
@@ -297,6 +313,7 @@ ALTER TABLE [dbo].[DRAW_QUESTION] CHECK CONSTRAINT [Draw_Exam_FK]
 GO
 ALTER TABLE [dbo].[DRAW_QUESTION]  WITH CHECK ADD  CONSTRAINT [Draw_Question_FK] FOREIGN KEY([idQuestion])
 REFERENCES [dbo].[QUESTION] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[DRAW_QUESTION] CHECK CONSTRAINT [Draw_Question_FK]
 GO
@@ -319,18 +336,46 @@ ALTER TABLE [dbo].[TEST_SECTION] CHECK CONSTRAINT [Section_Test_FK]
 GO
 ALTER TABLE [dbo].[TEST_SECTION]  WITH CHECK ADD  CONSTRAINT [Section_Theme_FK] FOREIGN KEY([idTheme])
 REFERENCES [dbo].[THEME] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[TEST_SECTION] CHECK CONSTRAINT [Section_Theme_FK]
 GO
 ALTER TABLE [dbo].[USERS]  WITH CHECK ADD  CONSTRAINT [Candidat_Promotion_FK] FOREIGN KEY([idPromotion])
 REFERENCES [dbo].[PROMOTION] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[USERS] CHECK CONSTRAINT [Candidat_Promotion_FK]
 GO
 ALTER TABLE [dbo].[USERS]  WITH CHECK ADD  CONSTRAINT [Utilisateur_Profil_FK] FOREIGN KEY([idProfile])
 REFERENCES [dbo].[PROFILE] ([id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[USERS] CHECK CONSTRAINT [Utilisateur_Profil_FK]
 GO
-ALTER TABLE [dbo].[EXAM]  WITH CHECK ADD CHECK  (([score]='NA' OR [score]='ECA' OR [score]='A'))
+ALTER TABLE [dbo].[EXAM]  WITH CHECK ADD CHECK  (([level]='NA' OR [level]='ECA' OR [level]='A'))
 GO
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Avec une seule requête SQL est-il possible d interroger plusieurs tables à la fois ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Le signe de ponctuation (un seul caractère) désignant la fin d une requête SQL est le ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Comment s appelle l opération de liaison de données permettent d interroger plusieurs tables à la fois ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelles clauses placées après le type de donnée d un champ permettent de vérifier que le contenu de ce champ est unique ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelle est l utilité de l option NOT NULL placée après le type de donnée d un champ ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('À quoi sert la clé primaire d une table (attribut PRIMARY KEY en SQL) ?', NULL, 5, 1)
+
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelles variables superglobales permettent de récupérer des données de formulaire utilisant la méthode GET ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelles fonctions PHP peuvent être utilisés pour connaître les extensions disponibles sur le système ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quel est le nom du niveau d erreur (constante) utilisé pour désigner le code PHP qui ne fonctionnera plus dans des versions futures ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Que signifie PHP ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelle sera la sortie du code suivant ?', NULL, 5, 2)
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu est ce que le polymorphisme ?', NULL, 5, 3)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelle est la différence entre == et equals sur les String en Java ?', NULL, 5, 3)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Différence entre un set et une list?', NULL, 5, 3)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('C est quoi les systèmes d informations', NULL, 5, 3)
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce qu’une association?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Que signifie le concept d’encapsulation?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce que l’état d’un objet?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce qu’un attribut de classe?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce qu’une instance?', NULL, 5, 4)
