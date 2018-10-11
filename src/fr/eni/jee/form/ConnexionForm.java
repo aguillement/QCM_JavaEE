@@ -2,6 +2,7 @@ package fr.eni.jee.form;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,14 +47,25 @@ public final class ConnexionForm {
         } catch ( Exception e ) {
         	setError( INPUT_PASS, e.getMessage() );
         }
+        password = sha256(password);
         user.setPassword( password );
 
-        /* Init message returned */
-        if ( errors.isEmpty() ) {
-        	results = "Succès de la connexion.";            
-        } else {
-        	results = "Échec de la connexion.";
-        }
+        
+        	try {
+        		/* Init message returned */
+                if ( errors.isEmpty() ) {
+                	
+					user = UserDAO.Search(mail, password);
+					results = "Succès de la connexion.";          
+	            } else {
+	            	results = "Échec de la connexion.";
+	            }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				results = "Échec de la connexion.";
+			}
+        	
 
         return user;
     }

@@ -17,7 +17,7 @@ import fr.eni.jee.dal.EpreuveDAO;
 /**
  * Servlet implementation class SelectExam
  */
-@WebServlet("/SelectExam")
+@WebServlet("/Connected/SelectExam")
 public class SelectExam extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,7 +42,7 @@ public class SelectExam extends HttpServlet {
 		}
 		
 		request.setAttribute("exams", exams);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/ManageTest/SelectExam.jsp").forward( request, response );
+		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageTest/SelectExam.jsp").forward( request, response );
 	}
 
 	/**
