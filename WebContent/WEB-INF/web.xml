@@ -3,7 +3,7 @@
   <display-name>QCM_JavaEE</display-name>
   
   <welcome-file-list>
-    <welcome-file>/WEB-INF/connexion.jsp</welcome-file>
+    <welcome-file>connexion</welcome-file>
   </welcome-file-list>
   
   <resource-ref>

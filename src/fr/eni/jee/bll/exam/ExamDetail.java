@@ -18,7 +18,7 @@ import fr.eni.jee.dal.EpreuveDAO;
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/Connected/Exam")
+@WebServlet("/Candidat/Exam")
 public class ExamDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,7 +44,7 @@ public class ExamDetail extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/ManageTest/Exam.jsp").forward( request, response );
+		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageTest/Exam.jsp").forward( request, response );
 	}
 
 	/**

@@ -17,7 +17,7 @@ import fr.eni.jee.dal.EpreuveDAO;
 /**
  * Servlet implementation class SelectExam
  */
-@WebServlet("/Connected/SelectExam")
+@WebServlet("/Candidat/SelectExam")
 public class SelectExam extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
