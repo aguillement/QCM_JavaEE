@@ -8,6 +8,6 @@
 </head>
 <body>
 	Vous devez être connecter pour accèder au site.
-	Retourner à l'<a href="<%=request.getContextPath()%>/connexion">accueil</a>.
+	Retourner à l'<a href="<%=request.getContextPath()%>">accueil</a>.
 </body>
 </html>
