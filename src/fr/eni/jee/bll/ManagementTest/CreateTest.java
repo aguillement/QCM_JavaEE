@@ -15,10 +15,10 @@ import fr.eni.jee.dal.TestDAO;
 /**
  * Servlet implementation class CreateTest
  */
-@WebServlet("/CreateTest")
+@WebServlet("/Formateur/CreateTest")
 public class CreateTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/WEB-INF/Restricted/ManageTest/CreateTest.jsp";
+	private static final String VIEW = "/Former/ManageTest/CreateTest.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()

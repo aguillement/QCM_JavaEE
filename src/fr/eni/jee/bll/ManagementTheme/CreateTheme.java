@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +15,10 @@ import fr.eni.jee.dal.ThemeDAO;
 /**
  * Servlet implementation class CreateTheme
  */
+@WebServlet("/Formateur/createTheme")
 public class CreateTheme extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/Restricted/ManagementTheme/CreateTheme.jsp";   
+	public static final String VUE = "/Former/ManagementTheme/CreateTheme.jsp";   
 	
     /**
      * @see HttpServlet#HttpServlet()

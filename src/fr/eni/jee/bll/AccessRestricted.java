@@ -28,7 +28,7 @@ public class AccessRestricted extends HttpServlet implements Servlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher( "/WEB-INF/accessRestricted.jsp" ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( "/Common/accessRestricted.jsp" ).forward( request, response );
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class AccessRestricted extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher( "/WEB-INF/accessRestricted.jsp" ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( "/Common/accessRestricted.jsp" ).forward( request, response );
 	}
 
 }

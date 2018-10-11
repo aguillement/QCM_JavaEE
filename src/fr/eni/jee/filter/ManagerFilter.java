@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ConnectedFilter implements Filter {
+import fr.eni.jee.bo.User;
+
+public class ManagerFilter implements Filter {
+
 	public void init( FilterConfig config ) throws ServletException {
     }
 
@@ -30,14 +33,22 @@ public class ConnectedFilter implements Filter {
          * Check if the user is connected
          */
         if ( session.getAttribute( "sessionUser" ) == null ) {
-            chain.doFilter( request, response );
+            /* Redirect to restricted page */
+            response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         } else {
-        	/* Redirect to restricted page */
-        	response.sendRedirect( request.getContextPath() + "/Home" );
+        	User user = (User)session.getAttribute( "sessionUser" );
+        	if(user.getIdProfile() == 50){
+        		chain.doFilter( request, response );
+        	}
+        	else{
+        		/* Redirect to restricted page */
+                response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
+        	}
         }
 
 	}
 	
 	public void destroy() {
     }
+
 }
