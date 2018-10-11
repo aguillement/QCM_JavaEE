@@ -18,7 +18,7 @@
 	       <br />
 	       
 	       <label for="statement">Statement</label>
-	       <input type="text" id="statement" name="satement" value=""/>
+	       <input type="text" id="statement" name="statement" value=""/>
 	       <br />
 	       <br />
 	       
@@ -33,7 +33,7 @@
 	       <br />
 	       
 	       <label for="low_level">Low level</label>
-	       <input type="text" id="high_level" name="high_level" value=""/>
+	       <input type="text" id="low_level" name="low_level" value=""/>
 	       <br />
 	       <br />
 	       	
