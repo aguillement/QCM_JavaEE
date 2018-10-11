@@ -6,9 +6,9 @@ public class ExamQuestion {
 	 * Attributes
 	 */
 	private boolean isMarked;
-	private int idQuestion;
+	private Question question;
 	private int orderNumber;
-	private int idExam;
+	private Exam exam;
 	
 	/**
 	 * Constructor
@@ -17,12 +17,12 @@ public class ExamQuestion {
 		super();
 	}
 
-	public ExamQuestion(boolean isMarked, int idQuestion, int orderNumber, int idExam) {
+	public ExamQuestion(boolean isMarked, Question question, int orderNumber, Exam exam) {
 		super();
 		this.isMarked = isMarked;
-		this.idQuestion = idQuestion;
+		this.question = question;
 		this.orderNumber = orderNumber;
-		this.idExam = idExam;
+		this.exam = exam;
 	}
 	
 	/**
@@ -38,12 +38,12 @@ public class ExamQuestion {
 		this.isMarked = isMarked;
 	}
 
-	public int getIdQuestion() {
-		return idQuestion;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setIdQuestion(int idQuestion) {
-		this.idQuestion = idQuestion;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 	public int getOrderNumber() {
@@ -54,11 +54,11 @@ public class ExamQuestion {
 		this.orderNumber = orderNumber;
 	}
 
-	public int getIdExam() {
-		return idExam;
+	public Exam getExam() {
+		return exam;
 	}
 
-	public void setIdExam(int idExam) {
-		this.idExam = idExam;
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
 }
