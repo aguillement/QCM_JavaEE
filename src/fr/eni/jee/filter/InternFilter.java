@@ -42,7 +42,7 @@ public class InternFilter implements Filter {
         	}
         	else{
         		/* Redirect to restricted page */
-                response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
+                response.sendRedirect( request.getContextPath() + "/AccessDenied" );
         	}
         }
 
