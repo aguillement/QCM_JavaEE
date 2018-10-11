@@ -33,7 +33,7 @@ public class Connexion extends HttpServlet {
 
         if ( form.getErrors().isEmpty() ) {
             session.setAttribute( SESSION_USER, user );
-            request.getRequestDispatcher("/Connected/Home").forward( request, response );
+            response.sendRedirect(request.getContextPath() + "/Connected/Home");
         } else {
             session.setAttribute( SESSION_USER, null );
             request.getRequestDispatcher( VIEW ).forward( request, response );

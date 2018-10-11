@@ -44,7 +44,7 @@ public class ExamDetail extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/ManageTest/Exam.jsp").forward( request, response );
+		this.getServletContext().getRequestDispatcher("/WEB-INF/Restricted/ManageTest/Exam.jsp").forward( request, response );
 	}
 
 	/**
