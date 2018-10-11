@@ -42,7 +42,7 @@ public class CandidateFilter implements Filter {
         	}
         	else{
         		/* Redirect to restricted page */
-                response.sendRedirect( request.getContextPath() + "/AccessDenied" );
+                response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         	}
         }
 
