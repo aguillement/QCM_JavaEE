@@ -1,13 +1,13 @@
 CREATE PROCEDURE PROC_GENERATE_QUESTIONS (@IDTest INT)
 AS
 BEGIN
-		SELECT T1.idQuestion, T1.enonce, T1.idTheme, T1.media, T1.points
+		SELECT T1.id, T1.statement, T1.idTheme, T1.media, T1.points
 	FROM(
-    SELECT QUESTION.idQuestion, QUESTION.enonce, QUESTION.idTheme, QUESTION.media, QUESTION.points, SECTION_TEST.nbQuestionsATirer, ROW_NUMBER() OVER (ORDER BY NEWID()) r
+    SELECT QUESTION.id, QUESTION.statement, QUESTION.idTheme, QUESTION.media, QUESTION.points, TEST_SECTION.nbQuestionToDraw, ROW_NUMBER() OVER (ORDER BY NEWID()) r
       	FROM QUESTION
-			JOIN SECTION_TEST ON SECTION_TEST.idTheme = QUESTION.idTheme
-	WHERE SECTION_TEST.idTest = @IDTest	
+			JOIN TEST_SECTION ON TEST_SECTION.idTheme = QUESTION.idTheme
+	WHERE TEST_SECTION.idTest = @IDTest	
 	) AS T1
-	where T1.r <= T1.nbQuestionsATirer; 
+	where T1.r <= T1.nbQuestionToDraw; 
 END
 	
