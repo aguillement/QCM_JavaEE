@@ -1,42 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="../../Common/header.jspf"%>
 <title>Ajouter un candidat</title>
 </head>
 <body>
-	<form
-		action="<%=request.getContextPath()%>/Connected/createUser"
-		name="formAddUser" method="post">
+	<div class="container-fluid">
+		<%@ include file="../../Common/navbar.jspf"%>
+		<div class="row" style="margin-top:20px;">
+			<div class="col-lg-12">
+				<h2>Créer un candidat</h2>
+				<%
+					if (request.getAttribute("isInsert") != null) {
+						if ((boolean) request.getAttribute("isInsert")) {
+				%>
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Succès!</strong>
+					<%=request.getAttribute("message")%>
+				</div>
+				<%
+					} else {
+				%>
+				<div class="alert alert-dismissible alert-primary">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Attention!</strong>
+					<%=request.getAttribute("message")%>
+				</div>
+				<%
+					}
+					}
+				%>
 
-		<div class="form-group">
-			<label for="lastname">Nom :</label> <input class="form-control" type="text"
-				name="tLastname" id="lastname" />
+				<form
+					action="<%=request.getContextPath()%>/Responsable/utilisateur/ajouter"
+					name="formAddUser" method="post">
+					<fieldset>
+						<div class="form-group">
+							<label for="lastname">Nom :</label> <input class="form-control"
+								type="text" name="tLastname" id="lastname" />
+						</div>
+
+						<div class="form-group">
+							<label for="firstname">Prénom :</label> <input
+								class="form-control" type="text" name="tFirstname"
+								id="firstname" />
+						</div>
+
+						<div class="form-group">
+							<label for="mail">Email :</label> <input class="form-control"
+								type="mail" name="tMail" id="mail" />
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-outline-success"
+								name="bSave" value="Enregistrer">Enregistrer</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		</div>
-
-		<div class="form-group">
-			<label for="firstname">PrÃ©nom :</label> <input class="form-control"
-				type="text" name="tFirstname" id="firstname" />
-		</div>
-
-		<div class="form-group">
-			<label for="mail">Email :</label> <input class="form-control"
-				type="mail" name="tMail" id="mail"/>
-		</div>
-
-		<button type="submit" class="col-sm-1 btn btn-default" name="bCancel"
-			value="Annuler">
-			<span class="glyphicon glyphicon-share-alt"></span>Annuler
-		</button>
-		<button type="submit"
-			class="col-sm-1 col-sm-offset-10 btn btn-default" name="bSave"
-			value="Enregistrer">
-			<span class="glyphicon glyphicon-ok"></span>Enregistrer
-		</button>
-		<p class="${empty form.errors ? 'succes' : 'erreur'}">${message}</p>
-
-	</form>
+	</div>
 </body>
 </html>

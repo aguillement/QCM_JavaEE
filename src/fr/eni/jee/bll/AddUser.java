@@ -39,8 +39,8 @@ public class AddUser extends HttpServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher("/Manager/ManageUser/CreateCandidate.jsp")
-				.forward(request, response);
+		this.getServletContext().getRequestDispatcher("/Manager/ManageUser/CreateCandidate.jsp").forward(request,
+				response);
 	}
 
 	/**
@@ -64,10 +64,15 @@ public class AddUser extends HttpServlet implements Servlet {
 
 		/* Check all input and init the user */
 		User newCandidat = form.initUserForm(request);
-		request.setAttribute( "message", form.getResults() );
-		
-		this.getServletContext().getRequestDispatcher("/Manager/ManageUser/CreateCandidate.jsp")
-				.forward(request, response);
+		boolean isInsert = false;
+		if (newCandidat != null) {
+			isInsert = true;
+		}
+		request.setAttribute("isInsert", isInsert);
+		request.setAttribute("message", form.getResults());
+
+		this.getServletContext().getRequestDispatcher("/Manager/ManageUser/CreateCandidate.jsp").forward(request,
+				response);
 
 	}
 
