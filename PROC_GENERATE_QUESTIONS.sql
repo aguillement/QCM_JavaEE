@@ -1,7 +1,6 @@
 CREATE PROCEDURE PROC_GENERATE_QUESTIONS (@IDTest INT, @IDTheme INT)
 AS
 BEGIN
-	
 	SELECT T2.id
 	, T2.statement
 	, T2.idTheme
@@ -39,7 +38,5 @@ BEGIN
 			) AS T1 ON T1.id = QUESTION.id
 		) AS T2 ON T2.id = QUESTION.id
 	WHERE T2.r <= T2.nbQuestionToDraw
-
-
 END
 	

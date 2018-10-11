@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.Question;
 import fr.eni.jee.dal.EpreuveDAO;
+import fr.eni.jee.bo.ExamQuestion;
+import fr.eni.jee.dal.ExamQuestionDAO;
 
 /**
  * Servlet implementation class Exam
@@ -38,6 +40,21 @@ public class ExamDetail extends HttpServlet {
 		int examID = Integer.parseInt(request.getParameter("id"));
 		try {
 			Exam exam = EpreuveDAO.SearchByID(examID);
+			List<Question> questions = new ArrayList<Question>();
+			List<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>();
+			examQuestions = ExamQuestionDAO.SearchByExam(exam.getId());
+ 			
+			if(examQuestions.isEmpty()) {
+				questions = EpreuveDAO.GenerateQuestion(exam.getId());
+				System.out.println(questions);
+				// TODO questions NULL si pas assez en base
+				EpreuveDAO.InsertDrawQuestion(questions, exam);
+			} else {
+				//TODO return already draw question for this exam.id
+				request.setAttribute("examQuestions", examQuestions);
+			}
+			
+ 			request.setAttribute("questions", questions);
 			request.setAttribute("exam", exam);
 			List<Question> question = new ArrayList<Question>();
 		} catch (SQLException e) {
