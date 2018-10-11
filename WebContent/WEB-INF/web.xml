@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>QCM_JavaEE</display-name>
-  
   <welcome-file-list>
     <welcome-file>connexion</welcome-file>
   </welcome-file-list>
-  
   <resource-ref>
     <description>Pool de connexion vers la base BDD_QCM</description>
     <res-ref-name>jdbc/BDD_QCM</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-  
   <session-config>
     <session-timeout>10</session-timeout>
   </session-config>
-  
   <filter>
 	<filter-name>ConnectedFilter</filter-name>
 	<filter-class>fr.eni.jee.filter.ConnectedFilter</filter-class>
@@ -75,37 +71,4 @@
 	<filter-name>AdminFilter</filter-name>
 	<url-pattern>/Admin/*</url-pattern>
   </filter-mapping>
- 
-  <servlet>
-    <servlet-name>Connexion</servlet-name>
-    <servlet-class>fr.eni.jee.bll.Connexion</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Connexion</servlet-name>
-    <url-pattern>/connexion</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>CreateQuestion</servlet-name>
-    <servlet-class>fr.eni.jee.bll.ManagementQuestion.CreateQuestion</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CreateQuestion</servlet-name>
-    <url-pattern>/Connected/createQuestion</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>CreateTheme</servlet-name>
-    <servlet-class>fr.eni.jee.bll.ManagementTheme.CreateTheme</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CreateTheme</servlet-name>
-    <url-pattern>/Connected/createTheme</url-pattern>
-  </servlet-mapping>
-    <servlet>
-    <servlet-name>ShowQuestion</servlet-name>
-    <servlet-class>fr.eni.jee.bll.ManagementQuestion.ShowQuestion</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ShowQuestion</servlet-name>
-    <url-pattern>/Connected/showQuestion</url-pattern>
-  </servlet-mapping>
 </web-app>
