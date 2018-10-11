@@ -1,5 +1,6 @@
 package fr.eni.jee.dal;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class EpreuveDAO {
 	 * Queries
 	 */
 	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
-	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpend, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
+	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONS ?";
 	
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
@@ -120,24 +121,25 @@ public class EpreuveDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private static List<Question> GenerateQuestion(int idExam) throws SQLException{
+	public static List<Question> GenerateQuestion(int idExam) throws SQLException{
 		
 		Connection cnx = null;
-		PreparedStatement rqt = null;
+		CallableStatement callableStatement = null;
 		ResultSet rs = null;
 		List<Question> questionsList = new ArrayList<Question>();
 
 		try{
 			cnx = AccessDB.getConnection();
-			rqt = cnx.prepareStatement(GENERATE_QUESTIONS);
-			rqt.setInt(1, idExam);
-			rs=rqt.executeQuery();
+			callableStatement = cnx.prepareCall("EXEC PROC_GENERATE_QUESTIONS 1");
+			//rqt.setInt(1, idExam);
+			rs=callableStatement.executeQuery();
 
 			while (rs.next()){
 				theme = ThemeDAO.SearchByID(rs.getInt("idTheme"));
-				Question question = null;
+				Question question = new Question();
 				question.setId(rs.getInt("id"));
 				question.setStatement(rs.getString("enonce"));
+				question.setStatement(rs.getString("statement"));
 				question.setMedia(rs.getInt("media"));
 				question.setPoints(rs.getInt("points"));
 				question.setTheme(theme);
@@ -146,13 +148,13 @@ public class EpreuveDAO {
 			}
 			
 		}finally{
-			if (rqt!=null) rqt.close();
+			if (callableStatement!=null) callableStatement.close();
 			if (cnx!=null) cnx.close();
 		}
 		return questionsList;
 	}
 	
-	public static void InsertDrawQuestion(List<Question> questions, int idExam) throws SQLException{
+	public static void InsertDrawQuestion(List<Question> questions, Exam  exam) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
@@ -162,12 +164,12 @@ public class EpreuveDAO {
 			int orderQuestionCounter = 0;
 			for(Question question : questions) {
 				orderQuestionCounter++;
-				ExamQuestion questionExam = new ExamQuestion(false, question.getId(), orderQuestionCounter, idExam);
+				ExamQuestion questionExam = new ExamQuestion(false, question, orderQuestionCounter, exam);
 				rqt = cnx.prepareStatement(INSERT_QUESTION_TIRAGE);
 				rqt.setBoolean(1, questionExam.getIsMarked());
-				rqt.setInt(2, questionExam.getIdQuestion());
+				rqt.setInt(2, questionExam.getQuestion().getId());
 				rqt.setInt(3, questionExam.getOrderNumber());
-				rqt.setInt(4, questionExam.getIdExam());
+				rqt.setInt(4, questionExam.getExam().getId());
 				rqt.executeUpdate();
 			}
 
