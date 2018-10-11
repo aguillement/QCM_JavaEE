@@ -354,3 +354,28 @@ ALTER TABLE [dbo].[USERS] CHECK CONSTRAINT [Utilisateur_Profil_FK]
 GO
 ALTER TABLE [dbo].[EXAM]  WITH CHECK ADD CHECK  (([level]='NA' OR [level]='ECA' OR [level]='A'))
 GO
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Avec une seule requête SQL est-il possible d interroger plusieurs tables à la fois ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Le signe de ponctuation (un seul caractère) désignant la fin d une requête SQL est le ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Comment s appelle l opération de liaison de données permettent d interroger plusieurs tables à la fois ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelles clauses placées après le type de donnée d un champ permettent de vérifier que le contenu de ce champ est unique ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelle est l utilité de l option NOT NULL placée après le type de donnée d un champ ?', NULL, 5, 1)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('À quoi sert la clé primaire d une table (attribut PRIMARY KEY en SQL) ?', NULL, 5, 1)
+
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelles variables superglobales permettent de récupérer des données de formulaire utilisant la méthode GET ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelles fonctions PHP peuvent être utilisés pour connaître les extensions disponibles sur le système ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quel est le nom du niveau d erreur (constante) utilisé pour désigner le code PHP qui ne fonctionnera plus dans des versions futures ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Que signifie PHP ?', NULL, 5, 2)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelle sera la sortie du code suivant ?', NULL, 5, 2)
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu est ce que le polymorphisme ?', NULL, 5, 3)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Quelle est la différence entre == et equals sur les String en Java ?', NULL, 5, 3)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Différence entre un set et une list?', NULL, 5, 3)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('C est quoi les systèmes d informations', NULL, 5, 3)
+
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce qu’une association?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Que signifie le concept d’encapsulation?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce que l’état d’un objet?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce qu’un attribut de classe?', NULL, 5, 4)
+INSERT INTO QUESTION (statement, media, points, idTheme) VALUES ('Qu’est-ce qu’une instance?', NULL, 5, 4)
