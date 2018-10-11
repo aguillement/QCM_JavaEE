@@ -1,58 +1,54 @@
-<div class="container-fluid">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="<%=request.getContextPath()%>/Home">Test</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarColor03" aria-controls="navbarColor03"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<%@ page language="java"
-    	 import ="fr.eni.jee.bo.*"
-		%>
-		<% User user = (User)request.getSession().getAttribute("sessionUser");String role = null; %>
-		<div class="collapse navbar-collapse" id="navbarColor03">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="<%=request.getContextPath()%>/Home">Test</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarColor03" aria-controls="navbarColor03"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<%@ page language="java" import="fr.eni.jee.bo.*"%>
+	<%
+		User user = (User) request.getSession().getAttribute("sessionUser");
+		String role = null;
+	%>
+	<div class="collapse navbar-collapse" id="navbarColor03">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active"><a class="nav-link"
 				href="<%=request.getContextPath()%>/Home">Accueil </a></li>
-				<%    
-	   			if(user.getIdProfile() == 10){
-	   				role = "Candidat libre";
-	  			%>
-	  				<%@ include file="./Navbars/navbar_free.jspf"%>
-	  			<%    
-	   			}
-	   			else if(user.getIdProfile() == 20){
-	   				role = "Stagiaire";
-	  			%>
-	  				<%@ include file="./Navbars/navbar_intern.jspf"%>
-	  			<%    
-	   			}
-	   			else if(user.getIdProfile() == 30){
-	   				role = "Formateur";
-	  			%>
-	  				<%@ include file="./Navbars/navbar_former.jspf"%>
-	  			<%    
-	   			}
-	   			else if(user.getIdProfile() == 40){
-	   				role = "Administrateur";
-	  			%>
-	  				<%@ include file="./Navbars/navbar_admin.jspf"%>
-	  			<%    
-	   			}
-	   			else if(user.getIdProfile() == 50){
-	   				role = "Responsable";
-	  			%>
-	  				<%@ include file="./Navbars/navbar_manager.jspf"%>
-	  			<%    
-	   			}
-	  			%>
-  			</ul>
-  			<div class="my-2 my-sm-0" style="text-align: center;">
-  				<p style="margin-bottom: 0;">Connecté en tant que :</p>
-  				<b><%= role %></b>
-  			</div>
-  			<a class="nav-link my-2 my-sm-0"
-				href="<%=request.getContextPath()%>/Logout">Déconnexion</a>
+			<%
+				if (user.getIdProfile() == 10) {
+					role = "Candidat libre";
+			%>
+			<%@ include file="./Navbars/navbar_free.jspf"%>
+			<%
+				} else if (user.getIdProfile() == 20) {
+					role = "Stagiaire";
+			%>
+			<%@ include file="./Navbars/navbar_intern.jspf"%>
+			<%
+				} else if (user.getIdProfile() == 30) {
+					role = "Formateur";
+			%>
+			<%@ include file="./Navbars/navbar_former.jspf"%>
+			<%
+				} else if (user.getIdProfile() == 40) {
+					role = "Administrateur";
+			%>
+			<%@ include file="./Navbars/navbar_admin.jspf"%>
+			<%
+				} else if (user.getIdProfile() == 50) {
+					role = "Responsable";
+			%>
+			<%@ include file="./Navbars/navbar_manager.jspf"%>
+			<%
+				}
+			%>
+		</ul>
+		<div class="my-2 my-sm-0" style="text-align: center;">
+			<p style="margin-bottom: 0;">Connecté en tant que :</p>
+			<b><%=role%></b>
 		</div>
-	</nav>
-</div>
+		<a class="nav-link my-2 my-sm-0"
+			href="<%=request.getContextPath()%>/Logout">Déconnexion</a>
+	</div>
+</nav>
