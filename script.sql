@@ -1,3 +1,16 @@
+DECLARE @dbname nvarchar(128)
+SET @dbname = N'QCM_DB'
+
+IF (EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE ('[' + name + ']' = @dbname OR name = @dbname)))
+BEGIN
+	DROP DATABASE QCM_DB
+	CREATE DATABASE QCM_DB
+END
+ELSE
+BEGIN
+	CREATE DATABASE QCM_DB
+END
+
 USE [QCM_DB]
 GO
 
