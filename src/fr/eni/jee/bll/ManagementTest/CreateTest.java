@@ -1,9 +1,7 @@
-package fr.eni.jee.bll.ManagementQuestion;
+package fr.eni.jee.bll.ManagementTest;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.jee.bo.Question;
-import fr.eni.jee.dal.QuestionDAO;
+import fr.eni.jee.bo.Test;
+import fr.eni.jee.dal.TestDAO;
 
 /**
- * Servlet implementation class ShowQuestion
+ * Servlet implementation class CreateTest
  */
-@WebServlet("/Formateur/showQuestion")
-public class ShowQuestion extends HttpServlet {
+@WebServlet("/Formateur/CreateTest")
+public class CreateTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/Former/ManagementQuestion/QuestionView.jsp";
+	private static final String VIEW = "/Former/ManageTest/CreateTest.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowQuestion() {
+    public CreateTest() {
         super();
     }
 
@@ -34,16 +32,6 @@ public class ShowQuestion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Question> lstQuestion = new ArrayList<Question>();
-		
-		try {
-			lstQuestion = QuestionDAO.GetAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("lstQuestion", lstQuestion);
-		
 		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
 	}
 
@@ -51,6 +39,19 @@ public class ShowQuestion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Test test = new Test();
+		test.setLabel(request.getParameter("label"));
+		test.setStatement(request.getParameter("statement"));
+		test.setDuration(Integer.parseInt(request.getParameter("duration")));
+		test.setHigh_level(Integer.parseInt(request.getParameter("high_level")));
+		test.setLow_level(Integer.parseInt(request.getParameter("low_level")));
+		
+		try {
+			TestDAO.Insert(test);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
 	}

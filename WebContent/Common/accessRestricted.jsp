@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Accueil</title>
+<title>Accès restreint</title>
 </head>
 <body>
-	Home page
+	Vous devez être connecter pour accèder au site.
+	Retourner à l'<a href="<%=request.getContextPath()%>">accueil</a>.
 </body>
 </html>
