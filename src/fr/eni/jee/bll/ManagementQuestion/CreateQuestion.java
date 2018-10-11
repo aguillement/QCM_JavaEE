@@ -20,7 +20,7 @@ import fr.eni.jee.dal.ThemeDAO;
  */
 public class CreateQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/Restricted/ManagementQuestion/CreateQuestion.jsp";   
+	public static final String VIEW = "/WEB-INF/Restricted/ManagementQuestion/CreateQuestion.jsp";   
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,7 +45,7 @@ public class CreateQuestion extends HttpServlet {
 		
 		request.setAttribute("lstTheme", lstTheme);
 		
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class CreateQuestion extends HttpServlet {
 		
 		request.setAttribute("lstTheme", lstTheme);
 		
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
 	}
 	
 }

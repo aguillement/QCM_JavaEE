@@ -10,13 +10,26 @@
 </head>
 <body>
 
+	<table>
+	   	<tr>
+       <td>Statement</td>
+       <td>Media</td>
+       <td>Points</td>
+       <td>Theme</td>
+   	</tr>
   <%    
    	List<Question> lstQuestion = (List<Question>)request.getAttribute("lstQuestion");	    	
 	for(Question question : lstQuestion) {
   %>
-	 <a href="#"><%=question.getStatement()%></a>
-	 <br>
-	 <br>
+	
+   	<tr>
+       <td><%= question.getStatement() %></td>
+       <td><%= question.getMedia() %></td>
+        <td><%= question.getPoints() %></td>
+       <td><%= question.getTheme().getLabel() %></td>
+   	</tr>
+	
   <% } %>
+  </table>
 </body>
 </html>
