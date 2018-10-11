@@ -1,16 +1,18 @@
 <%@ include file="header.jspf"%>
-<title>Accès restreint</title>
+<title>Accès refusé</title>
 </head>
 <body>
 	<div class="container-fluid">
-		<%@ include file="./Navbars/navbar_noConnected.jspf"%>
+		<%@ include file="navbar.jspf"%>
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-lg-12">
-				<h2>Accès restreint</h2>
-				Vous devez être connecter pour accèder au site. Retourner à l'<a
+				<h2>Accès refusé</h2>
+				Vous devez avoir les drois pour pouvoir accèder à cette
+				fonctionnalité. Retourner à l' <a
 					href="<%=request.getContextPath()%>">accueil</a>.
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
