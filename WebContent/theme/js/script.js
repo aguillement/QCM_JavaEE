@@ -1,48 +1,55 @@
-// SET DATE
-var countDownDate = new Date("2018-10-12 15:37:25").getTime();
 
-//
+var timeleft = (120) * 60
+// TODO var examID = examID
+var sendLast = false;
+
 var counterJS = setInterval(function() {
+	timeLeft--;
+	var hours = 0;
+	var min = parseInt(timeLeft / 60, 10);
+	var sec = parseInt(timeLeft % 60, 10);
+	// dureeRestante = dureeRestante * 60;
 
-	// Get todays date and time
-	var now = new Date().getTime();
+	while (min >= 60) {
+		min -= 60;
+		hours++;
+	}
 
-	// Find the distance between now and the count down date
-	var distance = countDownDate - now;
-
-	// Time calculations for days, hours, minutes and seconds
-	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24))
-			/ (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	if (min == -1) {
+		min = 58;
+		hours--;
+	}
 
 	// Display the result in the element with id="demo"
-	document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-			+ minutes + "m " + seconds + "s ";
+	document.getElementById("compteur").innerHTML = hours + "h " + min + "m " + sec
+			+ "s ";
 
 	// If the count down is finished, write some text
-	if (distance < 0) {
-		clearInterval(x);
-		document.getElementById("demo").innerHTML = "Fin du test";
+	if (timeLeft <= 0) {
+		clearInterval(counterJS);
+		document.getElementById("compteur").innerHTML = "Temps écoulé";
+		$("#anchorBlock").css("display", "block");
 	}
 }, 1000);
 
-
 var counterSaveDB = setInterval(function() {
-	// Get todays date and time
-	var now = new Date().getTime();
+	// Add 1 to timeSpend in database
+	if ($("#demo").text() == "Temps écoulé" && !sendLast) {
+		sendLast = true;
+		$.ajax({
+			type : "POST",
+			url : "/QCM_JavaEE/Candidate/AjaxSaveExam",
+			data : {examID: examID, finished: true},
+			datatype : "html"
+		});
+		
+	} else if($("#demo").text() != "Temps écoulé") {
+		$.ajax({
+			type : "POST",
+			url : "/QCM_JavaEE/Candidate/AjaxSaveExam",
+			data : "examID=" + examID,
+			datatype : "html"
+		});
+	}
 
-	// Find the distance between now and the count down date
-	var distance = countDownDate - now;
-
-	// Time calculations for days, hours, minutes and seconds
-	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24))
-			/ (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-	//CALL AJAX
-	
 }, 60000);
