@@ -28,7 +28,7 @@ public class EpreuveDAO {
 	 */
 	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
-	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONS ?";
+	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
 	
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
 	
@@ -121,7 +121,7 @@ public class EpreuveDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<Question> GenerateQuestion(int idExam) throws SQLException{
+	public static List<Question> GenerateQuestion(Exam exam) throws SQLException{
 		
 		Connection cnx = null;
 		CallableStatement callableStatement = null;
@@ -130,10 +130,10 @@ public class EpreuveDAO {
 
 		try{
 			cnx = AccessDB.getConnection();
-			callableStatement = cnx.prepareCall(GENERATE_QUESTIONS);
-			callableStatement.setInt(1, idExam);
-			rs=callableStatement.executeQuery();
-
+			callableStatement = cnx.prepareCall("{call PROC_GENERATE_QUESTIONSV2(?)}");
+			callableStatement.setInt(1, exam.getTest().getId());
+			rs = callableStatement.executeQuery();
+			
 			while (rs.next()){
 				theme = ThemeDAO.SearchByID(rs.getInt("idTheme"));
 				Question question = new Question();

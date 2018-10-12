@@ -9,10 +9,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>OUI</title>
+<title>Épreuve</title>
 </head>
 <body>
  	<%
+ 		Exam exam = (Exam)request.getAttribute("exam");
+ 		out.print("Date debut : " + exam.getStartDate());
+ 		out.print("<br>");
+ 		out.print("Date fin : " + exam.getEndDate());
+ 		out.print("<br>");
+ 		out.print("Durée : " + exam.getTest().getDuration());
+ 		out.print("<br>");
+ 		out.print("Libellé : " + exam.getTest().getLabel());
+ 		out.print("<br>");
+ 		
 		if (null == request.getAttribute("examQuestions")) {
 			List<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
  			for (Question question : questions) {
