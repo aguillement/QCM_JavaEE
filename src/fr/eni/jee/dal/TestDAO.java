@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ExamQuestion;
+import fr.eni.jee.bo.Question;
 import fr.eni.jee.bo.Test;
 import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
@@ -16,6 +17,8 @@ public class TestDAO {
 	
 	private static final String SEARCH_BY_ID = "SELECT id, label, statement, duration, high_level, low_level FROM TEST WHERE id=?";
 	private static final String INSERT = "INSERT INTO TEST (label, statement, duration, high_level, low_level) VALUES (?, ?, ?, ?, ?)";
+	private static final String DELETE_BY_ID = "DELETE FROM TEST WHERE id=?";
+	private final static String UPDATE_BY_ID = "UPDATE TEST SET label =?, statement =?, duration=?, high_level=?, low_level=? WHERE id=?";
 	
 	public static Test SearchByID(int testID) throws SQLException{
 		Connection cnx = null;
@@ -68,5 +71,45 @@ public class TestDAO {
             }
         }
 		return test;
+	}
+	
+	public static void Delete(Test test) throws SQLException{
+		
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		
+		try{
+			cnx = AccessDB.getConnection();			 
+			
+			rqt = cnx.prepareStatement(DELETE_BY_ID);			
+			rqt.setInt(1, test.getId());			
+			rqt.executeUpdate();		
+		}	
+		finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+	}
+	
+	private static void Update(Test test) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		
+		try{
+			cnx = AccessDB.getConnection();			 
+			
+			rqt = cnx.prepareStatement(UPDATE_BY_ID);			
+			rqt.setString(1, test.getLabel());
+			rqt.setString(2, test.getStatement());
+			rqt.setInt(3, test.getDuration());
+			rqt.setInt(4, test.getHigh_level());
+			rqt.setInt(5, test.getLow_level());
+			rqt.setInt(5, test.getId());
+			rqt.executeUpdate();		
+		}	
+		finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
 	}
 }
