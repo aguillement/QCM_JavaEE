@@ -1,4 +1,5 @@
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="<%=request.getContextPath()%>/Home">Test</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -6,49 +7,39 @@
 		aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<%@ page language="java" import="fr.eni.jee.bo.*"%>
-	<%
-		User user = (User) request.getSession().getAttribute("sessionUser");
-		String role = null;
-	%>
 	<div class="collapse navbar-collapse" id="navbarColor03">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link"
-				href="<%=request.getContextPath()%>/Home">Accueil </a></li>
-			<%
-				if (user.getIdProfile() == 10) {
-					role = "Candidat libre";
-			%>
-			<%@ include file="./Navbars/navbar_free.jspf"%>
-			<%
-				} else if (user.getIdProfile() == 20) {
-					role = "Stagiaire";
-			%>
-			<%@ include file="./Navbars/navbar_intern.jspf"%>
-			<%
-				} else if (user.getIdProfile() == 30) {
-					role = "Formateur";
-			%>
-			<%@ include file="./Navbars/navbar_former.jspf"%>
-			<%
-				} else if (user.getIdProfile() == 40) {
-					role = "Administrateur";
-			%>
-			<%@ include file="./Navbars/navbar_admin.jspf"%>
-			<%
-				} else if (user.getIdProfile() == 50) {
-					role = "Responsable";
-			%>
-			<%@ include file="./Navbars/navbar_manager.jspf"%>
-			<%
-				}
-			%>
+				href="<c:out value="${pageContext.servletContext.contextPath}" />/Home">Accueil
+			</a></li>
+			<c:choose>
+				<c:when test="${ sessionScope.sessionUser.idProfile == 10}">
+					<%@ include file="./Navbars/navbar_free.jspf"%>
+					<c:set var="role" value="Candidat libre" scope="page" />
+				</c:when>
+				<c:when test="${ sessionScope.sessionUser.idProfile == 20}">
+					<%@ include file="./Navbars/navbar_intern.jspf"%>
+					<c:set var="role" value="Stagiaire" scope="page" />
+				</c:when>
+				<c:when test="${ sessionScope.sessionUser.idProfile == 30}">
+					<%@ include file="./Navbars/navbar_former.jspf"%>
+					<c:set var="role" value="Formateur" scope="page" />
+				</c:when>
+				<c:when test="${ sessionScope.sessionUser.idProfile == 40}">
+					<%@ include file="./Navbars/navbar_admin.jspf"%>
+					<c:set var="role" value="Administrateur" scope="page" />
+				</c:when>
+				<c:when test="${ sessionScope.sessionUser.idProfile == 50}">
+					<%@ include file="./Navbars/navbar_manager.jspf"%>
+					<c:set var="role" value="Responsable" scope="page" />
+				</c:when>
+			</c:choose>
 		</ul>
 		<div class="my-2 my-sm-0" style="text-align: center;">
 			<p style="margin-bottom: 0;">Connecté en tant que :</p>
-			<b><%=role%></b>
+			<b><c:out value='${pageScope.role}' /></b>
 		</div>
 		<a class="nav-link my-2 my-sm-0"
-			href="<%=request.getContextPath()%>/Logout">Déconnexion</a>
+			href="<c:out value="${pageContext.servletContext.contextPath}" />/Logout">Déconnexion</a>
 	</div>
 </nav>
