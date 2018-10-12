@@ -2,7 +2,6 @@ package fr.eni.jee.bll;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,9 @@ import fr.eni.jee.form.ConnexionForm;
 
 @WebServlet("/connexion")
 public class Connexion extends HttpServlet {
-    public static final String USER = "user";
+
+	private static final long serialVersionUID = 1L;
+	public static final String USER = "user";
     public static final String FORM = "form";
     public static final String SESSION_USER = "sessionUser";
     public static final String VIEW = "/WEB-INF/connexion.jsp";

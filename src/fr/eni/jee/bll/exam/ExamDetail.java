@@ -56,7 +56,6 @@ public class ExamDetail extends HttpServlet {
 			
  			request.setAttribute("questions", questions);
 			request.setAttribute("exam", exam);
-			List<Question> question = new ArrayList<Question>();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

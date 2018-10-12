@@ -1,6 +1,5 @@
 package fr.eni.jee.form;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.HashMap;
