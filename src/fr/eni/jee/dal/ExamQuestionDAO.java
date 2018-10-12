@@ -18,6 +18,7 @@ public class ExamQuestionDAO {
 	
 	private final static String INSERT = "INSERT INTO DRAW_QUESTION (isMarked, idQuestion, orderNumber, idExam) values (?,?,?,?)";
 	private final static String HAS_GENERATED_QUESTIONS = "SELECT idQuestion, idExam, orderNumber, isMarked FROM DRAW_QUESTION WHERE idExam = ?";
+
 	
 	public static ExamQuestion Insert(ExamQuestion question) throws SQLException{
 		Connection cnx=null;
@@ -54,16 +55,13 @@ public class ExamQuestionDAO {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
-
-		List<ExamQuestion> questionsList = new ArrayList<ExamQuestion>();
-
-		try{
+ 		List<ExamQuestion> questionsList = new ArrayList<ExamQuestion>();
+ 		try{
 			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(HAS_GENERATED_QUESTIONS);
 			rqt.setInt(1, examID);
 			rs=rqt.executeQuery();
-
-			while(rs.next()){
+ 			while(rs.next()){
 				ExamQuestion examQuestion = new ExamQuestion();
 				examQuestion.setExam(EpreuveDAO.SearchByID(rs.getInt("idExam")));
 				examQuestion.setQuestion(QuestionDAO.SearchByID(rs.getInt("idQuestion")));
@@ -78,7 +76,4 @@ public class ExamQuestionDAO {
 		}
 		return questionsList;
 	}
-
 }
-
-	
