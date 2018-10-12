@@ -17,11 +17,8 @@ public class QuestionDAO {
 
 	private static final String INSERT = "INSERT INTO QUESTION (statement, media, points, idTheme) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL = "SELECT id, statement, media, points, idTheme FROM QUESTION";
-<<<<<<< Updated upstream
 	private static final String SEARCH_BY_ID = "SELECT id, statement, media, points, idTheme FROM QUESTION WHERE id=?";
-=======
 	private static final String DELETE_BY_ID = "DELETE FROM QUESTION WHERE id =?";
->>>>>>> Stashed changes
 	
 	public static Question Insert(Question question) throws SQLException{
 		Connection cnx=null;
@@ -95,7 +92,6 @@ public class QuestionDAO {
 		return lstQuestion;
 	}
 	
-<<<<<<< Updated upstream
 	public static Question SearchByID(int questionID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
@@ -106,6 +102,7 @@ public class QuestionDAO {
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
 			rqt.setInt(1, questionID);
 			rs=rqt.executeQuery();
+			
  			while(rs.next()){
 				question.setId(rs.getInt("id"));
 				question.setMedia(rs.getInt("media"));
@@ -113,7 +110,14 @@ public class QuestionDAO {
 				question.setStatement(rs.getString("statement"));
 				question.setTheme(ThemeDAO.SearchByID(rs.getInt("idTheme")));
 			}
-=======
+ 			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return question;
+	}
+	
 	public static void Delete(Question question) throws SQLException{
 		
 		Connection cnx = null;
@@ -125,17 +129,10 @@ public class QuestionDAO {
 			rqt = cnx.prepareStatement(DELETE_BY_ID);			
 			rqt.setInt(1, question.getId());			
 			rqt.executeUpdate();		
-			
->>>>>>> Stashed changes
-		
-		}finally{
+		}	
+		finally{
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
-<<<<<<< Updated upstream
 		}
-		return question;
-=======
-		}		
->>>>>>> Stashed changes
 	}
 }
