@@ -39,6 +39,7 @@ public class PassExam extends HttpServlet {
 		int examID = Integer.parseInt(request.getParameter("id"));
 		try {
 			Exam exam = EpreuveDAO.SearchByID(examID);
+			request.setAttribute("exam", exam);
 			
 			/**
 			 * Récupération des questions
