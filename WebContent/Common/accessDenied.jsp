@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="header.jspf"%>
 <title>Accès refusé</title>
 </head>
@@ -9,7 +11,7 @@
 				<h2>Accès refusé</h2>
 				Vous devez avoir les drois pour pouvoir accèder à cette
 				fonctionnalité. Retourner à l' <a
-					href="<%=request.getContextPath()%>">accueil</a>.
+					href="<c:out value="${pageContext.servletContext.contextPath}" />">accueil</a>.
 			</div>
 		</div>
 	</div>
