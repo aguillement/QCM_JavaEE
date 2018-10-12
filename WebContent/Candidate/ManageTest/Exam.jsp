@@ -22,20 +22,6 @@
  		out.print("<br>");
  		out.print("Libellé : " + exam.getTest().getLabel());
  		out.print("<br>");
- 		
-		if (null == request.getAttribute("examQuestions")) {
-			List<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
- 			for (Question question : questions) {
-				out.print(question.getStatement());
-				out.print("<br>");
-			}
-		} else {
-			List<ExamQuestion> questions = (ArrayList<ExamQuestion>) request.getAttribute("examQuestions");
- 			for (ExamQuestion question : questions) {
-				out.print(question.getQuestion().getStatement());
-				out.print("<br>");
-			}
-		}
 	%>
  </body>
 </html> 
