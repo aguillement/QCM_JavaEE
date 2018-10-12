@@ -71,6 +71,12 @@
 						<p class="lead">
 							<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
 						</p>
+						<input type="hidden" id="timeSpent"
+							value="<c:out value="${sessionScope.exam.timeSpent}" />" /> <input
+							type="hidden" id="duration"
+							value="<c:out value="${sessionScope.exam.test.duration}" />" />
+						<input type="hidden" id="examID"
+							value="<c:out value="${sessionScope.exam.id}" />" />
 					</form>
 				</div>
 				<div class="text-right">
@@ -81,5 +87,9 @@
 			<div id="compteur"></div>
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/js/script.js">
+		
+	</script>
 </body>
 </html>
