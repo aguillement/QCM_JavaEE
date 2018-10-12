@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class UpdateTheme
  */
-@WebServlet("Formateur/updateTheme")
+@WebServlet("Formateur/UpdateTheme")
 public class UpdateTheme extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
