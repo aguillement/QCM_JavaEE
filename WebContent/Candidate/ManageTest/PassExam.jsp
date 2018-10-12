@@ -3,7 +3,6 @@
 </head>
 <body>
 <%@ include file="../../Common/navbar.jspf"%>
-<div id="demo"></div>
-<div id="demo2"></div>
+<div id="compteur"></div>
 </body>
 </html>
