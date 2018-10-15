@@ -8,7 +8,9 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.eni.jee.bo.Profile;
 import fr.eni.jee.bo.User;
+import fr.eni.jee.dal.ProfileDAO;
 import fr.eni.jee.dal.UserDAO;
 
 public class AddCandidatForm {
@@ -71,7 +73,14 @@ public class AddCandidatForm {
 		}
 		candidat.setLastname(lastname);
 
-		candidat.setIdProfile(VALUE_PROFILE);
+		Profile profile;
+		try {
+			profile = ProfileDAO.SearchByID(VALUE_PROFILE);
+			candidat.setProfile(profile);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			/* Check if the user is valid or not */

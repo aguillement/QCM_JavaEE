@@ -37,7 +37,7 @@ public class CandidateFilter implements Filter {
             response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         } else {
         	User user = (User)session.getAttribute( "sessionUser" );
-        	if(user.getIdProfile() == 10 || user.getIdProfile() == 20){
+        	if(user.getProfile().getId() == 10 || user.getProfile().getId() == 20){
         		chain.doFilter( request, response );
         	}
         	else{
