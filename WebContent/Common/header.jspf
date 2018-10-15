@@ -17,6 +17,3 @@
 <script type="text/javascript"
 	src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/bootstrap/js/bootstrap.min.js">
 </script>
-<script type="text/javascript"
-	src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/js/script.js">
-</script>

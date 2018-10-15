@@ -1,27 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="fr.eni.jee.bo.Question"%>
-<%@page import="fr.eni.jee.bo.Exam"%>
-<%@page import="fr.eni.jee.bo.ExamQuestion"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>√âpreuve</title>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../../Common/header.jspf"%>
+<title>…preuve</title>
 </head>
 <body>
- 	<%
- 		Exam exam = (Exam)request.getAttribute("exam");
- 		out.print("Date debut : " + exam.getStartDate());
- 		out.print("<br>");
- 		out.print("Date fin : " + exam.getEndDate());
- 		out.print("<br>");
- 		out.print("Dur√©e : " + exam.getTest().getDuration());
- 		out.print("<br>");
- 		out.print("Libell√© : " + exam.getTest().getLabel());
- 		out.print("<br>");
-	%>
- </body>
-</html> 
+	<div class="container-fluid">
+		<%@ include file="../../Common/navbar.jspf"%>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-lg-12">
+				<div class="jumbotron">
+					<h1 class="display-3 text-center">
+						<c:out value="${requestScope.exam.test.label}" />
+					</h1>
+					<p class="lead text-center">
+						DurÈe :
+						<c:out value="${requestScope.exam.test.duration}" />
+						minutes
+					</p>
+					<hr class="my-4">
+					<p class="text-center">
+						<c:out value="${requestScope.exam.test.statement}" />
+					</p>
+					<p class="lead text-center">
+						<a class="btn btn-primary btn-lg"
+							href="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/PassExam?id=<c:out value="${requestScope.exam.id}" />"
+							role="button">Commencer le test</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

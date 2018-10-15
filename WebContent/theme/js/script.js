@@ -1,6 +1,5 @@
-
-var timeleft = (120) * 60
-// TODO var examID = examID
+var timeLeft = (parseInt($('#duration').val()) - parseInt($('#timeSpent').val())) * 60
+var examID = $('#examID').val();
 var sendLast = false;
 
 var counterJS = setInterval(function() {

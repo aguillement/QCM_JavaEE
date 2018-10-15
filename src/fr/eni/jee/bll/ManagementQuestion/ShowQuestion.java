@@ -20,7 +20,7 @@ import fr.eni.jee.dal.QuestionDAO;
 @WebServlet("/Formateur/showQuestion")
 public class ShowQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/Former/ManagementQuestion/QuestionView.jsp";
+	private static final String VIEW = "/Former/ManagementQuestion/ListQuestion.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
