@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.jee.bo.Profile;
+import fr.eni.jee.bo.Promotion;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.util.AccessDB;
 
@@ -31,14 +33,16 @@ public class UserDAO {
 			rs=rqt.executeQuery();
 
 			if (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
 				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
 				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setIdProfile(rs.getInt("idProfile"));
-				user.setIdPromotion(rs.getInt("idPromotion"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
 			}
 			
 		}finally{
@@ -61,14 +65,17 @@ public class UserDAO {
 			rs=rqt.executeQuery();
 			
 			if (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
+				System.out.println(promo);
 				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
 				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setIdProfile(rs.getInt("idProfile"));
-				user.setIdPromotion(rs.getInt("idPromotion"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
 			}
 			
 		}finally{
@@ -91,9 +98,9 @@ public class UserDAO {
 			rqt.setString(2, user.getFirstname());
 			rqt.setString(3, user.getMail());
 			rqt.setString(4, user.getPassword());
-			rqt.setInt(5, user.getIdProfile());
-			if(user.getIdPromotion() > 0){
-				rqt.setInt(6, user.getIdPromotion());
+			rqt.setInt(5, user.getProfile().getId());
+			if(user.getPromotion().getId() > 0){
+				rqt.setInt(6, user.getPromotion().getId());
 			}
 			else{
 				rqt.setString(6, null);
@@ -134,8 +141,8 @@ public class UserDAO {
 			rqt.setString(2, user.getFirstname());
 			rqt.setString(3, user.getMail());
 			rqt.setString(4, user.getPassword());
-			rqt.setInt(5, user.getIdProfile());
-			rqt.setInt(6, user.getIdPromotion());
+			rqt.setInt(5, user.getProfile().getId());
+			rqt.setInt(6, user.getPromotion().getId());
 			rqt.setInt(7, user.getId());
 			rqt.executeUpdate();
 		}finally{
@@ -171,14 +178,16 @@ public class UserDAO {
 			rs=rqt.executeQuery();
 			
 			while (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
 				User user = new User();
 				user.setId(rs.getInt("id"));
 				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
 				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setIdProfile(rs.getInt("idProfile"));
-				user.setIdPromotion(rs.getInt("idPromotion"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
 				
 				usersList.add(user);
 			}

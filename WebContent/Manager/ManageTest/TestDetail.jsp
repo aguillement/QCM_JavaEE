@@ -6,11 +6,13 @@
 <body>
 	<%@ include file="../../Common/navbar.jspf"%>
 
-	<ol>
-		<c:forEach items="${requestScope.tests}" var="test">
-			<li><a href="test/ajouter?id=${test.getId()}">${test.getLabel()} - ${test.getStatement()}</a>
-			</li>
-		</c:forEach>
-	</ol>
+	${test.getLabel()} - ${test.getStatement()}
+
+	<c:forEach items="${requestScope.promos}" var="promo">
+		<li>
+			${promo.getLabel()}
+		<li>
+	</c:forEach>
+
 </body>
 </html>

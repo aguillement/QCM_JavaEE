@@ -13,23 +13,23 @@
 				href="<c:out value="${pageContext.servletContext.contextPath}" />/Home">Accueil
 			</a></li>
 			<c:choose>
-				<c:when test="${ sessionScope.sessionUser.idProfile == 10}">
+				<c:when test="${ sessionScope.sessionUser.profile.id == 10}">
 					<%@ include file="./Navbars/navbar_free.jspf"%>
 					<c:set var="role" value="Candidat libre" scope="page" />
 				</c:when>
-				<c:when test="${ sessionScope.sessionUser.idProfile == 20}">
+				<c:when test="${ sessionScope.sessionUser.profile.id == 20}">
 					<%@ include file="./Navbars/navbar_intern.jspf"%>
 					<c:set var="role" value="Stagiaire" scope="page" />
 				</c:when>
-				<c:when test="${ sessionScope.sessionUser.idProfile == 30}">
+				<c:when test="${ sessionScope.sessionUser.profile.id == 30}">
 					<%@ include file="./Navbars/navbar_former.jspf"%>
 					<c:set var="role" value="Formateur" scope="page" />
 				</c:when>
-				<c:when test="${ sessionScope.sessionUser.idProfile == 40}">
+				<c:when test="${ sessionScope.sessionUser.profile.id == 40}">
 					<%@ include file="./Navbars/navbar_admin.jspf"%>
 					<c:set var="role" value="Administrateur" scope="page" />
 				</c:when>
-				<c:when test="${ sessionScope.sessionUser.idProfile == 50}">
+				<c:when test="${ sessionScope.sessionUser.profile.id == 50}">
 					<%@ include file="./Navbars/navbar_manager.jspf"%>
 					<c:set var="role" value="Responsable" scope="page" />
 				</c:when>
