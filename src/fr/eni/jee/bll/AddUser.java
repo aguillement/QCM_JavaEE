@@ -1,11 +1,7 @@
 package fr.eni.jee.bll;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.jee.bo.User;
-import fr.eni.jee.dal.UserDAO;
 import fr.eni.jee.form.AddCandidatForm;
 
 /**
@@ -56,7 +51,6 @@ public class AddUser extends HttpServlet implements Servlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		/* Init variables */
-		RequestDispatcher dispatcher;
 		AddCandidatForm form = new AddCandidatForm();
 
 		// Set the value of the codeProfil
