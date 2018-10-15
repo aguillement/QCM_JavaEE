@@ -13,43 +13,11 @@ import fr.eni.jee.util.AccessDB;
 
 public class TestDAO {
 	
-	private static final String GET_ALL = "SELECT id, label, statement, duration, high_level, low_level FROM TEST";
  	private static final String SEARCH_BY_ID = "SELECT id, label, statement, duration, high_level, low_level FROM TEST WHERE id=?";
 	private static final String INSERT = "INSERT INTO TEST (label, statement, duration, high_level, low_level) VALUES (?, ?, ?, ?, ?)";
 	private static final String DELETE_BY_ID = "DELETE FROM TEST WHERE id=?";
 	private static final String UPDATE_BY_ID = "UPDATE TEST SET label =?, statement =?, duration=?, high_level=?, low_level=? WHERE id=?";
 	private static final String GET_ALL = "SELECT id, label, statement, duration, high_level, low_level FROM TEST";
-	
-	public static List<Test> GetAll() throws SQLException{
-		Connection cnx = null;
-		PreparedStatement rqt = null;
-		ResultSet rs = null;
-		List<Test> tests = new ArrayList<Test>();
-		
-		try{
-			cnx = AccessDB.getConnection();
-			rqt = cnx.prepareStatement(GET_ALL);
-			rs=rqt.executeQuery();
-
-			while(rs.next()){
-				Test test = new Test();
-				test.setId(rs.getInt("id"));
-				test.setLabel(rs.getString("label"));
-				test.setDuration(rs.getInt("duration"));
-				test.setStatement(rs.getString("statement"));
-				test.setHigh_level(rs.getInt("high_level"));
-				test.setLow_level(rs.getInt("low_level"));
-				
-				tests.add(test);
-			}
-			
-		}finally{
-			if (rqt!=null) rqt.close();
-			if (cnx!=null) cnx.close();
-		}
-		return tests;
-	}
-	
 	
 	public static Test SearchByID(int testID) throws SQLException{
 		Connection cnx = null;
