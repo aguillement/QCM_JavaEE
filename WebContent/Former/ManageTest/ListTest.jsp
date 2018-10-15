@@ -34,14 +34,14 @@
 									<td>
 										<div class="row">
 											<div class="col-6">
-												<button type="button" class="btn btn-default">
-													<span class="glyphicon glyphicon-file"></span> Update
-												</button>
+												<a class="btn btn-primary btn-lg"
+												href="<c:out value="${pageContext.servletContext.contextPath}" />/Formateur/updateTest?id=<c:out value="${test.id}" />"
+												role="button">Modify</a>
 											</div>
 											<div class="col-6">
-												<button type="button" class="btn btn-default">
-													<span class="glyphicon glyphicon-remove"></span> Delete
-												</button>
+												<a class="btn btn-primary btn-lg"
+												href="<c:out value="${pageContext.servletContext.contextPath}" />/Formateur/updateTest?id=<c:out value="${test.id}" />"
+												role="button">Delete</a>
 											</div>
 										</div>
 									</td>

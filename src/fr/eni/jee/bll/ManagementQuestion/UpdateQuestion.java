@@ -39,7 +39,18 @@ public class UpdateQuestion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		Question question = new Question();
+		Integer idQuestionUpdate = Integer.parseInt(request.getParameter("id"));
+		
 		List<Theme> lstTheme = new ArrayList<Theme>();
+		
+		if(idQuestionUpdate != null){
+			try {
+				question = QuestionDAO.SearchByID(idQuestionUpdate);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 		try {
 			lstTheme = ThemeDAO.GetAll();
@@ -48,6 +59,8 @@ public class UpdateQuestion extends HttpServlet {
 		}
 
 		request.setAttribute("lstTheme", lstTheme);		
+		request.setAttribute("question", question);
+		request.setAttribute("idQuestion", question.getId());
 
 		this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
 	}
@@ -59,26 +72,22 @@ public class UpdateQuestion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {		
 
-		Question question = new Question();
-		Integer idQuestionUpdate = Integer.parseInt(request.getParameter("update"));		
-		if(idQuestionUpdate != null){
-			try {
-				question = QuestionDAO.SearchByID(idQuestionUpdate);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		Question question = new Question();	
+		question.setId(Integer.parseInt(request.getParameter("idQuestion")));
+		question.setStatement(request.getParameter("statement"));
+		question.setMedia(Integer.parseInt(request.getParameter("media")));
+		question.setPoints(Integer.parseInt(request.getParameter("points")));
 		
-		List<Theme> lstTheme = new ArrayList<Theme>();
+		Theme theme = new Theme();
+		theme.setId(Integer.parseInt(request.getParameter("theme")));	
+
+		question.setTheme(theme);
 
 		try {
-			lstTheme = ThemeDAO.GetAll();
+			QuestionDAO.Update(question);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		request.setAttribute("lstTheme", lstTheme);
-		request.setAttribute("question", question);
 		
 		this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
 	}

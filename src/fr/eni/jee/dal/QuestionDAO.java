@@ -19,7 +19,7 @@ public class QuestionDAO {
 	private static final String INSERT = "INSERT INTO QUESTION (statement, media, points, idTheme) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL = "SELECT id, statement, media, points, idTheme FROM QUESTION";
 	private static final String SEARCH_BY_ID = "SELECT id, statement, media, points, idTheme FROM QUESTION WHERE id=?";
-	private static final String DELETE_BY_ID = "DELETE FROM QUESTION WHERE id =? WHERE id=?";
+	private static final String DELETE_BY_ID = "DELETE FROM QUESTION WHERE id =?";
 	private static final String UPDATE_BY_ID = "UPDATE QUESTION SET statement=?, media=?, points=?, idTheme=? WHERE id=?";
 	
 	public static Question Insert(Question question) throws SQLException{
@@ -138,7 +138,7 @@ public class QuestionDAO {
 		}
 	}
 	
-	private static void Update(Question question) throws SQLException{
+	public static void Update(Question question) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		

@@ -114,7 +114,7 @@ public class ThemeDAO {
 		}
 	}
 	
-	private static void Update(Theme theme) throws SQLException{
+	public static void Update(Theme theme) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		

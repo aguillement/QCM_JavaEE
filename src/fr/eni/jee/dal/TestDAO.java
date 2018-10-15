@@ -8,11 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.jee.bo.Exam;
-import fr.eni.jee.bo.ExamQuestion;
-import fr.eni.jee.bo.Question;
 import fr.eni.jee.bo.Test;
-import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
 
 public class TestDAO {
@@ -94,20 +90,21 @@ public class TestDAO {
 		}
 	}
 	
-	private static void Update(Test test) throws SQLException{
+	public static void Update(Test test) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		
 		try{
 			cnx = AccessDB.getConnection();			 
 			
-			rqt = cnx.prepareStatement(UPDATE_BY_ID);			
+			rqt = cnx.prepareStatement(UPDATE_BY_ID);				
 			rqt.setString(1, test.getLabel());
 			rqt.setString(2, test.getStatement());
 			rqt.setInt(3, test.getDuration());
 			rqt.setInt(4, test.getHigh_level());
 			rqt.setInt(5, test.getLow_level());
-			rqt.setInt(5, test.getId());
+			rqt.setInt(6, test.getId());
+			
 			rqt.executeUpdate();		
 		}	
 		finally{

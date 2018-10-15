@@ -31,21 +31,16 @@
 									<td>
 										<div class="row">
 											<div class="col-4">
-												<a href=""></a>
+												<a class="btn btn-primary btn-lg"
+													href="<c:out value="${pageContext.servletContext.contextPath}" />/Formateur/updateQuestion?id=<c:out value="${question.id}" />"
+													role="button">Modify</a>
 											</div>
 										</div>
-										<form
-											action="
-											<c:out value="${pageContext.servletContext.contextPath}" />
-											/Formateur/deleteQuestion"
-											name="formdeleteQuestion" method="post">
-											<div class="col-4">
-												<button name="delete" value="${question.id}" type="submit"
-													class="btn btn-default">
-													<span class="glyphicon glyphicon-remove"></span> Delete
-												</button>
-											</div>
-										</form>
+										<div class="col-4">
+											<a class="btn btn-primary btn-lg"
+												href="<c:out value="${pageContext.servletContext.contextPath}" />/Formateur/deleteQuestion?id=<c:out value="${question.id}" />"
+												role="button">Delete</a>
+										</div>
 									</td>
 								</tr>
 							</c:forEach>
