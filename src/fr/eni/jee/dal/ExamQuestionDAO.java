@@ -18,7 +18,8 @@ public class ExamQuestionDAO {
 	
 	private final static String INSERT = "INSERT INTO DRAW_QUESTION (isMarked, idQuestion, orderNumber, idExam) values (?,?,?,?)";
 	private final static String HAS_GENERATED_QUESTIONS = "SELECT idQuestion, idExam, orderNumber, isMarked FROM DRAW_QUESTION WHERE idExam = ?";
-
+	private final static String UPDATE_TIME_SPEND = "UPDATE EXAM SET timeSpent = timeSpent + 1, state='EC' WHERE id=?";
+	private final static String UPDATE_STATE = "UPDATE EXAM SET state = 'T' WHERE id=?";
 	
 	public static ExamQuestion Insert(ExamQuestion question) throws SQLException{
 		Connection cnx=null;
@@ -75,5 +76,66 @@ public class ExamQuestionDAO {
 			if (cnx!=null) cnx.close();
 		}
 		return questionsList;
+	}
+	
+	
+	public static void UpdateTimeSpend(int examID) throws SQLException {
+
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(UPDATE_TIME_SPEND);
+			rqt.setInt(1, examID);
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (rqt != null) {
+				rqt.close();
+			}
+
+			if (cnx != null) {
+				cnx.close();
+			}
+
+		}
+
+	}
+	
+	public static void UpdateState(int examID) throws SQLException {
+
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(UPDATE_STATE);
+			rqt.setInt(1, examID);
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (rqt != null) {
+				rqt.close();
+			}
+
+			if (cnx != null) {
+				cnx.close();
+			}
+
+		}
+
 	}
 }
