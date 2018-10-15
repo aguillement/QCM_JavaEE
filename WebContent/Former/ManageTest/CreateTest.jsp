@@ -8,11 +8,10 @@
 	<div class="container-fluid">
 		<%@ include file="../../Common/navbar.jspf"%>
 		<div class="row" style="margin-top: 20px;">
-			<div class="col-12">
-
-				<h2>Create test</h2>
+			<div class="col-12 ">
+				<h2  style="text-align: center;">Create test</h2>
 				<form method="post" action="createTest">
-					<div class="row col-12" align="center" style="margin-top: 20px;">
+					<div class="row col-12" align="center" style="margin-top: 50px;">
 						<div class="col-4"></div>
 						<div class="col-2" style="text-align: right;">
 							<label for="label">Label: </label>

@@ -11,7 +11,6 @@
 			<div class="col-lg-12">
 				<div class="col-lg-10">
 					<h2>Liste des questions</h2>
-
 					<table class="table table-hover">
 						<thead class="thead-dark">
 							<tr>
@@ -32,16 +31,21 @@
 									<td>
 										<div class="row">
 											<div class="col-4">
-												<button type="button" class="btn btn-default">
-													<span class="glyphicon glyphicon-file"></span> Update
-												</button>
+												<a href=""></a>
 											</div>
+										</div>
+										<form
+											action="
+											<c:out value="${pageContext.servletContext.contextPath}" />
+											/Formateur/deleteQuestion"
+											name="formdeleteQuestion" method="post">
 											<div class="col-4">
-												<button type="button" class="btn btn-default">
+												<button name="delete" value="${question.id}" type="submit"
+													class="btn btn-default">
 													<span class="glyphicon glyphicon-remove"></span> Delete
 												</button>
 											</div>
-										</div>
+										</form>
 									</td>
 								</tr>
 							</c:forEach>
