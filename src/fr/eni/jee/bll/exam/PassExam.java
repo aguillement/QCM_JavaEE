@@ -57,6 +57,10 @@ public class PassExam extends HttpServlet {
 		redirect(request, response);
 	}
 
+	/**
+	 * Send data to the database
+	 * @param request
+	 */
 	protected void sendResponses(HttpServletRequest request) {
 		String[] values = request.getParameterValues("responses");
 		// Vérification de la réponse à la question
@@ -163,9 +167,10 @@ public class PassExam extends HttpServlet {
 
 			// Send data to the JSP file
 			request.setAttribute("idQuestion", questionID);
-			request.setAttribute("idExam", examID);
+			request.setAttribute("idExam", currentExam.getId());
 			request.setAttribute("currentQuestion", getCurrentQuestion(questionID, session));
 			request.setAttribute("currentPropositions", getCurrentPropositions(request));
+			request.setAttribute("answers", getAnswers(request));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,4 +220,22 @@ public class PassExam extends HttpServlet {
 		return allPropositions;
 	}
 
+	/**
+	 * Return the answers for one question
+	 * @param request
+	 * @return
+	 */
+	protected List<Proposition> getAnswers(HttpServletRequest request){
+		PropositionDAO propositionDAO = new PropositionDAO();
+		Question question = (Question) request.getAttribute("currentQuestion");
+		List<Proposition> allAnswers = null;
+		int idExam = Integer.parseInt(request.getAttribute("idExam").toString());
+		try {
+			allAnswers = propositionDAO.SearchByQuestionAndExam(question.getId(),idExam);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allAnswers;
+	}
 }
