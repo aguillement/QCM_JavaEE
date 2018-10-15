@@ -37,7 +37,7 @@ public class ManagerFilter implements Filter {
             response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         } else {
         	User user = (User)session.getAttribute( "sessionUser" );
-        	if(user.getIdProfile() == 50){
+        	if(user.getProfile().getId() == 50){
         		chain.doFilter( request, response );
         	}
         	else{

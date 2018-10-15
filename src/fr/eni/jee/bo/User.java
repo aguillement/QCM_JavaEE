@@ -7,30 +7,30 @@ public class User {
 	private String firstname;
 	private String mail;
 	private String password;
-	private int idProfile;
-	private int idPromotion;
+	private Profile profile;
+	private Promotion promotion;
 	
 	public User(){
 		
 	}
 	
-	public User(String nom, String prenom, String mail, String password, int idProfile){
+	public User(String nom, String prenom, String mail, String password,Profile profile){
 		this.lastname = nom;
 		this.firstname = prenom;
 		this.mail = mail;
 		this.password = password;
-		this.idProfile = idProfile;
+		this.profile = profile;
 	}
 	
-	public User(int id, String lastname, String firstname, String mail, String password, int idProfile,int idPromotion){
+	public User(int id, String lastname, String firstname, String mail, String password, Profile profile,Promotion promotion){
 		
 		this.id = id;
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.mail = mail;
 		this.password = password;
-		this.idProfile = idProfile;
-		this.idPromotion = idPromotion;
+		this.profile = profile;
+		this.promotion = promotion;
 	}
 	
 	public int getId() {
@@ -64,20 +64,20 @@ public class User {
 		this.password = password;
 	}
 
-	public int getIdProfile() {
-		return idProfile;
+	public Profile getProfile() {
+		return profile;
 	}
 
-	public void setIdProfile(int idProfile) {
-		this.idProfile = idProfile;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
-	public int getIdPromotion() {
-		return idPromotion;
+	public Promotion getPromotion() {
+		return promotion;
 	}
 
-	public void setIdPromotion(int idPromotion) {
-		this.idPromotion = idPromotion;
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
 	}
 	
 			

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.jee.bo.Profile;
+import fr.eni.jee.bo.Promotion;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.util.AccessDB;
 
@@ -18,7 +20,8 @@ public class UserDAO {
 	private static final String MODIFY ="UPDATE USERS SET lastname = ?, firstname = ?, email = ?, password=?,idProfile=?, idPromotion=? where id = ?";
 	private static final String DELETE ="DELETE FROM USERS where id = ?";
 	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS";
-	
+	private static final String SEARCH_BY_PROMOTION = "SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE idPromotion=?";
+
 	public static User SearchById(int userID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
@@ -31,14 +34,16 @@ public class UserDAO {
 			rs=rqt.executeQuery();
 
 			if (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
 				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
 				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setIdProfile(rs.getInt("idProfile"));
-				user.setIdPromotion(rs.getInt("idPromotion"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
 			}
 			
 		}finally{
@@ -61,14 +66,17 @@ public class UserDAO {
 			rs=rqt.executeQuery();
 			
 			if (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
+				System.out.println(promo);
 				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
 				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setIdProfile(rs.getInt("idProfile"));
-				user.setIdPromotion(rs.getInt("idPromotion"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
 			}
 			
 		}finally{
@@ -91,9 +99,9 @@ public class UserDAO {
 			rqt.setString(2, user.getFirstname());
 			rqt.setString(3, user.getMail());
 			rqt.setString(4, user.getPassword());
-			rqt.setInt(5, user.getIdProfile());
-			if(user.getIdPromotion() > 0){
-				rqt.setInt(6, user.getIdPromotion());
+			rqt.setInt(5, user.getProfile().getId());
+			if(user.getPromotion().getId() > 0){
+				rqt.setInt(6, user.getPromotion().getId());
 			}
 			else{
 				rqt.setString(6, null);
@@ -134,8 +142,8 @@ public class UserDAO {
 			rqt.setString(2, user.getFirstname());
 			rqt.setString(3, user.getMail());
 			rqt.setString(4, user.getPassword());
-			rqt.setInt(5, user.getIdProfile());
-			rqt.setInt(6, user.getIdPromotion());
+			rqt.setInt(5, user.getProfile().getId());
+			rqt.setInt(6, user.getPromotion().getId());
 			rqt.setInt(7, user.getId());
 			rqt.executeUpdate();
 		}finally{
@@ -171,14 +179,16 @@ public class UserDAO {
 			rs=rqt.executeQuery();
 			
 			while (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
 				User user = new User();
 				user.setId(rs.getInt("id"));
 				user.setLastname(rs.getString("lastname"));
 				user.setFirstname(rs.getString("firstname"));
 				user.setMail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setIdProfile(rs.getInt("idProfile"));
-				user.setIdPromotion(rs.getInt("idPromotion"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
 				
 				usersList.add(user);
 			}
@@ -192,10 +202,46 @@ public class UserDAO {
 		
 	}
 	
-	
-	
-	
-	
-	
+	/**
+	 * Return all users with promo id.
+	 * @param promoID
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<User> SearchByPromo(int promoID) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<User> users = new ArrayList<User>();
+
+		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(SEARCH_BY_PROMOTION);
+			rqt.setInt(1, promoID);
+			rs = rqt.executeQuery();
+
+			while (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setLastname(rs.getString("lastname"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setMail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
+				
+				users.add(user);
+			}
+
+			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return users;
+		
+	}
 	
 }
