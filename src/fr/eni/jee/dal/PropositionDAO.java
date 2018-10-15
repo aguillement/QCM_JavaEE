@@ -13,6 +13,7 @@ import fr.eni.jee.util.AccessDB;
 
 public class PropositionDAO {
 	private final static String SELECT_ALL_FOR_QUESTION = "SELECT id,statement, isTrue, idQuestion FROM PROPOSITION WHERE idQuestion = ?";
+	private final static String SELECT_BY_ID = "SELECT id,statement, isTrue, idQuestion FROM PROPOSITION WHERE id = ?";
 	
 	/**
 	 * Search all proposition for questionID
@@ -51,5 +52,40 @@ public class PropositionDAO {
 			if (cnx!=null) cnx.close();
 		}
 		return listPropositions;
+	}
+	
+	/**
+	 * Search one proposition
+	 * @param propositionID
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Proposition SearchById(int propositionID) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Proposition proposition = null;
+		Question question = null;
+
+		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(SELECT_BY_ID);
+			rqt.setInt(1, propositionID);
+			rs=rqt.executeQuery();
+
+			if (rs.next()){
+				question = QuestionDAO.SearchByID(rs.getInt("idQuestion"));
+				proposition = new Proposition();
+				proposition.setId(rs.getInt("id"));
+				proposition.setStatement(rs.getString("statement"));
+				proposition.setTrue(rs.getBoolean("isTrue"));
+				proposition.setQuestion(question);
+			}
+			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return proposition;
 	}
 }

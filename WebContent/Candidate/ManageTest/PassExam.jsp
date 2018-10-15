@@ -30,9 +30,18 @@
 				</c:forEach>
 			</div>
 			<div class="col-lg-10">
-				<h2>
-					<c:out value="${sessionScope.exam.test.label}" />
-				</h2>
+				<div class="row">
+					<h2 style="display: inline-block;" class="col-lg-10">
+						<c:out value="${sessionScope.exam.test.label}" />
+					</h2>
+					<div class="col-lg-2" style="display: inline-block;">
+						<div class="my-2 my-sm-0" style="text-align: center;">
+							<p style="margin-bottom: 0;">Temps restant :</p>
+							<b id="timer">0h 00min 00s</b>
+						</div>
+					</div>
+				</div>
+
 				<c:if test="${!empty  requestScope.error }">
 					<div class="alert alert-dismissible alert-primary">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -68,6 +77,9 @@
 								</div>
 							</div>
 						</c:forEach>
+						<input type="hidden"
+							name="question_id"
+							value="<c:out value="${requestScope.currentQuestion.id}" />" />
 						<p class="lead">
 							<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
 						</p>
@@ -84,7 +96,6 @@
 						le test</button>
 				</div>
 			</div>
-			<div id="compteur"></div>
 		</div>
 	</div>
 	<script type="text/javascript"
