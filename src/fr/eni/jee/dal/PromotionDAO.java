@@ -16,6 +16,7 @@ public class PromotionDAO {
 	
 	private static final String GET_ALL = "SELECT id, label FROM PROMOTION";
 	private static final String SEARCH_BY_ID = "SELECT id, label FROM PROMOTION WHERE id=?";
+	private static final String SEARCH_BY_LABEL = "SELECT id, label FROM PROMOTION WHERE label=?";
 
 	public static List<Promotion> GetAll() throws SQLException{
 		Connection cnx = null;
@@ -57,6 +58,29 @@ public class PromotionDAO {
 			if (rs.next()){
 				promo.setId(promotionID);
 				promo.setLabel(rs.getString("label"));
+			}
+
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return promo;
+	}
+	
+	public static Promotion SearchByLabel(String label) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Promotion promo = new Promotion();
+		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(SEARCH_BY_LABEL);
+			rqt.setString(1, label);
+			rs = rqt.executeQuery();
+
+			if (rs.next()){
+				promo.setId(rs.getInt("id"));
+				promo.setLabel(label);
 			}
 
 		}finally{

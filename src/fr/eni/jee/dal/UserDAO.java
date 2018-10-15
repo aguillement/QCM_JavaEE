@@ -20,7 +20,8 @@ public class UserDAO {
 	private static final String MODIFY ="UPDATE USERS SET lastname = ?, firstname = ?, email = ?, password=?,idProfile=?, idPromotion=? where id = ?";
 	private static final String DELETE ="DELETE FROM USERS where id = ?";
 	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS";
-	
+	private static final String SEARCH_BY_PROMOTION = "SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE idPromotion=?";
+
 	public static User SearchById(int userID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
@@ -201,10 +202,46 @@ public class UserDAO {
 		
 	}
 	
-	
-	
-	
-	
-	
+	/**
+	 * Return all users with promo id.
+	 * @param promoID
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<User> SearchByPromo(int promoID) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<User> users = new ArrayList<User>();
+
+		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(SEARCH_BY_PROMOTION);
+			rqt.setInt(1, promoID);
+			rs = rqt.executeQuery();
+
+			while (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setLastname(rs.getString("lastname"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setMail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
+				
+				users.add(user);
+			}
+
+			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return users;
+		
+	}
 	
 }
