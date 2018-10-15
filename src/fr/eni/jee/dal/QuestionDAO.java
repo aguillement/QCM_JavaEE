@@ -10,6 +10,7 @@ import java.util.List;
 
 import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.Question;
+import fr.eni.jee.bo.Test;
 import fr.eni.jee.bo.Theme;
 import fr.eni.jee.util.AccessDB;
 
@@ -18,6 +19,8 @@ public class QuestionDAO {
 	private static final String INSERT = "INSERT INTO QUESTION (statement, media, points, idTheme) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL = "SELECT id, statement, media, points, idTheme FROM QUESTION";
 	private static final String SEARCH_BY_ID = "SELECT id, statement, media, points, idTheme FROM QUESTION WHERE id=?";
+	private static final String DELETE_BY_ID = "DELETE FROM QUESTION WHERE id =?";
+	private static final String UPDATE_BY_ID = "UPDATE QUESTION SET statement=?, media=?, points=?, idTheme=? WHERE id=?";
 	
 	public static Question Insert(Question question) throws SQLException{
 		Connection cnx=null;
@@ -101,6 +104,7 @@ public class QuestionDAO {
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
 			rqt.setInt(1, questionID);
 			rs=rqt.executeQuery();
+			
  			while(rs.next()){
 				question.setId(rs.getInt("id"));
 				question.setMedia(rs.getInt("media"));
@@ -108,11 +112,50 @@ public class QuestionDAO {
 				question.setStatement(rs.getString("statement"));
 				question.setTheme(ThemeDAO.SearchByID(rs.getInt("idTheme")));
 			}
-		
+ 			
 		}finally{
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
 		}
 		return question;
+	}
+	
+	public static void Delete(Question question) throws SQLException{
+		
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		
+		try{
+			cnx = AccessDB.getConnection();			 
+			
+			rqt = cnx.prepareStatement(DELETE_BY_ID);			
+			rqt.setInt(1, question.getId());			
+			rqt.executeUpdate();		
+		}	
+		finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+	}
+	
+	public static void Update(Question question) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		
+		try{
+			cnx = AccessDB.getConnection();			 
+			
+			rqt = cnx.prepareStatement(UPDATE_BY_ID);						
+			rqt.setString(1, question.getStatement());
+			rqt.setInt(2, question.getMedia());
+			rqt.setInt(3, question.getPoints());
+			rqt.setInt(4, question.getTheme().getId());
+			rqt.setInt(5, question.getId());
+			rqt.executeUpdate();		
+		}	
+		finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
 	}
 }
