@@ -152,6 +152,9 @@ public class PassExam extends HttpServlet {
 				examExist = true;
 			}
 		}
+		else{
+			examExist = true;
+		}
 
 		if (examExist) {
 			try {
@@ -192,12 +195,14 @@ public class PassExam extends HttpServlet {
 			}
 
 			sendResponses(request);
-			this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request,
-					response);
+			
 		}
 		else{
-			response.sendRedirect(request.getContextPath() + "/AccessDenied");
+			request.setAttribute("error", "Le test que vous rechercher n'existe pas ou n'est plus accessible.");
 		}
+		
+		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request,
+				response);
 
 	}
 
