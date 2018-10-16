@@ -26,22 +26,10 @@
 							    	<c:out value="${pageContext.servletContext.contextPath}" />
 									/Candidat/PassExam?idQuestion=
 									<c:out value="${examQuestion.orderNumber}" />"
-						style="font-size: 20px;"> <c:out
-							value='${examQuestion.orderNumber}' />
-					</a>
-				</c:forEach>
-			</div>
-			<div class="col-lg-10">
-				<div class="row">
-					<h2 style="display: inline-block;" class="col-lg-10">
-						<c:out value="${sessionScope.exam.test.label}" />
-					</h2>
-
-					<div class="col-lg-2" style="display: inline-block;">
-						<div class="my-2 my-sm-0" style="text-align: center;">
-							<p style="margin-bottom: 0;">Temps restant :</p>
-							<b id="timer">0h 00min 00s</b>
-						</div>
+								style="font-size: 20px;"> <c:out
+									value='${examQuestion.orderNumber}' />
+							</a>
+						</c:forEach>
 					</div>
 					<div class="col-lg-10">
 						<div class="row">
@@ -96,32 +84,41 @@
 												<c:if test="${ pageScope.isCheck eq 'true' }" var="variable">
 										    checked
 										</c:if>>
-									<label class="custom-control-label"
-										for="response_<c:out value="${proposition.id}" />"><c:out
-											value="${proposition.statement}" /></label>
-								</div>
-							</div>
-						</c:forEach>
-						<input type="hidden" id="question_id" name="question_id"
-							value="<c:out value="${requestScope.currentQuestion.id}" />" />
-						<p class="lead">
-							<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
-						</p>
-						<input type="hidden" id="timeSpent"
-							value="<c:out value="${sessionScope.exam.timeSpent}" />" /> <input
-							type="hidden" id="duration"
-							value="<c:out value="${sessionScope.exam.test.duration}" />" />
-						<input type="hidden" id="examID"
-							value="<c:out value="${sessionScope.exam.id}" />" />
-					</form>
-				</div>
-				<button type="button" class="btn btn-info"
-					onclick="questionMarked();">Marquer la question</button>
-				<div class="text-right">
-					<button type="button" class="btn btn-outline-success" disabled>Rendre
-						le test</button>
-				</div>
-			</div>
+											<label class="custom-control-label"
+												for="response_<c:out value="${proposition.id}" />"><c:out
+													value="${proposition.statement}" /></label>
+										</div>
+									</div>
+								</c:forEach>
+								<input type="hidden" id="question_id" name="question_id"
+									value="<c:out value="${requestScope.currentQuestion.id}" />" />
+								<p class="lead">
+									<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
+								</p>
+								<input type="hidden" id="timeSpent"
+									value="<c:out value="${sessionScope.exam.timeSpent}" />" /> <input
+									type="hidden" id="duration"
+									value="<c:out value="${sessionScope.exam.test.duration}" />" />
+								<input type="hidden" id="examID"
+									value="<c:out value="${sessionScope.exam.id}" />" />
+							</form>
+						</div>
+						<button type="button" class="btn btn-info"
+							onclick="questionMarked();">Marquer la question</button>
+						<div class="text-right">
+							<button type="button" class="btn btn-outline-success" disabled>Rendre
+								le test</button>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-dismissible alert-primary">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>Attention!</strong> Le test que vous rechercher n'existe
+						pas ou n'est plus accessible.
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<c:if test="${empty requestScope.error}">
