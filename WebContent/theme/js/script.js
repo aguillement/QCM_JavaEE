@@ -1,8 +1,12 @@
 var timeLeft = (parseInt($('#duration').val()) - parseInt($('#timeSpent').val())) * 60
+if(localStorage.timeLeftStorage){
+	timeLeft = localStorage.timeLeftStorage
+}
 var examID = $('#examID').val();
 var sendLast = false;
 
 var counterJS = setInterval(function() {
+	localStorage.timeLeftStorage = timeLeft
 	timeLeft--;
 	var hours = 0;
 	var min = parseInt(timeLeft / 60, 10);
