@@ -106,8 +106,10 @@
 						<button type="button" class="btn btn-info"
 							onclick="questionMarked();">Marquer la question</button>
 						<div class="text-right">
-							<button type="button" class="btn btn-outline-success" disabled>Rendre
+						<form action="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/finishTest" method="POST">
+							<button type="submit" class="btn btn-outline-success">Rendre
 								le test</button>
+						</form>
 						</div>
 					</div>
 				</c:when>

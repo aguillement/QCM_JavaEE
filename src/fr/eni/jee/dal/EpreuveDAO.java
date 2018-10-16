@@ -37,6 +37,36 @@ public class EpreuveDAO {
 	
 	private static final String FINISH_EXAM = "UPDATE EXAM SET state = 'T' WHERE id = ? AND idUsers = ?";
 
+	
+	public static void FinishTest(Exam exam, int userID) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(FINISH_EXAM);
+			rqt.setInt(1, exam.getId());
+			rqt.setInt(2, userID);
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (rqt != null) {
+				rqt.close();
+			}
+
+			if (cnx != null) {
+				cnx.close();
+			}
+
+		}
+	}
+	
 	/**
 	 * Search all exams for userID
 	 * 
@@ -233,35 +263,6 @@ public class EpreuveDAO {
 				rqt.close();
 			if (cnx != null)
 				cnx.close();
-		}
-	}
-
-	public static void FinishTest(Exam exam, int userID) throws SQLException{
-		Connection cnx = null;
-		PreparedStatement rqt = null;
-
-		try {
-			cnx = AccessDB.getConnection();
-			rqt = cnx.prepareStatement(FINISH_EXAM);
-			rqt.setInt(1, exam.getId());
-			rqt.setInt(2, userID);
-
-			rqt.executeUpdate();
-
-		} catch (SQLException e) {
-
-			System.out.println(e.getMessage());
-
-		} finally {
-
-			if (rqt != null) {
-				rqt.close();
-			}
-
-			if (cnx != null) {
-				cnx.close();
-			}
-
 		}
 	}
 }
