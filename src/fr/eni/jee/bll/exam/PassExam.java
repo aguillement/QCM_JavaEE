@@ -64,22 +64,22 @@ public class PassExam extends HttpServlet {
 	 */
 	protected void sendResponses(HttpServletRequest request) {
 		String[] values = request.getParameterValues("responses");
-		// Vérification de la réponse à la question
+		// VÃ©rification de la rÃ©ponse Ã  la question
 		if (values != null) {
 			int questionID = Integer.parseInt(request.getParameter("question_id"));
 			HttpSession session = request.getSession();
 			ExamAnswerDAO examAnswerDAO = new ExamAnswerDAO();
 			Exam currentExam = (Exam) session.getAttribute("exam");
-			// récupération des réponses dans la base
+			// rÃ©cupÃ©ration des rÃ©ponses dans la base
 			List<ExamAnswer> listAnswer = new ArrayList<ExamAnswer>();
 			try {
 				listAnswer = examAnswerDAO.SearchByQuestionAndExam(currentExam.getId(), questionID);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				request.setAttribute("error", "Erreur lors de la récupération des anciennes réponses");
+				request.setAttribute("error", "Erreur lors de la rÃ©cupÃ©ration des anciennes rÃ©ponses");
 			}
-			// suppression des réponses dans la base
+			// suppression des rÃ©ponses dans la base
 			try {
 				for (ExamAnswer answer : listAnswer) {
 					examAnswerDAO.Delete(answer);
@@ -87,9 +87,9 @@ public class PassExam extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				request.setAttribute("error", "Erreur lors de la suppression des anciennes réponses");
+				request.setAttribute("error", "Erreur lors de la suppression des anciennes rÃ©ponses");
 			}
-			// envoi des réponses à la base
+			// envoi des rÃ©ponses Ã  la base
 			for (String value : values) {
 				try {
 					PropositionDAO propositionDAO = new PropositionDAO();
@@ -105,11 +105,11 @@ public class PassExam extends HttpServlet {
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					request.setAttribute("error", "Erreur sur le numéro de la proposition choisie");
+					request.setAttribute("error", "Erreur sur le numÃ©ro de la proposition choisie");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					request.setAttribute("error", "Impossible d'enregistrer les réponses");
+					request.setAttribute("error", "Impossible d'enregistrer les rÃ©ponses");
 				}
 
 			}
@@ -161,7 +161,7 @@ public class PassExam extends HttpServlet {
 				Exam currentExam = (Exam) session.getAttribute("exam");
 
 				/**
-				 * Récupération des questions
+				 * RÃ©cupÃ©ration des questions
 				 */
 				if (session.getAttribute("examQuestions") == null) {
 					List<Question> questions = new ArrayList<Question>();
@@ -191,7 +191,7 @@ public class PassExam extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 
-				request.setAttribute("error", "Impossible de charger les réponses");
+				request.setAttribute("error", "Impossible de charger les rÃ©ponses");
 			}
 
 			sendResponses(request);
