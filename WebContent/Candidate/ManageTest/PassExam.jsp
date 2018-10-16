@@ -81,9 +81,8 @@
 										value="<c:out value="${proposition.id}" />"
 										<c:if test="${ pageScope.isCheck eq 'true' }" var="variable">
 										    checked
-										</c:if>
-										> <label
-										class="custom-control-label"
+										</c:if>>
+									<label class="custom-control-label"
 										for="response_<c:out value="${proposition.id}" />"><c:out
 											value="${proposition.statement}" /></label>
 								</div>
@@ -103,8 +102,11 @@
 					</form>
 				</div>
 				<div class="text-right">
-					<button type="button" class="btn btn-outline-success" disabled>Rendre
-						le test</button>
+					<form method="POST"
+						action="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/finishTest">
+						<button type="submit" class="btn btn-outline-success">Rendre
+							le test</button>
+					</form>
 				</div>
 			</div>
 		</div>
