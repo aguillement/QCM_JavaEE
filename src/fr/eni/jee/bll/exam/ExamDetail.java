@@ -40,12 +40,15 @@ public class ExamDetail extends HttpServlet {
 		int examID = Integer.parseInt(request.getParameter("id"));
 		try {
 			Exam exam = EpreuveDAO.SearchByID(examID);
-
-			request.setAttribute("exam", exam);
+			
+			if(exam!=null){
+				request.setAttribute("exam", exam);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/Exam.jsp").forward( request, response );
 	}
 
