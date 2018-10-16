@@ -5,53 +5,54 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.Question;
+import fr.eni.jee.bo.ResultExamDTO;
 import fr.eni.jee.bo.Test;
 import fr.eni.jee.bo.Theme;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.util.AccessDB;
 
 public class EpreuveDAO {
-	
+
 	private static Test test = null;
 	private static User user = null;
 	private static Theme theme = null;
-	
+
 	/**
 	 * Queries
 	 */
 	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
-	
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
-	
+	private static final String FT_GET_RESULT_EXAM = "SELECT * FROM FT_GET_RESULT_EXAM(?)";
+
 	/**
 	 * Search all exams for userID
+	 * 
 	 * @param userID
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<Exam> SearchByUser(int userID) throws SQLException{
+	public static List<Exam> SearchByUser(int userID) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		Exam exam = null;
 		List<Exam> listEpreuves = new ArrayList<Exam>();
 
-		try{
+		try {
 			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(SEARCH_BY_USER);
 			rqt.setInt(1, userID);
-			rs=rqt.executeQuery();
+			rs = rqt.executeQuery();
 
-			while (rs.next()){
+			while (rs.next()) {
 				test = TestDAO.SearchByID(rs.getInt("idTest"));
 				user = UserDAO.SearchById(rs.getInt("id"));
 				exam = new Exam();
@@ -64,37 +65,40 @@ public class EpreuveDAO {
 				exam.setLevel(rs.getString("level"));
 				exam.setTest(test);
 				exam.setUser(user);
-				
+
 				// Add this epreuve to list and go to next.
 				listEpreuves.add(exam);
 			}
-			
-		}finally{
-			if (rqt!=null) rqt.close();
-			if (cnx!=null) cnx.close();
+
+		} finally {
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
 		}
 		return listEpreuves;
 	}
-	
+
 	/**
 	 * Search epreuve by id
+	 * 
 	 * @param userID
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Exam SearchByID(int examID) throws SQLException{
+	public static Exam SearchByID(int examID) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		Exam exam = new Exam();
-		
-		try{
+
+		try {
 			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
 			rqt.setInt(1, examID);
-			rs=rqt.executeQuery();
+			rs = rqt.executeQuery();
 
-			if(rs.next()){			
+			if (rs.next()) {
 				test = TestDAO.SearchByID(rs.getInt("idTest"));
 				user = UserDAO.SearchById(rs.getInt("idUsers"));
 				exam.setId(rs.getInt("id"));
@@ -108,33 +112,36 @@ public class EpreuveDAO {
 				exam.setUser(user);
 			}
 
-		}finally{
-			if (rqt!=null) rqt.close();
-			if (cnx!=null) cnx.close();
+		} finally {
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
 		}
 		return exam;
 	}
-	
+
 	/**
 	 * Call stored procedure to generate questions
+	 * 
 	 * @param idEpreuve
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<Question> GenerateQuestion(Exam exam) throws SQLException{
-		
+	public static List<Question> GenerateQuestion(Exam exam) throws SQLException {
+
 		Connection cnx = null;
 		CallableStatement callableStatement = null;
 		ResultSet rs = null;
 		List<Question> questionsList = new ArrayList<Question>();
 
-		try{
+		try {
 			cnx = AccessDB.getConnection();
 			callableStatement = cnx.prepareCall("{call PROC_GENERATE_QUESTIONSV2(?)}");
 			callableStatement.setInt(1, exam.getTest().getId());
 			rs = callableStatement.executeQuery();
-			
-			while (rs.next()){
+
+			while (rs.next()) {
 				theme = ThemeDAO.SearchByID(rs.getInt("idTheme"));
 				Question question = new Question();
 				question.setId(rs.getInt("id"));
@@ -142,26 +149,28 @@ public class EpreuveDAO {
 				question.setMedia(rs.getInt("media"));
 				question.setPoints(rs.getInt("points"));
 				question.setTheme(theme);
-				
+
 				questionsList.add(question);
 			}
-			
-		}finally{
-			if (callableStatement!=null) callableStatement.close();
-			if (cnx!=null) cnx.close();
+
+		} finally {
+			if (callableStatement != null)
+				callableStatement.close();
+			if (cnx != null)
+				cnx.close();
 		}
 		return questionsList;
 	}
-	
-	public static void InsertDrawQuestion(List<Question> questions, Exam  exam) throws SQLException{
-		Connection cnx=null;
-		PreparedStatement rqt=null;
-		try{
+
+	public static void InsertDrawQuestion(List<Question> questions, Exam exam) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
 			cnx = AccessDB.getConnection();
-			 
+
 			cnx.setAutoCommit(false);
 			int orderQuestionCounter = 0;
-			for(Question question : questions) {
+			for (Question question : questions) {
 				orderQuestionCounter++;
 				ExamQuestion questionExam = new ExamQuestion(false, question, orderQuestionCounter, exam);
 				rqt = cnx.prepareStatement(INSERT_QUESTION_TIRAGE);
@@ -172,18 +181,67 @@ public class EpreuveDAO {
 				rqt.executeUpdate();
 			}
 
-			
-			cnx.commit();			
-		} catch (SQLException sqle){
-						
+			cnx.commit();
+		} catch (SQLException sqle) {
+
 			if (cnx != null) {
 				cnx.rollback();
 			}
-						
+
 			throw sqle;
 		} finally {
-			if (rqt!=null) rqt.close();
-			if (cnx!=null) cnx.close();
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
 		}
+	}
+
+	public static ResultExamDTO GetResultExam(Exam exam) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		ResultExamDTO resultExamDTO = null;
+		
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(FT_GET_RESULT_EXAM);
+			rqt.setInt(1, exam.getId());
+			rs = rqt.executeQuery();
+
+			if (rs.next()) {
+				resultExamDTO = new ResultExamDTO();
+				resultExamDTO.setLabel(rs.getString("label"));
+				resultExamDTO.setNbQuestionToDraw(rs.getInt("nbQuestionToDraw"));
+				resultExamDTO.setNbRightAnswer((rs.getInt("nbRightAnswer")));
+				resultExamDTO.setResult(rs.getString("result"));		
+			}
+
+		} finally {
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
+		}
+		return resultExamDTO;
+	}
+	
+	public static List<ResultExamDTO> GetAllResultExam(User user) throws SQLException{
+		
+		List<ResultExamDTO> lstResultExamDTO = new ArrayList<ResultExamDTO>();
+		List<Exam> lstExam = new ArrayList<Exam>();
+		
+		lstExam = SearchByUser(user.getId());
+		
+		for(Exam exam: lstExam){
+			
+			ResultExamDTO resultExamDTO = new ResultExamDTO();
+			resultExamDTO = GetResultExam(exam);
+			
+			if(resultExamDTO != null)
+				lstResultExamDTO.add(resultExamDTO);
+		}
+		
+		return lstResultExamDTO;
 	}
 }
