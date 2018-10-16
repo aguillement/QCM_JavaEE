@@ -12,13 +12,13 @@
 				<hr>
 				<c:forEach items="${ sessionScope.examQuestions }"
 					var="examQuestion">
-					<a
+					<a id="${ examQuestion.question.id }"
 						class="badge 
 						<c:choose>
-							<c:when test="${ examQuestion.orderNumber == requestScope.idQuestion}">badge-danger</c:when>
-							<c:when test="${ examQuestion.isMarked }">badge-dark</c:when>
+							<c:when test="${ examQuestion.isMarked }">badge-danger</c:when>
 							<c:otherwise>badge-light</c:otherwise>
 						</c:choose>
+						<c:if test="${ examQuestion.question.id == requestScope.currentQuestion.id}">currentQuestion</c:if>
 						"
 						href="
 							    	<c:out value="${pageContext.servletContext.contextPath}" />
@@ -34,6 +34,7 @@
 					<h2 style="display: inline-block;" class="col-lg-10">
 						<c:out value="${sessionScope.exam.test.label}" />
 					</h2>
+
 					<div class="col-lg-2" style="display: inline-block;">
 						<div class="my-2 my-sm-0" style="text-align: center;">
 							<p style="margin-bottom: 0;">Temps restant :</p>
@@ -81,15 +82,14 @@
 										value="<c:out value="${proposition.id}" />"
 										<c:if test="${ pageScope.isCheck eq 'true' }" var="variable">
 										    checked
-										</c:if>
-										> <label
-										class="custom-control-label"
+										</c:if>>
+									<label class="custom-control-label"
 										for="response_<c:out value="${proposition.id}" />"><c:out
 											value="${proposition.statement}" /></label>
 								</div>
 							</div>
 						</c:forEach>
-						<input type="hidden" name="question_id"
+						<input type="hidden" id="question_id" name="question_id"
 							value="<c:out value="${requestScope.currentQuestion.id}" />" />
 						<p class="lead">
 							<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
@@ -102,6 +102,8 @@
 							value="<c:out value="${sessionScope.exam.id}" />" />
 					</form>
 				</div>
+				<button type="button" class="btn btn-info"
+					onclick="questionMarked();">Marquer la question</button>
 				<div class="text-right">
 					<button type="button" class="btn btn-outline-success" disabled>Rendre
 						le test</button>

@@ -45,7 +45,6 @@ var counterSaveDB = setInterval(function() {
 			data : {examID: examID, finished: true},
 			datatype : "html"
 		});
-		
 	} else if($("#timer").text() != "Temps écoulé") {
 		$.ajax({
 			type : "POST",
@@ -56,3 +55,17 @@ var counterSaveDB = setInterval(function() {
 	}
 
 }, 60000);
+
+function questionMarked(){
+	var questionID = $('#question_id').val();
+	
+	$.ajax({
+		type: "POST",
+		url: "/QCM_JavaEE/Candidate/AjaxSaveExam",
+		data : {examID: examID, questionID: questionID},
+		datatype : "html"
+	});
+	console.log(questionID)
+	$("#"+questionID).toggleClass("badge-light");
+	$("#"+questionID).toggleClass("badge-danger");
+}

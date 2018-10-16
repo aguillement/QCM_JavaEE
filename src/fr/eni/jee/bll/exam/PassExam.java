@@ -177,7 +177,6 @@ public class PassExam extends HttpServlet {
 
 			request.setAttribute("error", "Impossible de charger les réponses");
 		}
-		
 
 		sendResponses(request);
 		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request, response);
