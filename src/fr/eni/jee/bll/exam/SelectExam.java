@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.jee.bo.Exam;
+import fr.eni.jee.bo.User;
 import fr.eni.jee.dal.EpreuveDAO;
 
 /**
@@ -35,8 +36,9 @@ public class SelectExam extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		List<Exam> exams = new ArrayList<Exam>();
+		User user = (User)request.getSession().getAttribute("sessionUser");
 		try {
-			exams = EpreuveDAO.SearchByUser(3);
+			exams = EpreuveDAO.SearchByUser(user.getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

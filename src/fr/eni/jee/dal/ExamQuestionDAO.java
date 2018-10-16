@@ -17,7 +17,7 @@ import fr.eni.jee.util.AccessDB;
 public class ExamQuestionDAO {
 	
 	private final static String INSERT = "INSERT INTO DRAW_QUESTION (isMarked, idQuestion, orderNumber, idExam) values (?,?,?,?)";
-	private final static String HAS_GENERATED_QUESTIONS = "SELECT idQuestion, idExam, orderNumber, isMarked FROM DRAW_QUESTION WHERE idExam = ?";
+	private final static String HAS_GENERATED_QUESTIONS = "SELECT idQuestion, idExam, orderNumber, isMarked FROM DRAW_QUESTION WHERE idExam = ? ORDER BY orderNumber";
 	private final static String UPDATE_TIME_SPEND = "UPDATE EXAM SET timeSpent = timeSpent + 1, state='EC' WHERE id=?";
 	private final static String UPDATE_STATE = "UPDATE EXAM SET state = 'T' WHERE id=?";
 	private final static String MARK_QUESTION = "UPDATE DRAW_QUESTION SET isMarked=isMarked^1 WHERE idQuestion=? and idExam=?";
