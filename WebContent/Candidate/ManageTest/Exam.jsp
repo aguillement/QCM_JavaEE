@@ -47,7 +47,7 @@
 					<c:otherwise>
 						<div class="alert alert-dismissible alert-primary">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>Attention!</strong> Le test que vous rechercher n'existe
+							<strong>Attention!</strong> Le test que vous recherchez n'existe
 							pas ou n'est plus accessible.
 						</div>
 					</c:otherwise>
