@@ -37,7 +37,7 @@ public class AdminFilter implements Filter {
             response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         } else {
         	User user = (User)session.getAttribute( "sessionUser" );
-        	if(user.getIdProfile() == 40){
+        	if(user.getProfile().getId() == 40){
         		chain.doFilter( request, response );
         	}
         	else{

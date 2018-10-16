@@ -37,7 +37,7 @@ public class FormerFilter implements Filter {
             response.sendRedirect( request.getContextPath() + "/AccessRestricted" );
         } else {
         	User user = (User)session.getAttribute( "sessionUser" );
-        	if(user.getIdProfile() == 30){
+        	if(user.getProfile().getId() == 30){
         		chain.doFilter( request, response );
         	}
         	else{

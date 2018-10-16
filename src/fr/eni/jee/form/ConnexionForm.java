@@ -64,7 +64,6 @@ public final class ConnexionForm {
 				e.printStackTrace();
 				results = "Échec de la connexion.";
 			}
-        	
 
         return user;
     }
@@ -83,9 +82,8 @@ public final class ConnexionForm {
      */
     private void validPassword( String password, String mail ) throws Exception {
         if ( password != null ) {        
-        	        	
         	String pass = sha256(password);
-        	User user = UserDAO.Search(mail, pass);        	
+        	User user = UserDAO.Search(mail, pass);
         	
         	if(user == null){
         		throw new Exception( "Mot de passe ou email incorrect" );

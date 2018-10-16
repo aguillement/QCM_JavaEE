@@ -65,20 +65,31 @@
 						<hr class="my-4">
 						<c:forEach items="${ requestScope.currentPropositions }"
 							var="proposition">
+							<c:set var="isCheck" value="false" scope="page" />
 							<div class="form-group">
+								<c:forEach items="${ requestScope.answers }" var="answer">
+									<c:choose>
+										<c:when test="${ answer.id eq proposition.id }">
+											<c:set var="isCheck" value="true" scope="page" />
+										</c:when>
+									</c:choose>
+								</c:forEach>
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input"
 										name="responses"
 										id="response_<c:out value="${proposition.id}" />"
-										value="<c:out value="${proposition.id}" />"> <label
+										value="<c:out value="${proposition.id}" />"
+										<c:if test="${ pageScope.isCheck eq 'true' }" var="variable">
+										    checked
+										</c:if>
+										> <label
 										class="custom-control-label"
 										for="response_<c:out value="${proposition.id}" />"><c:out
 											value="${proposition.statement}" /></label>
 								</div>
 							</div>
 						</c:forEach>
-						<input type="hidden"
-							name="question_id"
+						<input type="hidden" name="question_id"
 							value="<c:out value="${requestScope.currentQuestion.id}" />" />
 						<p class="lead">
 							<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>

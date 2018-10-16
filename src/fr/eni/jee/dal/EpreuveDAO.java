@@ -5,9 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
+=======
+import java.sql.Statement;
+import java.sql.Timestamp;
+>>>>>>> master
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.jee.bo.Epreuve;
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.Question;
@@ -29,8 +35,14 @@ public class EpreuveDAO {
 	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
+<<<<<<< HEAD
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
 	private static final String FT_GET_RESULT_EXAM = "SELECT * FROM FT_GET_RESULT_EXAM(?)";
+=======
+
+	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
+	private static final String INSERT = "INSERT INTO EXAM(startDate, endDate, state, idTest, idUsers) VALUES(?, ?, ?, ?, ?)";
+>>>>>>> master
 
 	/**
 	 * Search all exams for userID
@@ -184,6 +196,43 @@ public class EpreuveDAO {
 			cnx.commit();
 		} catch (SQLException sqle) {
 
+<<<<<<< HEAD
+=======
+			if (cnx != null) {
+				cnx.rollback();
+			}
+
+			throw sqle;
+		} finally {
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
+		}
+	}
+
+	public static void Insert(String startDate, String endDate, String state, int testID, int userID)
+			throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = AccessDB.getConnection();
+
+			cnx.setAutoCommit(false);
+
+			rqt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			rqt.setTimestamp(1, Timestamp.valueOf(startDate));
+			rqt.setTimestamp(2, Timestamp.valueOf(endDate));
+			rqt.setString(3, state);
+			rqt.setInt(4, testID);
+			rqt.setInt(5, userID);
+
+			rqt.executeUpdate();
+			cnx.commit();
+
+		} catch (SQLException sqle) {
+
+>>>>>>> master
 			if (cnx != null) {
 				cnx.rollback();
 			}
