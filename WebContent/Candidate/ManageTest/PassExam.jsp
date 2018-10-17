@@ -9,18 +9,18 @@
 		<div class="row" style="margin-top: 20px;">
 			<c:choose>
 				<c:when test="${empty requestScope.error}">
-					<div class="col-lg-2" style="border-right: #d6d6d6 1px solid;">
+					<div id="navigation" class="col-lg-2" style="border-right: #d6d6d6 1px solid;">
 						<h5>Liste des questions :</h5>
 						<hr>
 						<c:forEach items="${ sessionScope.examQuestions }"
 							var="examQuestion">
-							<a
+							<a id="${ examQuestion.question.id }"
 								class="badge 
 						<c:choose>
-							<c:when test="${ examQuestion.orderNumber == requestScope.idQuestion}">badge-danger</c:when>
-							<c:when test="${ examQuestion.isMarked }">badge-dark</c:when>
+							<c:when test="${ examQuestion.isMarked }">badge-danger</c:when>
 							<c:otherwise>badge-light</c:otherwise>
 						</c:choose>
+						<c:if test="${ examQuestion.question.id == requestScope.currentQuestion.id}">currentQuestion</c:if>
 						"
 								href="
 							    	<c:out value="${pageContext.servletContext.contextPath}" />
@@ -90,10 +90,10 @@
 										</div>
 									</div>
 								</c:forEach>
-								<input type="hidden" name="question_id"
+								<input type="hidden" id="question_id" name="question_id"
 									value="<c:out value="${requestScope.currentQuestion.id}" />" />
 								<p class="lead">
-									<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
+									<button type="submit" class="btn btn-primary btn-lg">Confirmer vos réponses</button>
 								</p>
 								<input type="hidden" id="timeSpent"
 									value="<c:out value="${sessionScope.exam.timeSpent}" />" /> <input
@@ -103,26 +103,23 @@
 									value="<c:out value="${sessionScope.exam.id}" />" />
 							</form>
 						</div>
+						<button type="button" class="btn btn-info"
+							onclick="questionMarked();">Marquer la question</button>
 						<div class="text-right">
-							<form method="POST"
-								action="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/finishTest">
-								<button type="submit" class="btn btn-outline-success">Rendre
-									le test</button>
-							</form>
+						<input type="hidden" id="finishTestUrl" value="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/finishTest" >
+						<a href="#" id="finishTest"class="btn btn-outline-success">Terminer
+								l'épreuve</a>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="col-lg-12">
-						<div class="alert alert-dismissible alert-primary">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>Attention!</strong>
-							<c:out value="${requestScope.error}" />
-						</div>
+					<div class="alert alert-dismissible alert-primary">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>Attention!</strong> Le test que vous recherchez n'existe
+						pas ou n'est plus accessible.
 					</div>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 	</div>
 	<c:if test="${empty requestScope.error}">

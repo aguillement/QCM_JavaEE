@@ -10,10 +10,15 @@
 	href="<c:out value="${pageContext.servletContext.contextPath}" />/theme/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="<c:out value="${pageContext.servletContext.contextPath}" />/theme/css/style.css">
+<link rel="stylesheet"
+	href="<c:out value="${pageContext.servletContext.contextPath}" />/theme/css/confirm.css">
 
 <script type="text/javascript"
 	src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/js/jquery.min.js">
 </script>
 <script type="text/javascript"
 	src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/bootstrap/js/bootstrap.min.js">
+</script>
+<script type="text/javascript"
+	src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/js/confirm.js">
 </script>

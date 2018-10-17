@@ -20,7 +20,8 @@ public class ExamQuestionDAO {
 	private final static String HAS_GENERATED_QUESTIONS = "SELECT idQuestion, idExam, orderNumber, isMarked FROM DRAW_QUESTION WHERE idExam = ? ORDER BY orderNumber";
 	private final static String UPDATE_TIME_SPEND = "UPDATE EXAM SET timeSpent = timeSpent + 1, state='EC' WHERE id=?";
 	private final static String UPDATE_STATE = "UPDATE EXAM SET state = 'T' WHERE id=?";
-	
+	private final static String MARK_QUESTION = "UPDATE DRAW_QUESTION SET isMarked=isMarked^1 WHERE idQuestion=? and idExam=?";
+
 	public static ExamQuestion Insert(ExamQuestion question) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
@@ -134,8 +135,35 @@ public class ExamQuestionDAO {
 			if (cnx != null) {
 				cnx.close();
 			}
-
 		}
+	}
+	
+	public static void MarkQuestion(int questionID, int examID) throws SQLException {
 
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(MARK_QUESTION);
+			rqt.setInt(1, questionID);
+			rqt.setInt(2, examID);
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (rqt != null) {
+				rqt.close();
+			}
+
+			if (cnx != null) {
+				cnx.close();
+			}
+		}
 	}
 }

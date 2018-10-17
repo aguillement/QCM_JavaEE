@@ -32,6 +32,12 @@ var counterJS = setInterval(function() {
 		clearInterval(counterJS);
 		document.getElementById("timer").innerHTML = "Temps écoulé";
 		$("#anchorBlock").css("display", "block");
+		blockNavigation();
+		$.alert({
+		    title: 'Temps écoulé!',
+		    content: 'Veuillez pouvez encore répondre à cette question.',
+		    type:'red'
+		});
 	}
 }, 1000);
 
@@ -56,3 +62,43 @@ var counterSaveDB = setInterval(function() {
 	}
 
 }, 60000);
+
+function questionMarked(){
+	var questionID = $('#question_id').val();
+	
+	$.ajax({
+		type: "POST",
+		url: "/QCM_JavaEE/Candidate/AjaxSaveExam",
+		data : {examID: examID, questionID: questionID},
+		datatype : "html"
+	});
+	//console.log(questionID)
+	$("#"+questionID).toggleClass("badge-light");
+	$("#"+questionID).toggleClass("badge-danger");
+}
+
+function blockNavigation(){
+	$("#navigation").children("a").each(function(){
+		var link = $(this)[0];
+		$(link).attr('href','#');
+		if(!$(link).hasClass("currentQuestion")){
+			$(link).addClass("badge-dark");
+		}
+		
+	});
+}
+const url = $('#finishTestUrl').val();
+$('#finishTest').on("click",function(){
+	$.alert({
+		title : 'Attention!',
+		type : "red",
+		content : 'Voulez-vous vraiment terminer l\'épreuve ?',
+		buttons : {
+			oui : function() {
+				$(location).attr("href", url);
+			},
+			non : function() {
+			}
+		}
+	});
+})

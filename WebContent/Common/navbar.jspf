@@ -37,7 +37,7 @@
 		</ul>
 		<div class="my-2 my-sm-0" style="text-align: center;">
 			<p style="margin-bottom: 0;">Connecté en tant que :</p>
-			<b><c:out value='${pageScope.role}' /></b>
+			<b><c:out value='${sessionScope.sessionUser.lastname}' /> <c:out value='${sessionScope.sessionUser.firstname}' /> (<c:out value='${pageScope.role}' />)</b>
 		</div>
 		<a class="nav-link my-2 my-sm-0"
 			href="<c:out value="${pageContext.servletContext.contextPath}" />/Logout">Déconnexion</a>

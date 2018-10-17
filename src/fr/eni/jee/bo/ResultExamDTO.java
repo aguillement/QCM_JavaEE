@@ -8,6 +8,7 @@ public class ResultExamDTO {
 	private String label;
 	private int nbRightQuestion;
 	private int nbAnsweredQuestion;
+	private float note;
 	
 	public ResultExamDTO(){	}
 
@@ -57,5 +58,15 @@ public class ResultExamDTO {
 
 	public void setNbAnsweredQuestion(int nbAnsweredQuestion) {
 		this.nbAnsweredQuestion = nbAnsweredQuestion;
-	}	
+	}
+
+	public float getNote() {
+		return note;
+	}
+
+	public void setNote(float note) {
+		this.note = note;
+	}
+	
+	
 }

@@ -2,6 +2,7 @@ package fr.eni.jee.bll.exam;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.dal.ExamQuestionDAO;
 
 /**
@@ -43,9 +45,14 @@ public class AjaxSaveExam extends HttpServlet {
 			ExamQuestionDAO.UpdateTimeSpend(examID);
 			
 			if(request.getParameter("finished") != null) {
-				System.out.println(request.getParameter("finished"));
 				ExamQuestionDAO.UpdateState(examID);
 			}
+			if(request.getParameter("questionID") != null) {
+				ExamQuestionDAO.MarkQuestion(Integer.valueOf(request.getParameter("questionID")), examID);
+			}
+			//
+			List<ExamQuestion> examQuestions = ExamQuestionDAO.SearchByExam(examID);
+			request.getSession().setAttribute("examQuestions", examQuestions);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
