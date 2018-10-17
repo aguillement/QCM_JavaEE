@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ResultExamDTO;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.dal.EpreuveDAO;
@@ -19,7 +18,7 @@ import fr.eni.jee.dal.EpreuveDAO;
 /**
  * Servlet implementation class ShowCandidateResults
  */
-@WebServlet("/Candidate/ShowCandidateResults")
+@WebServlet("/Candidat/ShowCandidateResults")
 public class ShowCandidateResults extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static final String VIEW = "/Candidate/ResultsConsultation/CandidateResults.jsp";   
@@ -37,7 +36,7 @@ public class ShowCandidateResults extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		User user = (User) request.getSession().getAttribute("sessionUser");
-		if(user != null && user.getIdProfile() == 20){
+		if(user != null && user.getProfile().getId() == 20){
 			
 			List<ResultExamDTO> lstResultExamDTO = new ArrayList<ResultExamDTO>(); 
 			

@@ -3,36 +3,38 @@ RETURNS TABLE
 AS  
 RETURN   
 (  
-	SELECT COUNT(*) AS nbRightAnswer
-	, TEST_SECTION.nbQuestionToDraw
-	, CASE
-		WHEN CAST(EXAM.score AS INT) > TEST.high_level THEN 'ACQUIS'
-		WHEN CAST(EXAM.score AS INT) > TEST.low_level AND CAST(EXAM.score AS INT) < TEST.high_level THEN 'EN COURS D''ACQUISITION'
-		ELSE 'NON ACQUIS' 
-	  END AS result
-	, TEST.label
-	FROM EXAM
-		LEFT JOIN TEST ON TEST.id = EXAM.id
-		LEFT JOIN DRAW_QUESTION ON DRAW_QUESTION.idExam = EXAM.id
-		LEFT JOIN DRAW_ANSWER ON DRAW_ANSWER.idExam = DRAW_QUESTION.idExam
-		LEFT JOIN PROPOSITION ON PROPOSITION.id = DRAW_ANSWER.idProposition
-		LEFT JOIN TEST_SECTION ON TEST_SECTION.idTest = TEST.id
-	WHERE PROPOSITION.isTrue = 1
-	AND EXAM.id = @IDExam
-	GROUP BY TEST_SECTION.nbQuestionToDraw, EXAM.score, TEST.high_level, TEST.low_level, TEST.label
-
-
-
---SELECT *
---FROM EXAM
---	JOIN TEST ON TEST.id = EXAM.idTest
---	JOIN TEST_SECTION ON TEST_SECTION.idTest = TEST.id
---	JOIN DRAW_QUESTION ON DRAW_QUESTION.idExam = EXAM.id
---	JOIN DRAW_ANSWER ON DRAW_ANSWER.idExam = DRAW_QUESTION.idExam
---	JOIN PROPOSITION ON PROPOSITION.id = DRAW_ANSWER.idProposition
---	JOIN USERS ON USERS.id = EXAM.idUsers	
---	JOIN QUESTION ON QUESTION.id = DRAW_QUESTION.idQuestion
---WHERE EXAM.idUsers = @IDUSERS
---AND EXAM.state = 'EC'
---AND TEST_SECTION.idTheme = QUESTION.idTheme
+	SELECT
+	CASE 
+		WHEN EXAM.score >= TEST.high_level THEN 'ACQUIS'
+		WHEN EXAM.score < TEST.high_level AND EXAM.score >= TEST.low_level THEN 'EN COURS'
+		ELSE 'NON ACQUIS'
+	END as Result,
+	T1.nbQuestion,
+	EXAM.id as IdExam,
+	Test.label,
+	T2.nbRightQuestion,
+	T3.nbAnsweredQuestion
+	FROM EXAM	
+		JOIN TEST ON TEST.id = EXAM.idTest
+		JOIN
+		(
+			SELECT COUNT(*) as nbQuestion, idExam 
+			FROM DRAW_QUESTION WHERE idExam = @IDExam
+			GROUP BY idExam
+		) T1 ON T1.idExam = EXAM.id
+		JOIN
+		(
+			SELECT  Count(*) as nbRightQuestion, DRAW_ANSWER.idExam
+			FROM DRAW_ANSWER
+				JOIN PROPOSITION ON PROPOSITION.id = DRAW_ANSWER.idProposition
+			WHERE PROPOSITION.isTrue = 1
+			GROUP BY DRAW_ANSWER.idExam
+		) T2 ON T2.idExam = EXAM.id
+		JOIN
+		(
+			SELECT Count(*) as nbAnsweredQuestion, idExam
+			FROM DRAW_ANSWER WHERE idExam = @IDExam
+			GROUP BY idExam
+		) T3 ON T3.idExam = EXAM.id
+	WHERE EXAM.id= @IDExam
 );  

@@ -5,15 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
-=======
 import java.sql.Statement;
 import java.sql.Timestamp;
->>>>>>> master
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.jee.bo.Epreuve;
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.Question;
@@ -32,17 +28,13 @@ public class EpreuveDAO {
 	/**
 	 * Queries
 	 */
-	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
-	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
-	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
-<<<<<<< HEAD
-	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
+	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE idUsers=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
+	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
 	private static final String FT_GET_RESULT_EXAM = "SELECT * FROM FT_GET_RESULT_EXAM(?)";
-=======
-
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
 	private static final String INSERT = "INSERT INTO EXAM(startDate, endDate, state, idTest, idUsers) VALUES(?, ?, ?, ?, ?)";
->>>>>>> master
+	private static final String FINISH_EXAM = "UPDATE EXAM SET state = 'T' WHERE id = ? AND idUsers = ?";
+
 
 	/**
 	 * Search all exams for userID
@@ -196,8 +188,6 @@ public class EpreuveDAO {
 			cnx.commit();
 		} catch (SQLException sqle) {
 
-<<<<<<< HEAD
-=======
 			if (cnx != null) {
 				cnx.rollback();
 			}
@@ -231,8 +221,6 @@ public class EpreuveDAO {
 			cnx.commit();
 
 		} catch (SQLException sqle) {
-
->>>>>>> master
 			if (cnx != null) {
 				cnx.rollback();
 			}
@@ -260,10 +248,12 @@ public class EpreuveDAO {
 
 			if (rs.next()) {
 				resultExamDTO = new ResultExamDTO();
+				resultExamDTO.setResult(rs.getString("result"));
+				resultExamDTO.setNbQuestion(rs.getInt("nbQuestion"));
+				resultExamDTO.setIdExam(rs.getInt("idExam"));
 				resultExamDTO.setLabel(rs.getString("label"));
-				resultExamDTO.setNbQuestionToDraw(rs.getInt("nbQuestionToDraw"));
-				resultExamDTO.setNbRightAnswer((rs.getInt("nbRightAnswer")));
-				resultExamDTO.setResult(rs.getString("result"));		
+				resultExamDTO.setNbRightQuestion(rs.getInt("nbRightQuestion"));
+				resultExamDTO.setNbAnsweredQuestion(rs.getInt("nbAnsweredQuestion"));
 			}
 
 		} finally {
@@ -292,5 +282,34 @@ public class EpreuveDAO {
 		}
 		
 		return lstResultExamDTO;
+	}
+
+	public static void FinishTest(Exam exam, int userID) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(FINISH_EXAM);
+			rqt.setInt(1, exam.getId());
+			rqt.setInt(2, userID);
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (rqt != null) {
+				rqt.close();
+			}
+
+			if (cnx != null) {
+				cnx.close();
+			}
+
+		}
 	}
 }

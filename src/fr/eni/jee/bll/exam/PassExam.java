@@ -59,12 +59,13 @@ public class PassExam extends HttpServlet {
 
 	/**
 	 * Send data to the database
+	 * 
 	 * @param request
 	 */
 	protected void sendResponses(HttpServletRequest request) {
 		String[] values = request.getParameterValues("responses");
 		// Vérification de la réponse à la question
-		if(values!=null){
+		if (values != null) {
 			int questionID = Integer.parseInt(request.getParameter("question_id"));
 			HttpSession session = request.getSession();
 			ExamAnswerDAO examAnswerDAO = new ExamAnswerDAO();
@@ -95,7 +96,7 @@ public class PassExam extends HttpServlet {
 					QuestionDAO questionDAO = new QuestionDAO();
 					Proposition proposition = propositionDAO.SearchById(Integer.parseInt(value));
 					Question question = questionDAO.SearchByID(questionID);
-					
+
 					ExamAnswer answer = new ExamAnswer();
 					answer.setExam(currentExam);
 					answer.setQuestion(question);
@@ -110,10 +111,10 @@ public class PassExam extends HttpServlet {
 					e.printStackTrace();
 					request.setAttribute("error", "Impossible d'enregistrer les réponses");
 				}
-				
+
 			}
 		}
-		
+
 	}
 
 	/**
@@ -129,58 +130,80 @@ public class PassExam extends HttpServlet {
 		HttpSession session = request.getSession();
 		int examID = -1;
 		int questionID = 1;
+		boolean examExist = false;
 
 		if (request.getParameter("idQuestion") != null) {
 			questionID = Integer.parseInt(request.getParameter("idQuestion"));
 		}
 
-		try {
-			// Check if the session has an exam
-			if (session.getAttribute("exam") == null) {
-				// Set the exam of the session
-				examID = Integer.parseInt(request.getParameter("id"));
-				Exam exam = EpreuveDAO.SearchByID(examID);
+		// Check if the session has an exam
+		if (session.getAttribute("exam") == null) {
+			// Set the exam of the session
+			examID = Integer.parseInt(request.getParameter("id"));
+			Exam exam = null;
+			try {
+				exam = EpreuveDAO.SearchByID(examID);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (exam.getId() != 0) {
 				session.setAttribute("exam", exam);
+				examExist = true;
 			}
-			Exam currentExam = (Exam) session.getAttribute("exam");
+		}
+		else{
+			examExist = true;
+		}
 
-			/**
-			 * Récupération des questions
-			 */
-			if (session.getAttribute("examQuestions") == null) {
-				List<Question> questions = new ArrayList<Question>();
-				List<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>();
-				examQuestions = ExamQuestionDAO.SearchByExam(currentExam.getId());
+		if (examExist) {
+			try {
+				Exam currentExam = (Exam) session.getAttribute("exam");
 
-				if (examQuestions.isEmpty()) {
-					questions = EpreuveDAO.GenerateQuestion(currentExam);
-					EpreuveDAO.InsertDrawQuestion(questions, currentExam);
+				/**
+				 * Récupération des questions
+				 */
+				if (session.getAttribute("examQuestions") == null) {
+					List<Question> questions = new ArrayList<Question>();
+					List<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>();
 					examQuestions = ExamQuestionDAO.SearchByExam(currentExam.getId());
+
+					if (examQuestions.isEmpty()) {
+						questions = EpreuveDAO.GenerateQuestion(currentExam);
+						EpreuveDAO.InsertDrawQuestion(questions, currentExam);
+						examQuestions = ExamQuestionDAO.SearchByExam(currentExam.getId());
+					}
+					session.setAttribute("examQuestions", examQuestions);
 				}
-				session.setAttribute("examQuestions", examQuestions);
-			}
-			// Check if the questionID is in the list of question
-			List<ExamQuestion> examQuestions = (List<ExamQuestion>) session.getAttribute("examQuestions");
-			if (questionID > examQuestions.size()) {
-				questionID = 1;
+				// Check if the questionID is in the list of question
+				List<ExamQuestion> examQuestions = (List<ExamQuestion>) session.getAttribute("examQuestions");
+				if (questionID > examQuestions.size()) {
+					questionID = 1;
+				}
+
+				// Send data to the JSP file
+				request.setAttribute("idQuestion", questionID);
+				request.setAttribute("idExam", currentExam.getId());
+				request.setAttribute("currentQuestion", getCurrentQuestion(questionID, session));
+				request.setAttribute("currentPropositions", getCurrentPropositions(request));
+				request.setAttribute("answers", getAnswers(request));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+				request.setAttribute("error", "Impossible de charger les réponses");
 			}
 
-			// Send data to the JSP file
-			request.setAttribute("idQuestion", questionID);
-			request.setAttribute("idExam", currentExam.getId());
-			request.setAttribute("currentQuestion", getCurrentQuestion(questionID, session));
-			request.setAttribute("currentPropositions", getCurrentPropositions(request));
-			request.setAttribute("answers", getAnswers(request));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			request.setAttribute("error", "Impossible de charger les réponses");
+			sendResponses(request);
+			
+		}
+		else{
+			request.setAttribute("error", "Le test que vous rechercher n'existe pas ou n'est plus accessible.");
 		}
 		
+		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request,
+				response);
 
-		sendResponses(request);
-		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request, response);
 	}
 
 	/**
@@ -222,16 +245,17 @@ public class PassExam extends HttpServlet {
 
 	/**
 	 * Return the answers for one question
+	 * 
 	 * @param request
 	 * @return
 	 */
-	protected List<Proposition> getAnswers(HttpServletRequest request){
+	protected List<Proposition> getAnswers(HttpServletRequest request) {
 		PropositionDAO propositionDAO = new PropositionDAO();
 		Question question = (Question) request.getAttribute("currentQuestion");
 		List<Proposition> allAnswers = null;
 		int idExam = Integer.parseInt(request.getAttribute("idExam").toString());
 		try {
-			allAnswers = propositionDAO.SearchByQuestionAndExam(question.getId(),idExam);
+			allAnswers = propositionDAO.SearchByQuestionAndExam(question.getId(), idExam);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,7 +1,6 @@
-package fr.eni.jee.bll.exam;
+package fr.eni.jee.bll.ResultsConsultation;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,23 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.User;
-import fr.eni.jee.dal.EpreuveDAO;
 
 /**
- * Servlet implementation class SelectExam
+ * Servlet implementation class ShowListResultCandidate
  */
-@WebServlet("/Candidat/SelectExam")
-public class SelectExam extends HttpServlet {
+@WebServlet("/ShowListResultCandidate")
+public class ShowListResultCandidate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String VIEW = "/Manager/ManageResultsCandidate/ListResultCandidate.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectExam() {
+    public ShowListResultCandidate() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,24 +32,19 @@ public class SelectExam extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Exam> exams = new ArrayList<Exam>();
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		try {
-			exams = EpreuveDAO.SearchByUser(user.getId());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		//Get the list off candidate
+		List<User> lstUserCandidate = new ArrayList<User>();
 		
-		request.setAttribute("exams", exams);
-		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/SelectExam.jsp").forward( request, response );
+		
+		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
 	}
 
 }
