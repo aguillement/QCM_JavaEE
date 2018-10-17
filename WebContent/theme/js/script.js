@@ -92,10 +92,7 @@ function questionMarked(){
 		data : {examID: examID, questionID: questionID},
 		datatype : "html"
 	});
-<<<<<<< HEAD
-	//console.log(questionID)
-=======
->>>>>>> master
+
 	$("#"+questionID).toggleClass("badge-light");
 	$("#"+questionID).toggleClass("badge-danger");
 }

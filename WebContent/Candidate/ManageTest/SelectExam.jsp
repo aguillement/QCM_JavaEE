@@ -15,12 +15,7 @@
 					<c:when test="${not empty requestScope.exams }">
 						<div class="list-group">
 							<c:forEach items="${ requestScope.exams }" var="exam">
-<<<<<<< HEAD
-								<a href="Exam?id=<c:out value="${exam.id}"/>"
-=======
-
 								<a onclick="localStorage.removeItem('timeLeftStorage');" href="Exam?id=<c:out value="${exam.id}"/>"
->>>>>>> master
 									class="list-group-item list-group-item-action flex-column align-items-start
 									<c:if test="${exam.state eq 'EC'}">
 										active
