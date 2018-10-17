@@ -358,10 +358,11 @@ public class EpreuveDAO {
 		List<Question> questionsList = new ArrayList<Question>();
 
 		try {
+			
 			cnx = AccessDB.getConnection();
 			callableStatement = cnx.prepareCall("{call PROC_UPDATE_SCORE(?)}");
-			callableStatement.setInt(1, exam.getTest().getId());
-			rs = callableStatement.executeQuery();
+			callableStatement.setInt(1, exam.getId());
+			callableStatement.executeQuery();
 
 		} finally {
 			if (callableStatement != null)

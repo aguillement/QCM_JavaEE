@@ -41,7 +41,7 @@
 								<div class="row">
 									<div class="col-6">
 										<a class="btn btn-primary btn-lg"
-											href="<c:out value="${pageContext.servletContext.contextPath}" />/#?id=<c:out value="${test.id}" />"
+											href="<c:out value="${pageContext.servletContext.contextPath}" />/Responsable/ShowDetailResultCandidate?id=<c:out value="${user.id}" />"
 											role="button">Details résultats</a>
 									</div>									
 								</div>
