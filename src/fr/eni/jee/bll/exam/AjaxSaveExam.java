@@ -1,6 +1,7 @@
 package fr.eni.jee.bll.exam;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -42,13 +43,24 @@ public class AjaxSaveExam extends HttpServlet {
 		int examID = Integer.valueOf(request.getParameter("examID"));
 		
 		try {
-			ExamQuestionDAO.UpdateTimeSpend(examID);
+			if(request.getParameter("updateTimer") != null) {
+				ExamQuestionDAO.UpdateTimeSpend(examID);
+			}
 			
 			if(request.getParameter("finished") != null) {
 				ExamQuestionDAO.UpdateState(examID);
 			}
 			if(request.getParameter("questionID") != null) {
 				ExamQuestionDAO.MarkQuestion(Integer.valueOf(request.getParameter("questionID")), examID);
+			}
+
+			if(request.getParameter("getDuration") != null) {
+			    String jsonData = Integer.toString(ExamQuestionDAO.GetDuration(examID));  
+
+			    response.setContentType("application/json");
+			    PrintWriter out = response.getWriter();
+			    out.println(jsonData) ; 
+			    out.close();
 			}
 			//
 			List<ExamQuestion> examQuestions = ExamQuestionDAO.SearchByExam(examID);
