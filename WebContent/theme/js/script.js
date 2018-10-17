@@ -1,9 +1,29 @@
-var timeLeft = (parseInt($('#duration').val()) - parseInt($('#timeSpent').val())) * 60
-if(localStorage.timeLeftStorage){
-	timeLeft = localStorage.timeLeftStorage
-}
 var examID = $('#examID').val();
 var sendLast = false;
+var timeLeft = 0;
+
+console.log(timeLeft);
+console.log(localStorage.timeLeftStorage);
+if(localStorage.timeLeftStorage){
+    timeLeft = localStorage.timeLeftStorage
+    console.log(timeLeft);
+    console.log(localStorage.timeLeftStorage);
+    console.log("if");
+}else{
+	$.ajax({
+		type : "POST",
+		url : "/QCM_JavaEE/Candidate/AjaxSaveExam",
+		data : {examID: examID, getDuration: true},
+		datatype : "html",
+		success: function(response){
+			    console.log("success");
+				timeLeft = response * 60;
+				console.log(timeLeft);
+				console.log(timeLeft);
+				console.log(localStorage.timeLeftStorage);
+         }
+	});
+}
 
 var counterJS = setInterval(function() {
 	localStorage.timeLeftStorage = timeLeft
@@ -56,7 +76,7 @@ var counterSaveDB = setInterval(function() {
 		$.ajax({
 			type : "POST",
 			url : "/QCM_JavaEE/Candidate/AjaxSaveExam",
-			data : "examID=" + examID,
+			data : {examID: examID, updateTimer: true},
 			datatype : "html"
 		});
 	}
@@ -72,7 +92,10 @@ function questionMarked(){
 		data : {examID: examID, questionID: questionID},
 		datatype : "html"
 	});
+<<<<<<< HEAD
 	//console.log(questionID)
+=======
+>>>>>>> master
 	$("#"+questionID).toggleClass("badge-light");
 	$("#"+questionID).toggleClass("badge-danger");
 }

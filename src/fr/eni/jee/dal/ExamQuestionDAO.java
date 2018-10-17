@@ -21,7 +21,8 @@ public class ExamQuestionDAO {
 	private final static String UPDATE_TIME_SPEND = "UPDATE EXAM SET timeSpent = timeSpent + 1, state='EC' WHERE id=?";
 	private final static String UPDATE_STATE = "UPDATE EXAM SET state = 'T' WHERE id=?";
 	private final static String MARK_QUESTION = "UPDATE DRAW_QUESTION SET isMarked=isMarked^1 WHERE idQuestion=? and idExam=?";
-
+	private final static String GET_DURATION = "SELECT duration - timeSpent AS 'duration' FROM EXAM INNER JOIN TEST ON EXAM.idTest = TEST.id WHERE EXAM.id=?";
+	
 	public static ExamQuestion Insert(ExamQuestion question) throws SQLException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
@@ -51,6 +52,27 @@ public class ExamQuestionDAO {
 		}
 		
 		return question;
+	}
+	
+	public static int GetDuration(int examID) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+ 		int duration = 0;
+ 		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(GET_DURATION);
+			rqt.setInt(1, examID);
+			rs=rqt.executeQuery();
+ 			while(rs.next()){
+				duration = rs.getInt("duration");
+			}
+		
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return duration;
 	}
 	
 	public static List<ExamQuestion> SearchByExam(int examID) throws SQLException{
