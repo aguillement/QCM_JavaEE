@@ -3,3 +3,5 @@
 		un candidat</a></li>
 <li class="nav-item"><a class="nav-link"
 	href="<%=request.getContextPath()%>/Responsable/tests">Tests</a></li>
+<li class="nav-item"><a class="nav-link"
+	href="<%=request.getContextPath()%>/Responsable/ShowListResultCandidate">Liste résultats</a></li>	

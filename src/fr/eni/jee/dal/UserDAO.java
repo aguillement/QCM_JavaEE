@@ -21,7 +21,9 @@ public class UserDAO {
 	private static final String DELETE ="DELETE FROM USERS where id = ?";
 	private static final String GET_ALL ="SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS";
 	private static final String SEARCH_BY_PROMOTION = "SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE idPromotion=?";
-
+	private static final String SEARCH_BY_LASTNAME = "SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE lastname LIKE ?";
+	private static final String GET_ALL_CANDIDATE = "SELECT id, lastname, firstname, email, password, idProfile, idPromotion FROM USERS WHERE idProfile = 20 OR idProfile = 10";
+	
 	public static User SearchById(int userID) throws SQLException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
@@ -84,6 +86,48 @@ public class UserDAO {
 			if (cnx!=null) cnx.close();
 		}
 		return user;
+	}
+	
+	public static List<User> SearchByLastname(String str) throws SQLException{
+		
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;		
+		
+		List<User> lstUser = new ArrayList<User>();
+		
+		try{
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(SEARCH_BY_LASTNAME);
+			rqt.setString(1, "%" + str + "%");
+			rs=rqt.executeQuery();
+			
+			if (rs.next()){
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setLastname(rs.getString("lastname"));
+				user.setMail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				
+				Profile profile = new Profile();
+				profile = ProfileDAO.SearchByID((rs.getInt("idProfile")));				
+				user.setProfile(profile);
+				
+				Promotion promotion = new Promotion();
+				promotion = PromotionDAO.SearchByID((rs.getInt("idPromotion")));
+				user.setPromotion(promotion);
+				
+				lstUser.add(user);
+			}
+			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		
+		
+		return lstUser;
 	}
 
 	public static User Insert(User user) throws SQLException{
@@ -242,6 +286,43 @@ public class UserDAO {
 		}
 		return users;
 		
+	}
+	
+	public static List<User> GetAllCandidats() throws SQLException{
+		
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		
+		List<User> lstUser = new ArrayList<User>();
+		
+		try{
+			
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(GET_ALL_CANDIDATE);			
+			rs = rqt.executeQuery();
+
+			while (rs.next()){
+				Profile profile = ProfileDAO.SearchByID(rs.getInt("idProfile"));
+				Promotion promo = PromotionDAO.SearchByID(rs.getInt("idPromotion"));
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setLastname(rs.getString("lastname"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setMail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setProfile(profile);
+				user.setPromotion(promo);
+				
+				lstUser.add(user);
+			}
+			
+		}finally{
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		
+		return lstUser;
 	}
 	
 }

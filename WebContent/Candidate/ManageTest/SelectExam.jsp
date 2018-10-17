@@ -9,12 +9,12 @@
 		<%@ include file="../../Common/navbar.jspf"%>
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-lg-12">
-				<h2>Sélectionner une épreuve</h2>
+				<h2>Vos épreuves</h2>
+				<p class="lead">Voici la liste des tests auquels vous êtes inscrits.<br />Selectionnez le test à passer et confirmez son lancement.</p>
 				<c:choose>
 					<c:when test="${not empty requestScope.exams }">
 						<div class="list-group">
 							<c:forEach items="${ requestScope.exams }" var="exam">
-
 								<a onclick="localStorage.removeItem('timeLeftStorage');" href="Exam?id=<c:out value="${exam.id}"/>"
 									class="list-group-item list-group-item-action flex-column align-items-start
 									<c:if test="${exam.state eq 'EC'}">
@@ -28,20 +28,24 @@
 											</c:if>
 											<c:out value="${exam.test.label}" />
 										</h5>
-										<small>Durée : <c:out value="${exam.test.duration}" />
+									</div>
+									<p class="mb-1">
+										Inscription valide du <fmt:formatDate pattern = "dd/MM/yyyy à HH:mm" value = "${exam.startDate}" />
+											au <fmt:formatDate pattern = "dd/MM/yyyy à HH:mm" value = "${exam.endDate}" />
+									</p>
+									<p class="mb-1">
+										Durée : <c:out value="${exam.test.duration}" />
 											minutes
-										</small>
-									</div> <c:if test="${exam.state eq 'EC'}">
+									</p>
+									<c:if test="${exam.state eq 'EC'}">
 										<c:set var="timeSpent"
 											value="${exam.test.duration - exam.timeSpent}" />
-										<small>Temps restant : <c:out value="${timeSpent}" />
+										<p class="mb-1">
+											Temps restant : <c:out value="${timeSpent}" />
 											minutes
-										</small>
+										</p>
 									</c:if>
-									<p class="mb-1">
-										<c:out value="${exam.test.statement}" />
-									</p>
-								</a>
+								</a><br />
 							</c:forEach>
 						</div>
 					</c:when>
