@@ -10,10 +10,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.jee.bo.Epreuve;
 import fr.eni.jee.bo.Exam;
 import fr.eni.jee.bo.ExamQuestion;
 import fr.eni.jee.bo.Question;
+import fr.eni.jee.bo.ResultExamDTO;
 import fr.eni.jee.bo.Test;
 import fr.eni.jee.bo.Theme;
 import fr.eni.jee.bo.User;
@@ -32,10 +32,9 @@ public class EpreuveDAO {
 	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
 	private static final String SEARCH_BY_ID_FINISH = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
-
+	private static final String FT_GET_RESULT_EXAM = "SELECT * FROM FT_GET_RESULT_EXAM(?)";
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
 	private static final String INSERT = "INSERT INTO EXAM(startDate, endDate, state, idTest, idUsers) VALUES(?, ?, ?, ?, ?)";
-	
 	private static final String FINISH_EXAM = "UPDATE EXAM SET state = 'T' WHERE id = ? AND idUsers = ?";
 
 	
@@ -288,7 +287,6 @@ public class EpreuveDAO {
 			cnx.commit();
 
 		} catch (SQLException sqle) {
-
 			if (cnx != null) {
 				cnx.rollback();
 			}
@@ -300,5 +298,55 @@ public class EpreuveDAO {
 			if (cnx != null)
 				cnx.close();
 		}
+	}
+
+	public static ResultExamDTO GetResultExam(Exam exam) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		ResultExamDTO resultExamDTO = null;
+		
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(FT_GET_RESULT_EXAM);
+			rqt.setInt(1, exam.getId());
+			rs = rqt.executeQuery();
+
+			if (rs.next()) {
+				resultExamDTO = new ResultExamDTO();
+				resultExamDTO.setResult(rs.getString("result"));
+				resultExamDTO.setNbQuestion(rs.getInt("nbQuestion"));
+				resultExamDTO.setIdExam(rs.getInt("idExam"));
+				resultExamDTO.setLabel(rs.getString("label"));
+				resultExamDTO.setNbRightQuestion(rs.getInt("nbRightQuestion"));
+				resultExamDTO.setNbAnsweredQuestion(rs.getInt("nbAnsweredQuestion"));
+			}
+
+		} finally {
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
+		}
+		return resultExamDTO;
+	}
+	
+	public static List<ResultExamDTO> GetAllResultExam(User user) throws SQLException{
+		
+		List<ResultExamDTO> lstResultExamDTO = new ArrayList<ResultExamDTO>();
+		List<Exam> lstExam = new ArrayList<Exam>();
+		
+		lstExam = SearchByUser(user.getId());
+		
+		for(Exam exam: lstExam){
+			
+			ResultExamDTO resultExamDTO = new ResultExamDTO();
+			resultExamDTO = GetResultExam(exam);
+			
+			if(resultExamDTO != null)
+				lstResultExamDTO.add(resultExamDTO);
+		}
+		
+		return lstResultExamDTO;
 	}
 }
