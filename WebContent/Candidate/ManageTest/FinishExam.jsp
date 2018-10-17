@@ -32,12 +32,21 @@
 
 						<div class="jumbotron">
 							<h1 class="display-4 text-center">Résultat obtenu à l'épreuve</h1>
+							<p class="lead text-center">Epreuvre : <c:out value='${requestScope.result.label}' /></p>
 							<hr class="my-4">
 							<p class="lead text-center">Liste des résultats :</p>
-							<hr class="my-4">
-							<p class="lead text-center">Votre note : XX/20</p>
+							<p class="lead text-center">
+							Nombre de questions justes : 
+							<c:out value='${requestScope.result.nbRightQuestion}' />
+							</p>
+							<p class="lead text-center">
+							Nombre de questions répondues : 
+							<c:out value='${requestScope.result.nbAnsweredQuestion}' /> / 
+							<c:out value='${requestScope.result.nbQuestion}' />
+							</p>			
+							<p class="lead text-center">Votre note : <c:out value='${requestScope.result.note}' />/20</p>
 							<p class="lead text-center">Votre niveau d'acquisition :
-								NA/ECA/A</p>
+								<c:out value='${requestScope.result.result}' /></p>
 							<p class="lead text-center">
 								<a class="btn btn-primary btn-lg"
 									href="<c:out value="${pageContext.servletContext.contextPath}" />/Home"

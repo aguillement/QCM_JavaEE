@@ -320,6 +320,7 @@ public class EpreuveDAO {
 				resultExamDTO.setLabel(rs.getString("label"));
 				resultExamDTO.setNbRightQuestion(rs.getInt("nbRightQuestion"));
 				resultExamDTO.setNbAnsweredQuestion(rs.getInt("nbAnsweredQuestion"));
+				resultExamDTO.setNote(rs.getFloat("note"));
 			}
 
 		} finally {

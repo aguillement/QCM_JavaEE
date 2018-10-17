@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.jee.bo.Exam;
+import fr.eni.jee.bo.ResultExamDTO;
 import fr.eni.jee.bo.User;
 import fr.eni.jee.dal.EpreuveDAO;
 
@@ -46,17 +47,18 @@ public class FinishTest extends HttpServlet implements Servlet {
 		Exam exam = null;
 		if (session.getAttribute("exam") != null) {
 			exam = (Exam)session.getAttribute("exam");
-			EpreuveDAO epreuveDAO = new EpreuveDAO();
 			try {
-				epreuveDAO.FinishTest(exam,user.getId());
+				EpreuveDAO.FinishTest(exam,user.getId());
+				ResultExamDTO result = EpreuveDAO.GetResultExam(exam);
 				session.removeAttribute("exam");
 				session.removeAttribute("examQuestions");
 				request.setAttribute("message", "Votre test à été rendu avec succès.");
+				request.setAttribute("result", result);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				// Envoi de l'erreur
-				request.setAttribute("error", "Erreur lors de l'envoi de votre test. " + e.getMessage());
+				request.setAttribute("error", "Erreur lors de l'envoi de votre épreuve. " + e.getMessage());
 			}
 			//JSP
 			this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/FinishExam.jsp").forward( request, response );
