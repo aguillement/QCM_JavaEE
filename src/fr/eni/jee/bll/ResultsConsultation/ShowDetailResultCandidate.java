@@ -52,8 +52,7 @@ public class ShowDetailResultCandidate extends HttpServlet {
 			request.setAttribute("lstResultExamDTO", lstResultExamDTO);
 		}
 		
-		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );
-		
+		this.getServletContext().getRequestDispatcher( VIEW ).forward( request, response );		
 	}
 
 	/**
