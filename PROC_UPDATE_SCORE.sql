@@ -18,4 +18,6 @@ PRINT(@Score)
 
 UPDATE EXAM SET EXAM.score = @Score WHERE EXAM.id = @IDExam
 
+SELECT 1
+
 END
