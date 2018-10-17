@@ -33,8 +33,12 @@
 								<c:out value="${requestScope.exam.test.statement}" />
 							</p>
 							<p class="lead text-center">
-								<a class="btn btn-primary btn-lg"
-									href="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/PassExam?id=<c:out value="${requestScope.exam.id}" />"
+							<input type="hidden" id="passExamUrl" value="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/PassExam?id=<c:out value="${requestScope.exam.id}" />" >
+								<a id="btnCommencer" class="btn btn-primary btn-lg 
+								<c:if test="${exam.state eq 'EC'}">
+									inUse
+								</c:if>
+								" href="#"
 									role="button"> <c:choose>
 										<c:when test="${exam.state eq 'EC'}">Reprendre le test
 								</c:when>
@@ -43,6 +47,9 @@
 								</a>
 							</p>
 						</div>
+						<script type="text/javascript"
+							src="<c:out value="${pageContext.servletContext.contextPath}" />/theme/js/script_exam.js">
+						</script>
 					</c:when>
 					<c:otherwise>
 						<div class="alert alert-dismissible alert-primary">

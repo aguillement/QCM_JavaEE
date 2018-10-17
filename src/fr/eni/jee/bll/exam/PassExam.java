@@ -131,6 +131,7 @@ public class PassExam extends HttpServlet {
 		int examID = -1;
 		int questionID = 1;
 		boolean examExist = false;
+		boolean isFinished = false;
 
 		if (request.getParameter("idQuestion") != null) {
 			questionID = Integer.parseInt(request.getParameter("idQuestion"));
@@ -151,58 +152,66 @@ public class PassExam extends HttpServlet {
 				session.setAttribute("exam", exam);
 				examExist = true;
 			}
-		}
-		else{
+		} else {
 			examExist = true;
 		}
 
 		if (examExist) {
 			try {
 				Exam currentExam = (Exam) session.getAttribute("exam");
+				currentExam = EpreuveDAO.SearchExamIsFinish(currentExam.getId());
 
-				/**
-				 * Récupération des questions
-				 */
-				if (session.getAttribute("examQuestions") == null) {
-					List<Question> questions = new ArrayList<Question>();
-					List<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>();
-					examQuestions = ExamQuestionDAO.SearchByExam(currentExam.getId());
-
-					if (examQuestions.isEmpty()) {
-						questions = EpreuveDAO.GenerateQuestion(currentExam);
-						EpreuveDAO.InsertDrawQuestion(questions, currentExam);
+				// V�rification du temps restant
+				if (currentExam.getTimeSpent() < currentExam.getTest().getDuration()) {
+					/**
+					 * Récupération des questions
+					 */
+					if (session.getAttribute("examQuestions") == null) {
+						List<Question> questions = new ArrayList<Question>();
+						List<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>();
 						examQuestions = ExamQuestionDAO.SearchByExam(currentExam.getId());
+
+						if (examQuestions.isEmpty()) {
+							questions = EpreuveDAO.GenerateQuestion(currentExam);
+							EpreuveDAO.InsertDrawQuestion(questions, currentExam);
+							examQuestions = ExamQuestionDAO.SearchByExam(currentExam.getId());
+						}
+						session.setAttribute("examQuestions", examQuestions);
 					}
-					session.setAttribute("examQuestions", examQuestions);
+					// Check if the questionID is in the list of question
+					List<ExamQuestion> examQuestions = (List<ExamQuestion>) session.getAttribute("examQuestions");
+					if (questionID > examQuestions.size()) {
+						questionID = 1;
+					}
+
+					// Send data to the JSP file
+					request.setAttribute("idQuestion", questionID);
+					request.setAttribute("idExam", currentExam.getId());
+					request.setAttribute("currentQuestion", getCurrentQuestion(questionID, session));
+					request.setAttribute("currentPropositions", getCurrentPropositions(request));
+					request.setAttribute("answers", getAnswers(request));
 				}
-				// Check if the questionID is in the list of question
-				List<ExamQuestion> examQuestions = (List<ExamQuestion>) session.getAttribute("examQuestions");
-				if (questionID > examQuestions.size()) {
-					questionID = 1;
+				else{
+					isFinished = true;
 				}
 
-				// Send data to the JSP file
-				request.setAttribute("idQuestion", questionID);
-				request.setAttribute("idExam", currentExam.getId());
-				request.setAttribute("currentQuestion", getCurrentQuestion(questionID, session));
-				request.setAttribute("currentPropositions", getCurrentPropositions(request));
-				request.setAttribute("answers", getAnswers(request));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-
 				request.setAttribute("error", "Impossible de charger les réponses");
 			}
 
 			sendResponses(request);
-			
-		}
-		else{
+
+		} else {
 			request.setAttribute("error", "Le test que vous rechercher n'existe pas ou n'est plus accessible.");
 		}
-		
-		this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request,
-				response);
+		if(!isFinished){
+			this.getServletContext().getRequestDispatcher("/Candidate/ManageTest/PassExam.jsp").forward(request, response);
+		}
+		else{
+			response.sendRedirect( request.getContextPath() + "/Candidat/finishTest" );
+		}
 
 	}
 

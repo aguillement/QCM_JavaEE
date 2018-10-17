@@ -30,6 +30,7 @@ public class EpreuveDAO {
 	 */
 	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE idUsers=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
 	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
+	private static final String SEARCH_BY_ID_FINISH = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
 	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
 
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
@@ -130,6 +131,41 @@ public class EpreuveDAO {
 		try {
 			cnx = AccessDB.getConnection();
 			rqt = cnx.prepareStatement(SEARCH_BY_ID);
+			rqt.setInt(1, examID);
+			rs = rqt.executeQuery();
+
+			if (rs.next()) {
+				test = TestDAO.SearchByID(rs.getInt("idTest"));
+				user = UserDAO.SearchById(rs.getInt("idUsers"));
+				exam.setId(rs.getInt("id"));
+				exam.setStartDate(rs.getTimestamp("startDate"));
+				exam.setEndDate(rs.getTimestamp("endDate"));
+				exam.setTimeSpent(rs.getInt("timeSpent"));
+				exam.setState(rs.getString("state"));
+				exam.setScore(rs.getFloat("score"));
+				exam.setLevel(rs.getString("level"));
+				exam.setTest(test);
+				exam.setUser(user);
+			}
+
+		} finally {
+			if (rqt != null)
+				rqt.close();
+			if (cnx != null)
+				cnx.close();
+		}
+		return exam;
+	}
+	
+	public static Exam SearchExamIsFinish(int examID) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Exam exam = new Exam();
+
+		try {
+			cnx = AccessDB.getConnection();
+			rqt = cnx.prepareStatement(SEARCH_BY_ID_FINISH);
 			rqt.setInt(1, examID);
 			rs = rqt.executeQuery();
 
