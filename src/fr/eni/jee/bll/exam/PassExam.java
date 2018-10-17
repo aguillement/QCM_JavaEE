@@ -68,12 +68,11 @@ public class PassExam extends HttpServlet {
 		if (values != null) {
 			int questionID = Integer.parseInt(request.getParameter("question_id"));
 			HttpSession session = request.getSession();
-			ExamAnswerDAO examAnswerDAO = new ExamAnswerDAO();
 			Exam currentExam = (Exam) session.getAttribute("exam");
 			// récupération des réponses dans la base
 			List<ExamAnswer> listAnswer = new ArrayList<ExamAnswer>();
 			try {
-				listAnswer = examAnswerDAO.SearchByQuestionAndExam(currentExam.getId(), questionID);
+				listAnswer = ExamAnswerDAO.SearchByQuestionAndExam(currentExam.getId(), questionID);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -82,7 +81,7 @@ public class PassExam extends HttpServlet {
 			// suppression des réponses dans la base
 			try {
 				for (ExamAnswer answer : listAnswer) {
-					examAnswerDAO.Delete(answer);
+					ExamAnswerDAO.Delete(answer);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -92,16 +91,15 @@ public class PassExam extends HttpServlet {
 			// envoi des réponses à la base
 			for (String value : values) {
 				try {
-					PropositionDAO propositionDAO = new PropositionDAO();
-					QuestionDAO questionDAO = new QuestionDAO();
-					Proposition proposition = propositionDAO.SearchById(Integer.parseInt(value));
-					Question question = questionDAO.SearchByID(questionID);
+					Proposition proposition = PropositionDAO.SearchById(Integer.parseInt(value));
+					Question question = QuestionDAO.SearchByID(questionID);
 
 					ExamAnswer answer = new ExamAnswer();
 					answer.setExam(currentExam);
 					answer.setQuestion(question);
 					answer.setProposition(proposition);
-					examAnswerDAO.Insert(answer);
+					ExamAnswerDAO.Insert(answer);
+					EpreuveDAO.UpdateScore(currentExam);
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

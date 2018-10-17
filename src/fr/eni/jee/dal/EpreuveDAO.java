@@ -31,7 +31,6 @@ public class EpreuveDAO {
 	private static final String SEARCH_BY_USER = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE idUsers=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
 	private static final String SEARCH_BY_ID = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=? AND state <> 'T' AND DATEDIFF(second,GETDATE(),endDate) > 0";
 	private static final String SEARCH_BY_ID_FINISH = "SELECT id, startDate, endDate, timeSpent, state, score, level, idTest, idUsers FROM EXAM WHERE id=?";
-	private static final String GENERATE_QUESTIONS = "EXEC PROC_GENERATE_QUESTIONSV2 ?";
 	private static final String FT_GET_RESULT_EXAM = "SELECT * FROM FT_GET_RESULT_EXAM(?)";
 	private static final String INSERT_QUESTION_TIRAGE = "INSERT INTO DRAW_QUESTION(isMarked, idQuestion, OrderNumber, idExam) VALUES (?, ?, ?, ?)";
 	private static final String INSERT = "INSERT INTO EXAM(startDate, endDate, state, idTest, idUsers) VALUES(?, ?, ?, ?, ?)";
@@ -349,5 +348,26 @@ public class EpreuveDAO {
 		}
 		
 		return lstResultExamDTO;
+	}
+	
+	public static void UpdateScore(Exam exam) throws SQLException {
+
+		Connection cnx = null;
+		CallableStatement callableStatement = null;
+		ResultSet rs = null;
+		List<Question> questionsList = new ArrayList<Question>();
+
+		try {
+			cnx = AccessDB.getConnection();
+			callableStatement = cnx.prepareCall("{call PROC_UPDATE_SCORE(?)}");
+			callableStatement.setInt(1, exam.getTest().getId());
+			rs = callableStatement.executeQuery();
+
+		} finally {
+			if (callableStatement != null)
+				callableStatement.close();
+			if (cnx != null)
+				cnx.close();
+		}
 	}
 }
