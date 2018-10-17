@@ -9,7 +9,7 @@
 		<div class="row" style="margin-top: 20px;">
 			<c:choose>
 				<c:when test="${empty requestScope.error}">
-					<div class="col-lg-2" style="border-right: #d6d6d6 1px solid;">
+					<div id="navigation" class="col-lg-2" style="border-right: #d6d6d6 1px solid;">
 						<h5>Liste des questions :</h5>
 						<hr>
 						<c:forEach items="${ sessionScope.examQuestions }"
@@ -93,7 +93,7 @@
 								<input type="hidden" id="question_id" name="question_id"
 									value="<c:out value="${requestScope.currentQuestion.id}" />" />
 								<p class="lead">
-									<button type="submit" class="btn btn-primary btn-lg">Confirmer</button>
+									<button type="submit" class="btn btn-primary btn-lg">Confirmer vos réponses</button>
 								</p>
 								<input type="hidden" id="timeSpent"
 									value="<c:out value="${sessionScope.exam.timeSpent}" />" /> <input
@@ -106,10 +106,9 @@
 						<button type="button" class="btn btn-info"
 							onclick="questionMarked();">Marquer la question</button>
 						<div class="text-right">
-						<form action="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/finishTest" method="POST">
-							<button type="submit" class="btn btn-outline-success">Rendre
-								le test</button>
-						</form>
+						<input type="hidden" id="finishTestUrl" value="<c:out value="${pageContext.servletContext.contextPath}" />/Candidat/finishTest" >
+						<a href="#" id="finishTest"class="btn btn-outline-success">Terminer
+								l'épreuve</a>
 						</div>
 					</div>
 				</c:when>

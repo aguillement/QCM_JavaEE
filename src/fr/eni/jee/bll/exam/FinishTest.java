@@ -34,7 +34,7 @@ public class FinishTest extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect( request.getContextPath() + "/AccessDenied" );
+		doPost(request,response);
 	}
 
 	/**
