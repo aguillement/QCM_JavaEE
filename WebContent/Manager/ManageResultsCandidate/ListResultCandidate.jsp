@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../../Common/header.jspf"%>
+<title>List result candidate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 	<div class="container-fluid">
@@ -12,11 +10,13 @@
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-lg-12">
 
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search"
+				<form class="form-inline my-2 my-lg-0"  method="post" action="<c:out value="${pageContext.servletContext.contextPath}" />
+		/Responsable/ShowListResultCandidate">
+					<input class="form-control mr-sm-2" type="search" name="search"
 						placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</form>
+				<br>
 
 				<table class="table table-hover">
 					<thead class="thead-dark">
@@ -26,16 +26,17 @@
 							<th scope="col">Mail</th>
 							<th scope="col">Profile</th>
 							<th scope="col">Promotion</th>
+							<th scope="col">Fonctionnalités</th>
 						</tr>
 					</thead>
 
-					<c:forEach items="${lstUserCandidats}" var="user">
+					<c:forEach items="${lstUserCandidate}" var="user">
 						<tr>
 							<td>${user.lastname}</td>
-							<td>${test.firstname}</td>
-							<td>${test.email}</td>
-							<td>${test.getProfile().getLabel()}</td>
-							<td>${test.getPromotion().getLabel()}</td>
+							<td>${user.firstname}</td>
+							<td>${user.mail}</td>
+							<td>${user.getProfile().getLabel()}</td>
+							<td>${user.getPromotion().getLabel()}</td>
 							<td>
 								<div class="row">
 									<div class="col-6">
