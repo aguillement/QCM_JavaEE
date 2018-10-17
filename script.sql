@@ -242,12 +242,17 @@ SET ANSI_PADDING OFF
 GO
 SET IDENTITY_INSERT [dbo].[EXAM] ON 
 
-INSERT [dbo].[EXAM] ([id], [startDate], [endDate], [timeSpent], [state], [score], [level], [idTest], [idUsers]) VALUES (3, CAST(N'2018-10-04 10:00:00.000' AS DateTime), CAST(N'2018-10-04 16:00:00.000' AS DateTime), 50, N'T', 16, N'A', 1, 3),
-																													  (6, CAST(N'2018-10-04 10:00:00.000' AS DateTime), CAST(N'2018-10-04 16:00:00.000' AS DateTime), 60, N'T', 7, N'NA', 1, 5)
+INSERT [dbo].[EXAM] ([id], [startDate], [endDate], [timeSpent], [state], [score], [level], [idTest], [idUsers]) VALUES (3, CAST(N'2018-18-10 10:00:00.000' AS DateTime), CAST(N'2018-18-10 16:00:00.000' AS DateTime), 50, N'EC', 0, NULL, 1, 3),
+																													  (6, CAST(N'2018-18-10 10:00:00.000' AS DateTime), CAST(N'2018-18-10 16:00:00.000' AS DateTime), 0, N'EA', 0, NULL, 1, 3)
 SET IDENTITY_INSERT [dbo].[EXAM] OFF
-INSERT [dbo].[PROFILE] ([id], [label]) VALUES (10, N'libre'), (20, N'stagiaire'), (30, N'formateur'), (40, N'admin')
+INSERT [dbo].[PROFILE] ([id], [label]) VALUES (10, N'libre'), (20, N'stagiaire'), (30, N'formateur'), (40, N'admin'), (50, N'responsable')
 INSERT [dbo].[PROMOTION] ([id], [label]) VALUES (N'1', N'promo01'), (N'2', N'promo02'), (N'3', N'promo03'), (N'4', N'promo04'), (N'5', N'promo05'), (N'6', N'promo06')
-INSERT [dbo].[PROPOSITION] ([id], [statement], [isTrue], [idQuestion]) VALUES (1, N'MariaDB', 1, 1), (2, N'MySQL', 1, 1), (3, N'Oracle', 1, 1), (4, N'Create Read Update Delete', 1, 2), (5, N'Create Read Upgrade Delete', 0, 2), (6, N'Create Remove Upgrade Delete', 0, 2), (7, N'Create Remove Update Delete', 0, 2), (8, N'class NomClass', 1, 3), (9, N'class nomClass', 0, 3), (10, N'new class NomClass', 0, 3), (11, N'new class nomClass', 0, 3)
+INSERT [dbo].[PROPOSITION] ([id], [statement], [isTrue], [idQuestion]) VALUES (1, N'MariaDB', 1, 1),
+(2, N'MySQL', 1, 1), (3, N'Oracle', 1, 1), (4, N'Create Read Update Delete', 1, 2),
+(5, N'Create Read Upgrade Delete', 0, 2), (6, N'Create Remove Upgrade Delete', 0, 2),
+(7, N'Create Remove Update Delete', 0, 2), (8, N'class NomClass', 1, 3), (9, N'class nomClass', 0, 3),
+(10, N'new class NomClass', 0, 3), (11, N'new class nomClass', 0, 3), (12, 'Oui',1,1), (12, 'Non',0,1),
+(13, '.',0,2), (14, ',',0,2), (15, ';',1,2), (16, ':',0,2)
 SET IDENTITY_INSERT [dbo].[QUESTION] ON 
 
 INSERT [dbo].[QUESTION] ([id], [statement], [media], [points], [idTheme]) VALUES (1, N'Donner un SGBD', NULL, 3, 1), (2, N'Que signifie CRUD ?', NULL, 1, 1), (3, N'Comment déclarer une classe ?', NULL, 10, 2)
@@ -266,7 +271,7 @@ SET IDENTITY_INSERT [dbo].[USERS] ON
 INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (3, N'Hervé', N'Dupont', N'herve.dupont@gmail.com', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 20, N'1       ')
 INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (5, N'Arber', N'Drouin', N'arber.drouin@gmail.com', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 20, N'1       ')
 INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (6, N'Maureen', N'Leclair', N'MaureenLeclair@jourrapide.com', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 30, NULL)
-INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (7, N'Blanchefle', N'Auclair', N'BlanchefleAuclair@teleworm.us', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 30, NULL)
+INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (7, N'Blanchefle', N'Auclair', N'BlanchefleAuclair@teleworm.us', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 50, NULL)
 INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (8, N'Catherine', N'Brian', N'
 CatherineBrian@dayrep.com', N'03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4', 20, N'2       ')
 INSERT [dbo].[USERS] ([id], [lastname], [firstname], [email], [password], [idProfile], [idPromotion]) VALUES (9, N'Archard', N'Godin', N'
