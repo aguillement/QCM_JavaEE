@@ -10,7 +10,7 @@ BEGIN
 	FROM QUESTION WITH (NOLOCK)
 		JOIN
 		(
-		SELECT T1.id
+		SELECT T1.id 
 		, T1.statement
 		, T1.idTheme
 		, T1.media
