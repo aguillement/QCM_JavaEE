@@ -6,11 +6,13 @@ BEGIN
 	DECLARE @IDTest_cursor INT
 	DECLARE @IDTheme_cursor INT
 
+
+	-- For each TEST_SECTION (idTest / idTheme) generate randomly questions
 	DECLARE test_cursor CURSOR FOR 
 	SELECT TEST_SECTION.idTest
 	, TEST_SECTION.idTheme
-		FROM TEST_SECTION
-		WHERE TEST_SECTION.idTest = @IDTest
+	FROM TEST_SECTION
+	WHERE TEST_SECTION.idTest = @IDTest
 
 	CREATE TABLE #section_test
 	(

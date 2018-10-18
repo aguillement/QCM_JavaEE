@@ -1,6 +1,8 @@
 CREATE PROCEDURE PROC_GENERATE_QUESTIONS (@IDTest INT, @IDTheme INT)
 AS
 BEGIN
+	-- Return randomly the questions for the key idTest / idTheme
+	-- depends off nnQuestionToDraw
 	SELECT T2.id
 	, T2.statement
 	, T2.idTheme

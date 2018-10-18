@@ -6,6 +6,7 @@ SET NOCOUNT ON
 
 DECLARE @Score INT
 
+-- Do the addition for each right answered question and update the exam score
 SELECT  @Score = SUM(QUESTION.points)
 FROM EXAM
 	JOIN DRAW_ANSWER ON EXAM.id = DRAW_ANSWER.idExam
