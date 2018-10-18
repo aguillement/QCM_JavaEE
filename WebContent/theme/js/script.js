@@ -2,13 +2,8 @@ var examID = $('#examID').val();
 var sendLast = false;
 var timeLeft = 0;
 
-console.log(timeLeft);
-console.log(localStorage.timeLeftStorage);
 if(localStorage.timeLeftStorage){
     timeLeft = localStorage.timeLeftStorage
-    console.log(timeLeft);
-    console.log(localStorage.timeLeftStorage);
-    console.log("if");
 }else{
 	$.ajax({
 		type : "POST",
@@ -18,12 +13,10 @@ if(localStorage.timeLeftStorage){
 		success: function(response){
 			    console.log("success");
 				timeLeft = response * 60;
-				console.log(timeLeft);
-				console.log(timeLeft);
-				console.log(localStorage.timeLeftStorage);
          }
 	});
 }
+
 
 var counterJS = setInterval(function() {
 	localStorage.timeLeftStorage = timeLeft
@@ -31,7 +24,6 @@ var counterJS = setInterval(function() {
 	var hours = 0;
 	var min = parseInt(timeLeft / 60, 10);
 	var sec = parseInt(timeLeft % 60, 10);
-	// dureeRestante = dureeRestante * 60;
 
 	while (min >= 60) {
 		min -= 60;
@@ -43,11 +35,11 @@ var counterJS = setInterval(function() {
 		hours--;
 	}
 
-	// Display the result in the element with id="demo"
+	// Display timer
 	document.getElementById("timer").innerHTML = hours + "h " + min + "m " + sec
 			+ "s ";
 
-	// If the count down is finished, write some text
+	// If the count down is finished
 	if (timeLeft <= 0) {
 		clearInterval(counterJS);
 		document.getElementById("timer").innerHTML = "Temps écoulé";
